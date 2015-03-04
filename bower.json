@@ -1,0 +1,47 @@
+{
+    "name": "angular-dynamic-form",
+    "version": "0.0.1",
+    "homepage": "https://github.com/Intellipharm/angular-dynamic-form",
+    "authors": [
+        "Intellipharm <damian@intellipharm.com.au>",
+        "Neil Russell <neilrusell6@gmail.com.au>",
+        "Timothy Ruhle <timothy.ruhle@intellipharm.com.au>"
+    ],
+    "description": "An AngularJS dynamic form that generates HTML5 forms based on a Javascript data model and configuration.",
+    "main": [
+        "dist/angular-dynamic-form.js",
+        "dist/angular-dynamic-form.min.js"
+    ],
+    "moduleType": [
+        "globals"
+    ],
+    "keywords": [
+        "angular",
+        "angularjs",
+        "dynamic form",
+        "form model",
+        "dynamic html5 form",
+        "dynamic javascript form"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "bower_components",
+        "grunt",
+        "lib",
+        "node_modules",
+        "tests",
+        ".gitignore",
+        "Gruntfile.js",
+        "LICENSE",
+        "bower.json",
+        "package.json"
+    ],
+    "dependencies": {
+        "angular": "~1.3.2",
+        "lodash": "~3.1.0",
+        "angular-filter": "~0.5.4"
+    },
+    "devDependencies": {
+        "angular-mocks": "~1.3.14"
+    }
+}

@@ -1,0 +1,13 @@
+#IDE/OS
+.tmp
+tmp
+.idea
+.DS_Store
+
+#PACKAGE MANAGERS
+node_modules
+bower_components
+npm-debug.log
+
+#CUSTOM
+_local

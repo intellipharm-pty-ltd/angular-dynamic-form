@@ -1,0 +1,70 @@
+<!-- message -->
+<div ng-if="ctrl.form_config.has_messages" class="message-container" move-with-scroll suppress="ctrl.form_config.scroll_message">
+
+	<div ng-messages="ctrl.message_state" class="message">
+		<div class="alert alert-success" role="alert" ng-message="success" ng-if="ctrl.message.success">{{ctrl.message.success}}</div>
+		<div class="alert alert-danger" role="alert" ng-message="error" ng-if="ctrl.message.error">{{ctrl.message.error}}</div>
+	</div>
+</div>
+
+<!-- form -->
+<form role="form" class="form-horizontal" ng-class="{'has-help-messages': ctrl.form_config.has_help_messages}">
+
+    <!-- form groups (sections) -->
+    <div ng-if="ctrl.form_config.has_groups"
+         class="panel panel-default form-section"
+         ng-repeat="(key, group) in ctrl.fields | groupBy: 'group_order'">
+
+        <div class="panel-heading">{{group[0].group_label}}</div>
+        <div class="panel-body">
+
+            <dynamic-form-fieldset class="dynamic-form-fieldset"
+                                   ng-repeat="field in group" field="field" model="model"
+                                   errors="errors[field.name]" show-validation="errors[field.name]"
+                                   edit-state="ctrl.edit_state"
+                                   show-label="ctrl.show_labels"
+                                   has-validation-feedback="ctrl.form_config.has_validation_feedback"
+                                   has-help-messages="ctrl.form_config.has_help_messages"
+                                   has-required-indicator="ctrl.form_config.has_required_indicator"></dynamic-form-fieldset>
+
+        </div><!-- .panel-body -->
+    </div><!-- .panel -->
+
+    <!-- no form groups -->
+
+    <dynamic-form-fieldset ng-if="!ctrl.form_config.has_groups"
+		ng-repeat="field in ctrl.fields" field="field" model="model"
+		errors="errors[field.name]" show-validation="errors[field.name]"
+		edit-state="ctrl.edit_state"
+		show-label="ctrl.show_labels"
+		has-validation-feedback="ctrl.form_config.has_validation_feedback"
+		has-help-messages="ctrl.form_config.has_help_messages"
+		has-required-indicator="ctrl.form_config.has_required_indicator"></dynamic-form-fieldset>
+
+    <div class="button-outer-container" ng-class="{'labels': ctrl.show_labels}">
+        <div class="row">
+            <div class="col-xs-12 dynamic-form-buttons" ng-class="{'disabled': ctrl.busy}">
+
+                <div class="row">
+
+                    <!-- spacer for labels -->
+                    <div ng-if="ctrl.show_labels" class="col-sm-3">&nbsp;</div>
+
+                    <!-- button-container -->
+                    <div class="button-container" ng-class="{'col-sm-9': ctrl.show_labels, 'col-sm-12': !ctrl.show_labels}">
+
+                        <button ng-show="ctrl.show_edit_button && !ctrl.edit_state" type="button" class="btn btn-default" ng-click="ctrl.onEdit()">EDIT</button>
+
+                        <div ng-show="ctrl.edit_state">
+                            <button ng-show="ctrl.show_edit_cancel_button" type="button" class="btn btn-default" ng-click="ctrl.onEditCancel()">CANCEL EDIT</button>
+                            <button ng-show="ctrl.show_submit_button" type="submit" class="btn btn-submit btn-block" ng-click="ctrl.onSubmit()">{{ctrl.submit_label}}</button>
+                            <button ng-show="ctrl.show_cancel_button" type="submit" class="btn btn-block" ng-click="ctrl.onCancel()">CANCEL</button>
+                            <button ng-show="ctrl.show_clear_button" type="button" class="btn btn-danger" ng-click="ctrl.onClear()">CLEAR</button>
+                        </div>
+                    </div>
+                </div><!-- /.row -->
+            </div>
+        </div><!-- /.row -->
+    </div>
+</form><!-- /form -->
+

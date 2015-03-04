@@ -1,0 +1,237 @@
+<fieldset class="form-group" ng-class="{
+'has-feedback': has_validation_feedback,
+'has-success': errors.length === 0 && show_validation && edit_state,
+'has-error': errors.length > 0 && show_validation && edit_state,
+'required': field.validate}">
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="row">
+
+                <label ng-if="field.label !== '' && show_label" for="{{field.name}}" class="control-label col-sm-3">{{field.label}}</label>
+
+                <!-- edit state -->
+
+                <div ng-show="edit_state" class="input-box"
+                     ng-switch="field.type"
+                     ng-class="{'col-sm-9': show_label, 'col-sm-12': !show_label}">
+
+
+
+                    <!-- text -->
+                    <input ng-switch-when="text" type="text" id="{{field.name}}" class="form-control" placeholder="{{field.label}}"
+                           ng-model="model[field.name]" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus">
+
+                    <!-- textarea -->
+                    <textarea ng-switch-when="textarea" id="{{field.name}}" class="form-control" placeholder="{{field.label}}"
+                              ng-model="model[field.name]" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus"></textarea>
+
+                    <!-- username -->
+                    <div ng-switch-when="username">
+                        <input type="text" id="{{field.name}}" class="form-control" placeholder="{{field.label}}"
+                               ng-model="model[field.name]" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus">
+                    </div>
+
+                    <!-- password || password strength -->
+                    <div ng-switch-when="password">
+                        <input type="password" id="{{field.name}}" class="form-control" placeholder="{{field.label}}"
+                               ng-model="model[field.name]" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus">
+                    </div>
+                    <div ng-switch-when="password-strength">
+                        <input type="password" id="{{field.name}}" class="form-control" placeholder="{{field.label}}"
+                               ng-model="model[field.name]" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus">
+                    </div>
+
+                    <!-- currency -->
+                    <div ng-switch-when="currency" class="input-group">
+                        <div class="input-group-addon">$</div>
+                        <input type="text" id="{{field.name}}" class="form-control" placeholder="{{field.label}}"
+                               ng-model="model[field.name]" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus">
+                    </div>
+
+                    <!-- email -->
+                    <div ng-switch-when="email">
+                        <input type="email" id="{{field.name}}" class="form-control" placeholder="{{field.label}}"
+                        <input type="email" id="{{field.name}}" class="form-control" placeholder="{{field.label}}"
+                               ng-model="model[field.name]" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus">
+                    </div>
+
+                    <!-- model-search-select -->
+                    <div ng-switch-when="model-search-select" class="input-group">
+
+                        <auto-complete-search
+                        query="field.query"
+                        ar-model="field.model"
+                        fields="name"
+                        limit="5"
+                        delay="200"
+                        display-field="name"
+                        on-select="ctrl.onModelSearchSelectSelect(data, partial)">
+                        </auto-complete-search>
+
+                        <br/>
+
+                        <ul style="list-style: disc;">
+                            <li style="margin-left: 20px;" ng-repeat="item in model[field.name]">{{item.name}}</li>
+                        </ul>
+
+                    </div>
+
+                    <!-- advanced-data-selector -->
+
+                    <advanced-data-selector ng-switch-when="data-selector"
+                                            field="field" model="model"></advanced-data-selector>
+
+                    <!-- select -->
+                    <select ng-switch-when="select" class="form-control"
+                            ng-model="model[field.name]" ng-options="option.value as option.label for option in field.options"
+                            ng-change="ctrl.onChange()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus">
+                        <option value="" disabled>Please select</option>
+                    </select>
+
+                    <!-- multi-select -->
+                    <select ng-switch-when="multi-select" class="form-control"
+                            ng-model="model[field.name]" multiple size="8" ng-options="option.value as option.label for option in field.options"
+                            ng-change="ctrl.onChange()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus">
+                    </select>
+
+                    <!-- checkbox -->
+                    <input ng-switch-when="checkbox" type="checkbox"
+                           ng-model="model[field.name]"
+                           ng-change="ctrl.onChange()" ng-disabled="model.form_field_config[field.name].disabled">
+
+                    <!-- checkbox-list -->
+                    <label ng-switch-when="checkbox-list" ng-repeat="option in field.options">
+                        <input type="checkbox" checklist-model="model[field.name]" checklist-value="option.value"> {{option.label}}
+                    </label>
+
+                    <!-- datepicker -->
+                    <input ng-switch-when="datepicker" type="text" class="form-control"
+                           ng-click="datepicker_is_open = true" ng-focus="datepicker_is_open = true"
+                           datepicker-popup="{{datepicker_format}}" ng-model="model[field.name]" is-open="datepicker_is_open" ng-required="true"
+                           close-text="Close" show-button-bar="true" />
+
+                    <!-- timepicker -->
+                    <timepicker ng-switch-when="time" class="timepicker"
+                                ng-model="model[field.name]" hour-step="1" minute-step="10" show-meridian="true"></timepicker>
+
+                    <!-- toggle -->
+                    <slide-toggle ng-switch-when="toggle" ng-model="model[field.name]" on-label="{{field.on}}" off-label="{{field.off}}" size="{{field.size}}"></slide-toggle>
+
+
+                    <!-- validation feedback -->
+                    <span ng-show="has_validation_feedback" class="glyphicon form-control-feedback" ng-class="{
+                                        'glyphicon-ok': errors.length === 0 && show_validation,
+                                        'glyphicon-remove': errors.length > 0 && show_validation
+                                        }"></span>
+
+                    <!-- indicators -->
+                    <span ng-show="field.required && has_required_indicator" class="control-label required-indicator">*</span>
+
+                    <!-- help text -->
+                    <div ng-show="field.help && has_help_messages" class="control-label help-message">{{field.help}}</div>
+
+                    <!-- password strength -->
+                    <password-strength ng-switch-when="password-strength" password="model[field.name]"></password-strength>
+
+                    <!-- staff member pin -->
+                    <div ng-switch-when="pin">
+                        <input type="hidden" ng-model="model[field.name]">
+                        <span>{{ctrl.new_pin}}</span>
+                        <button class="btn btn-primary" ng-click="ctrl.generateNewPin(field.name, model)">Generate New Pin</button>
+                    </div>
+
+                    <!-- google place -->
+                    <div ng-switch-when="google-place">
+
+                        <div ng-if="ctrl.google_place_manual">
+                            <label for="address1" class="control-label col-sm-3" ng-if="show_label">Address Line 1</label>
+                            <input type="text" id="address1" class="form-control" placeholder="Address Line 1"
+                                   ng-model="model['address1']" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()"
+                                   ng-disabled="model.form_field_config['address1'].disabled" ng-autofocus="field.autofocus">
+
+                            <label for="address2" class="control-label col-sm-3" ng-if="show_label">Address Line 2</label>
+                            <input type="text" id="address2" class="form-control" placeholder="Address Line 2"
+                                   ng-model="model['address2']" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()"
+                                   ng-disabled="model.form_field_config['address2'].disabled" ng-autofocus="field.autofocus">
+
+                            <label for="suburb" class="control-label col-sm-3" ng-if="show_label">Suburb</label>
+                            <input type="text" id="suburb" class="form-control" placeholder="Suburb"
+                                   ng-model="model['suburb']" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()"
+                                   ng-disabled="model.form_field_config['suburb'].disabled" ng-autofocus="field.autofocus">
+
+                            <label for="state" class="control-label col-sm-3" ng-if="show_label">State</label>
+                            <input type="text" id="state" class="form-control" placeholder="State"
+                                   ng-model="model['state']" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()"
+                                   ng-disabled="model.form_field_config['state'].disabled" ng-autofocus="field.autofocus">
+
+                            <label for="postcode" class="control-label col-sm-3" ng-if="show_label">Postcode</label>
+                            <input type="text" id="postcode" class="form-control" placeholder="Postcode"
+                                   ng-model="model['postcode']" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()"
+                                   ng-disabled="model.form_field_config['postcode'].disabled" ng-autofocus="field.autofocus">
+
+                            <button class="btn btn-primary" ng-click="ctrl.onGooglePlaceToggle()">Search</button>
+                        </div>
+
+                        <div ng-if="!ctrl.google_place_manual">
+                            <auto-complete-search
+                                ng-show="!ctrl.google_place"
+                                query="field.query"
+                                ar-model="field.model"
+                                limit="5"
+                                delay="200"
+                                display-field="formatted"
+                                placeholder="'Search for an address'"
+                                search-field="address"
+                                on-select="ctrl.onGooglePlaceSelect(data, partial)">
+                            </auto-complete-search>
+
+                            <button class='btn btn-primary' ng-show="ctrl.google_place" ng-click="ctrl.onGooglePlaceClick()">
+                                <div ng-if="ctrl.google_place.formatted">
+                                    {{ctrl.google_place.formatted}}
+                                </div>
+                                <div ng-if="!ctrl.google_place.formatted">
+                                    {{model.address1}}<span ng-if="model.address1 && (model.address2 || model.suburb || model.state || model.postcode)">,</span>
+                                    {{model.address2}}<span ng-if="model.address2 && (model.suburb || model.state || model.postcode)">,</span>
+                                    {{model.suburb}}<span ng-if="model.suburb && (model.state || model.postcode)">,</span>
+                                    {{model.state}}<span ng-if="model.state && (model.postcode)">,</span>
+                                    {{model.postcode}}
+                                </div>
+                            </button>
+
+                            <button class="btn btn-primary" ng-click="ctrl.onGooglePlaceToggle()" ng-show="!ctrl.google_place">Enter Manually</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- read-only state -->
+
+                <div ng-show="!edit_state" class="col-sm-9 input-box read-only"
+                     ng-switch="field.type">
+
+                    <!-- checkbox-list -->
+                    <ul ng-switch-when="checkbox-list" ng-repeat="option in field.options">
+                        <li ng-repeat="value in model[field.name]" ng-if="value === option.value">{{option.label}}</li>
+                    </ul>
+
+                    <!-- password -->
+                    <div ng-switch-when="password">&nbsp;</div>
+
+                    <!-- default -->
+                    <div ng-switch-default>{{model[field.name]}}</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid inline-message-container" ng-show="errors.length > 0 && show_validation && edit_state">
+        <div class="row">
+            <div class="col-xs-12 control-label error-message" ng-class="{'col-sm-offset-3 col-sm-9': show_label}">
+                {{errors[0]}}
+            </div>
+        </div>
+    </div>
+
+</fieldset>
