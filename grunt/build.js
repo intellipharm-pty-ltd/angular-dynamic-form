@@ -5,10 +5,10 @@ module.exports = function(grunt) {
         'ngtemplates:dist',
         'concat:dist-js',
         'concat:dist-js-tmpl',
-        'concat:dist-css',
-        'uglify:dist',
-        'uglify:dist-tgit smpl',
-        'cssmin:dist',
+        //'concat:dist-css',
+        //'uglify:dist',
+        'uglify:dist-tmpl',
+        //'cssmin:dist',
         'notify:buildComplete'
     ]);
 }

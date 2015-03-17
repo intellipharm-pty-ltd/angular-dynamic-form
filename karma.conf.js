@@ -17,11 +17,16 @@ module.exports = function(config) {
 		files: [
 			'bower_components/lodash/lodash.min.js',
 			'bower_components/angular/angular.min.js',
+			'bower_components/angular-filter/dist/angular-filter.min.js',
 			'bower_components/angular-mocks/angular-mocks.js',
 			'lib/scripts/dynamic-form.js',
 			'lib/scripts/dynamic-form-settings.js',
-			'lib/scripts/dynamic-form-service.js',
-			'tests/*.js'
+			'lib/scripts/helpers/submit-service.js',
+			'lib/scripts/helpers/external-call-service.js',
+			'lib/scripts/transformers/field-transformer-service.js',
+			'lib/scripts/transformers/config-transformer-service.js',
+			'lib/scripts/validation/validation-service.js',
+			'tests/**/*.js'
 		],
 
 

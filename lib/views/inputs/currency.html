@@ -1,0 +1,6 @@
+<!-- currency -->
+<div class="input-group">
+    <div class="input-group-addon">{{field.symbol}}</div>
+    <input type="text" id="{{field.name}}" class="form-control" placeholder="{{field.label}}"
+           ng-model="model[field.name]" ng-change="ctrl.onChange()" ng-blur="ctrl.onBlur()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus">
+</div>

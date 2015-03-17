@@ -1,59 +1,89 @@
 <html>
 <head>
-	<title>AngularDynamicForm : Title</title>
+	<title>AngularDynamicForm : Simple Example</title>
 	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../styles/global.css">
-	<link rel="stylesheet" href="../../../lib/styles/dynamic-form.css">
 </head>
 <body ng-app="App" ng-controller="AppController as app">
 
 <div class="row">
 	<div class="col-xs-12 description">
-
 		<h2>Simple Example</h2>
-
-		<br/>
-
-		<p>Most basic implementation with default config</p>
-
 	</div>
 </div><!--/.row-->
 
-<br/>
-<br/>
 
 <div class="row">
 	<div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 example well">
 
         <!-- dynamic-form -->
         <dynamic-form model="app.person"
+                      fields="app.form_fields"
                       config="app.form_config"
-                      field-config="app.form_field_config"></dynamic-form>
+                      field-config="app.form_field_config"
+                      style-config="app.form_style_config"
+                      on-submit-complete="app.onSubmitComplete(message)"
+                      on-cancel="app.onCancel(message)"
+                      on-clear="app.onClear(message)"
+                      on-error="app.onError(message)"></dynamic-form>
 
 	</div>
 </div><!--/.row-->
 
-<ol ng-repeat="(key, group) in ctrl.tester | groupBy: 'group'">
-   <li>{{tester.group}} {{tester.name}}</li>
-</ol>
+<div class="row">
+	<div class="col-xs-12 description">
+		<h2>Groups</h2>
+	</div>
+</div><!--/.row-->
+
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 example well">
+
+        <!-- dynamic-form -->
+        <dynamic-form model="app.person"
+                      fields="app.form_fields"
+                      config="app.form_config"
+                      submit-steps="app.submit_steps"
+                      field-config="app.form_field_config"
+                      style-config="app.form_style_config"
+                      groups-config="app.form_groups_config"
+                      on-submit-complete="app.onSubmitComplete(message)"
+                      on-cancel="app.onCancel(message)"
+                      on-clear="app.onClear(message)"
+                      on-error="app.onError(message)"></dynamic-form>
+        <!--
+                      submit-steps="app.submit_steps"-->
+
+	</div>
+</div><!--/.row-->
+
 
 <!-- dependencies -->
 <script src="../bower_components/lodash/lodash.min.js"></script>
 <script src="../bower_components/angular/angular.min.js"></script>
 <script src="../bower_components/angular-filter/dist/angular-filter.min.js"></script>
+<script src="../bower_components/angular-cakephp/dist/angular-cakephp.min.js"></script>
 
-<!-- Angular CakePHP -->
+<!-- Angular Dynamic Form -->
+<!--<script src="../../../dist/angular-dynamic-form.tmpl.min.js"></script>-->
+
+<!-- Angular Dynamic Form -->
 <script src="../../../lib/scripts/dynamic-form.js"></script>
 <script src="../../../lib/scripts/util/dynamic-form-util-library.js"></script>
 <script src="../../../lib/scripts/state/dynamic-form-state-service.js"></script>
 <script src="../../../lib/scripts/dynamic-form-settings.js"></script>
 <script src="../../../lib/scripts/dynamic-form-service.js"></script>
+<script src="../../../lib/scripts/transformers/field-transformer-service.js"></script>
+<script src="../../../lib/scripts/transformers/config-transformer-service.js"></script>
+<script src="../../../lib/scripts/helpers/submit-service.js"></script>
+<script src="../../../lib/scripts/helpers/external-call-service.js"></script>
+<script src="../../../lib/scripts/validation/validation-service.js"></script>
 <script src="../../../lib/scripts/dynamic-form-controller.js"></script>
 <script src="../../../lib/scripts/dynamic-form-directive.js"></script>
+<script src="../../../lib/scripts/dynamic-form-templates.js"></script>
 <script src="../../../lib/scripts/fieldset/dynamic-form-fieldset-service.js"></script>
 <script src="../../../lib/scripts/fieldset/dynamic-form-fieldset-controller.js"></script>
 <script src="../../../lib/scripts/fieldset/dynamic-form-fieldset-directive.js"></script>
-<!--<script src="../bower_components/angular-dynamic-form/dist/angular-dynamic-form.min.js"></script>-->
 
 <!-- example app -->
 <script src="scripts/app.js"></script>

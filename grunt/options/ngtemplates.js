@@ -1,7 +1,11 @@
 module.exports = {
     dist: {
         options: {
-            module: 'AngularDynamicForm'//,
+            module: 'AngularDynamicForm',
+            url: function(url) {
+                return url.replace("lib/", "");
+            }
+            //
             /*htmlmin: {
                 collapseBooleanAttributes:      true,
                 collapseWhitespace:             true,
@@ -13,7 +17,7 @@ module.exports = {
                 removeStyleLinkTypeAttributes:  true
             }*/
         },
-        src: ['<%= config.lib %>/views/*.html'],
+        src: ['<%= config.lib %>/views/**/*.html'],
         dest: '<%= config.lib %>/scripts/dynamic-form-templates.js'
     }
 };
