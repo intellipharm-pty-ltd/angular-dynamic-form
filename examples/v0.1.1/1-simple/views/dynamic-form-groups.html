@@ -1,0 +1,19 @@
+<!-- form -->
+<form role="form" class="form-horizontal">
+
+    <!-- form groups -->
+    <div ng-if="has_groups"
+         class="panel panel-default form-section"
+         ng-repeat="(key, group) in grouped_fields_array | groupBy: 'group_order'">
+
+        <div class="panel-heading">{{group[0].group_label}}</div>
+        <div class="panel-body">
+
+            <dynamic-form-fieldset class="dynamic-form-fieldset"
+                                   ng-repeat="field in group" field="field" model="model"
+                                   config="form_field_config" style-config="form_style_config"
+                                   errors="errors[field.name]" show-validation="errors[field.name]"></dynamic-form-fieldset>
+
+        </div>
+    </div>
+</form><!-- /form -->

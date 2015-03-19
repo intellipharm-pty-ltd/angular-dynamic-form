@@ -15,6 +15,10 @@
             this.lastname   = data.lastname;
             this.email      = data.email;
             this.phone      = data.phone;
+            this.gender    = data.gender;
+            this.salutation    = data.salutation;
+            this.waiver    = data.waiver;
+            this.colours    = data.colours;
 
             this.validate = function(fields) {
 
@@ -27,7 +31,11 @@
         }
 
         this.person = new Person({
-            'firstname': "Richard Branson"
+            'firstname': "Richard Branson",
+            'gender': "F",
+            'salutation': "mrs",
+            'waiver': true,
+            'colours': ['blue']
         });
 
         // submit_steps
@@ -55,7 +63,9 @@
             'message_box_class':            "col-sm-7 col-sm-push-3 text-left",
             'submit_button_class':          "btn btn-submit btn-block",
             'cancel_button_class':          "btn btn-default btn-block",
-            'clear_button_class':           "btn btn-warning btn-block"
+            'clear_button_class':           "btn btn-warning btn-block",
+            'message_error_class':          "alert alert-danger",
+            'message_success_class':        "alert alert-success"
         };
 
         // form config
@@ -126,22 +136,20 @@
                     {label: 'Male', value: 'M'}
                 ]
             },
+            salutation: {
+                type: 'select',
+                options: [
+                    {label: 'Mrs.', value: 'mrs'},
+                    {label: 'Mister', value: 'MR'}
+                ]
+            },
             waiver: {
                 label: 'Waiver',
                 type: 'checkbox'
             },
             colours: {
                 label: 'Colours',
-                type: 'checkbox-list',
-                options: [
-                    {label: 'Blue', value: 'blue'},
-                    {label: 'Red', value: 'red'}
-                ]
-            },
-            morecolours: {
-                label: 'More Colours',
                 type: 'multi-select',
-                size: 20,
                 options: [
                     {label: 'Blue', value: 'blue'},
                     {label: 'Red', value: 'red'}

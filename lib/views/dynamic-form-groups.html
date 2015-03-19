@@ -10,9 +10,15 @@
         <div class="panel-body">
 
             <dynamic-form-fieldset class="dynamic-form-fieldset"
-                                   ng-repeat="field in group" field="field" model="model"
-                                   config="form_field_config" style-config="form_style_config"
-                                   errors="errors[field.name]" show-validation="errors[field.name]"></dynamic-form-fieldset>
+                                   ng-repeat="field in group"
+                                   field="field"
+                                   model="model"
+                                   config="form_field_config"
+                                   style-config="form_style_config"
+                                   errors="errors[field.name]"
+                                   show-validation="errors[field.name]"
+                                   on-change="onChange()"
+                                   on-blur="onBlur()"></dynamic-form-fieldset>
 
         </div>
     </div>

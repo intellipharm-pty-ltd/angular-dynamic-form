@@ -48,7 +48,9 @@
             'input_class':                  "form-control",
             'validation_feedback_class':    "form-control-feedback",
             'required_indicator_class':     "col-sm-2",
-            'message_box_class':            "col-sm-7 col-sm-push-3 text-left"
+            'message_box_class':            "col-sm-7 col-sm-push-3 text-left",
+            'message_error_class':          "alert alert-danger",
+            'message_success_class':        "alert alert-success"
         };
 
         // form config

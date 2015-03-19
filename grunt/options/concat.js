@@ -7,10 +7,7 @@ module.exports = {
     	dest: '<%= config.dist %>/angular-dynamic-form.js',
         src: [
             '<%= config.lib %>/scripts/dynamic-form.js',
-            '<%= config.lib %>/scripts/state/dynamic-form-state-service.js',
-            '<%= config.lib %>/scripts/util/dynamic-form-util-library.js',
             '<%= config.lib %>/scripts/dynamic-form-settings.js',
-            '<%= config.lib %>/scripts/dynamic-form-service.js',
             '<%= config.lib %>/scripts/dynamic-form-controller.js',
             '<%= config.lib %>/scripts/dynamic-form-directive.js',
             '<%= config.lib %>/scripts/helpers/submit-service.js',
@@ -27,11 +24,8 @@ module.exports = {
     	dest: '<%= config.dist %>/angular-dynamic-form.tmpl.js',
         src: [
             '<%= config.lib %>/scripts/dynamic-form.js',
-            '<%= config.lib %>/scripts/state/dynamic-form-state-service.js',
-            '<%= config.lib %>/scripts/util/dynamic-form-util-library.js',
             '<%= config.lib %>/scripts/dynamic-form-templates.js',
             '<%= config.lib %>/scripts/dynamic-form-settings.js',
-            '<%= config.lib %>/scripts/dynamic-form-service.js',
             '<%= config.lib %>/scripts/dynamic-form-controller.js',
             '<%= config.lib %>/scripts/dynamic-form-directive.js',
             '<%= config.lib %>/scripts/helpers/submit-service.js',
