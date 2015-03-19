@@ -1,18 +1,12 @@
-<!-- form -->
-<form role="form" class="form-horizontal">
-
-
-    <!-- no form groups -->
-    <dynamic-form-fieldset class="dynamic-form-fieldset"
-                           ng-if="!has_groups"
-                           ng-repeat="field in fields_array"
-                           field="field"
-                           model="model"
-                           config="form_field_config"
-                           style-config="form_style_config"
-                           errors="errors[field.name]"
-                           show-validation="errors[field.name]"
-                           on-change="onChange()"
-                           on-blur="onBlur()"></dynamic-form-fieldset>
-</form><!-- /form -->
-
+<!-- no form groups -->
+<dynamic-form-fieldset class="dynamic-form-fieldset"
+                       ng-if="!has_groups"
+                       ng-repeat="field in fields_array"
+                       field="field"
+                       model="model"
+                       config="form_field_config"
+                       style-config="form_style_config"
+                       errors="errors[field.name]"
+                       show-validation="errors[field.name]"
+                       on-change="onChange()"
+                       on-blur="onBlur()"></dynamic-form-fieldset>
