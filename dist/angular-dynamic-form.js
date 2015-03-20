@@ -768,9 +768,14 @@
 
         var self = this;
 
+        /**
+         * validate
+         *
+         * @param model
+         * @param config
+         * @returns {*}
+         */
         this.validate = function(model, config) {
-
-            console.log("Step X: validate");
 
             return $q(function(resolve, reject) {
 
@@ -876,6 +881,7 @@
             'validation_feedback_class':    "",
             'required_indicator_class':     "",
             'message_box_class':            "",
+            'button_box_class':             "",
             'submit_button_class':          "",
             'cancel_button_class':          "",
             'clear_button_class':           "",
@@ -1140,29 +1146,6 @@
 
     angular.module('AngularDynamicForm')
         .service('AngularDynamicForm.transformers.FieldTransformer', Service);
-
-})();
-
-"use strict";
-
-(function() {
-
-    var DynamicFormFieldsetService = function() {
-
-		//------------------------------
-		// formatDecimal
-		//------------------------------
-
-		this.formatDecimal = function(value, regex_remove) {
-			if (!_.isUndefined(value)) {
-				value = value.replace(regex_remove, '');
-			}
-			return parseFloat(value).toFixed(2);
-		};
-    };
-
-    angular.module('AngularDynamicForm')
-        .service('DynamicFormFieldsetService', DynamicFormFieldsetService);
 
 })();
 

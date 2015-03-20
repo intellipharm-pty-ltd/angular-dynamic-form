@@ -1,4 +1,4 @@
-<fieldset class="{{style_config.fieldset_class}}" ng-class="{
+<div class="{{style_config.fieldset_class}}" ng-class="{
     'has-feedback': config.has_validation_feedback,
     'has-success': errors.length === 0 && show_validation,
     'has-error': errors.length > 0 && show_validation,
@@ -10,7 +10,6 @@
     <!-- edit state -->
 
     <div class="{{style_config.input_box_class}}">
-
 
         <div ng-include src="input_view_template"></div>
 
@@ -33,4 +32,4 @@
     <div ng-show="errors.length > 0 && show_validation"
          class="{{style_config.message_box_class}}">{{errors[0]}}</div>
 
-</fieldset>
+</div>

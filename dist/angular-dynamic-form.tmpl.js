@@ -15,7 +15,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   'use strict';
 
   $templateCache.put('views/dynamic-form-fieldset.html',
-    "<fieldset class=\"{{style_config.fieldset_class}}\" ng-class=\"{\n" +
+    "<div class=\"{{style_config.fieldset_class}}\" ng-class=\"{\n" +
     "    'has-feedback': config.has_validation_feedback,\n" +
     "    'has-success': errors.length === 0 && show_validation,\n" +
     "    'has-error': errors.length > 0 && show_validation,\n" +
@@ -27,7 +27,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <!-- edit state -->\n" +
     "\n" +
     "    <div class=\"{{style_config.input_box_class}}\">\n" +
-    "\n" +
     "\n" +
     "        <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
@@ -50,7 +49,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <div ng-show=\"errors.length > 0 && show_validation\"\n" +
     "         class=\"{{style_config.message_box_class}}\">{{errors[0]}}</div>\n" +
     "\n" +
-    "</fieldset>"
+    "</div>"
   );
 
 
@@ -97,7 +96,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
   $templateCache.put('views/dynamic-form.html',
     "<!-- message -->\n" +
-    "<div class=\"message-container\" move-with-scroll suppress=\"form_config.scroll_message\">\n" +
+    "<div class=\"{{form_style_config.message_box_class}}\" move-with-scroll suppress=\"form_config.scroll_message\">\n" +
     "\n" +
     "    <div ng-messages=\"message_state\" class=\"message\">\n" +
     "        <div class=\"{{form_style_config.message_success_class}}\" role=\"alert\"\n" +
@@ -114,7 +113,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <div ng-include src=\"form_view_template\"></div>\n" +
     "\n" +
     "    <!-- buttons -->\n" +
-    "    <div class=\"{{form_style_config.message_box_class}}\">\n" +
+    "    <div class=\"{{form_style_config.button_box_class}}\">\n" +
     "        <button ng-show=\"form_config.show_submit_button\" type=\"submit\"\n" +
     "                class=\"{{form_style_config.submit_button_class}}\"\n" +
     "                ng-click=\"ctrl.onSubmit()\">{{form_config.submit_button_label}}</button>\n" +
@@ -947,9 +946,14 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
         var self = this;
 
+        /**
+         * validate
+         *
+         * @param model
+         * @param config
+         * @returns {*}
+         */
         this.validate = function(model, config) {
-
-            console.log("Step X: validate");
 
             return $q(function(resolve, reject) {
 
@@ -1055,6 +1059,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             'validation_feedback_class':    "",
             'required_indicator_class':     "",
             'message_box_class':            "",
+            'button_box_class':             "",
             'submit_button_class':          "",
             'cancel_button_class':          "",
             'clear_button_class':           "",
@@ -1319,29 +1324,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
     angular.module('AngularDynamicForm')
         .service('AngularDynamicForm.transformers.FieldTransformer', Service);
-
-})();
-
-"use strict";
-
-(function() {
-
-    var DynamicFormFieldsetService = function() {
-
-		//------------------------------
-		// formatDecimal
-		//------------------------------
-
-		this.formatDecimal = function(value, regex_remove) {
-			if (!_.isUndefined(value)) {
-				value = value.replace(regex_remove, '');
-			}
-			return parseFloat(value).toFixed(2);
-		};
-    };
-
-    angular.module('AngularDynamicForm')
-        .service('DynamicFormFieldsetService', DynamicFormFieldsetService);
 
 })();
 

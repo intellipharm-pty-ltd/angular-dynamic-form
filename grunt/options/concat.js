@@ -15,7 +15,6 @@ module.exports = {
             '<%= config.lib %>/scripts/validation/validation-service.js',
             '<%= config.lib %>/scripts/transformers/config-transformer-service.js',
             '<%= config.lib %>/scripts/transformers/field-transformer-service.js',
-            '<%= config.lib %>/scripts/fieldset/dynamic-form-fieldset-service.js',
             '<%= config.lib %>/scripts/fieldset/dynamic-form-fieldset-controller.js',
             '<%= config.lib %>/scripts/fieldset/dynamic-form-fieldset-directive.js'
         ]
@@ -33,7 +32,6 @@ module.exports = {
             '<%= config.lib %>/scripts/validation/validation-service.js',
             '<%= config.lib %>/scripts/transformers/config-transformer-service.js',
             '<%= config.lib %>/scripts/transformers/field-transformer-service.js',
-            '<%= config.lib %>/scripts/fieldset/dynamic-form-fieldset-service.js',
             '<%= config.lib %>/scripts/fieldset/dynamic-form-fieldset-controller.js',
             '<%= config.lib %>/scripts/fieldset/dynamic-form-fieldset-directive.js'
         ]
