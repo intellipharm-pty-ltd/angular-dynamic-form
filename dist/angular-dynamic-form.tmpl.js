@@ -113,7 +113,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <div ng-include src=\"form_view_template\"></div>\n" +
     "\n" +
     "    <!-- buttons -->\n" +
-    "    <div class=\"{{form_style_config.button_box_class}}\">\n" +
+    "    <div class=\"{{form_style_config.button_box_class}}\" ng-show=\"show_buttons\">\n" +
     "        <button ng-show=\"form_config.show_submit_button\" type=\"submit\"\n" +
     "                class=\"{{form_style_config.submit_button_class}}\"\n" +
     "                ng-click=\"ctrl.onSubmit()\">{{form_config.submit_button_label}}</button>\n" +
@@ -235,6 +235,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
         // control
         $scope.submit_step;
+        $scope.show_buttons = false;
 
         var dont_clear_fields = ['model'];
 
@@ -378,6 +379,11 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             if ($scope.form_config.auto_submit) {
                 this.onSubmit();
             }
+
+            // show button on change
+            if (!$scope.form_config.show_buttons_on_change) {
+                $scope.show_buttons = true;
+            }
         };
 
 
@@ -420,11 +426,17 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         // model
         //-----------------------------------
 
-        var unWatchModel = $scope.$watch('model', function(model) {
+        var unWatchModel = $scope.$watchCollection('model', function(model, old_model) {
 
             if (!_.isUndefined(model)) {
                 self.init();
-                unWatchModel();
+
+                if (!$scope.form_config.show_buttons_on_change) {
+                    unWatchModel();
+                } else if (!_.isUndefined(old_model) && (model !== old_model)) {
+                    $scope.show_buttons = true;
+                    unWatchModel();
+                }
             }
         });
 
@@ -1025,6 +1037,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             'auto_submit':                  false, // use when you need to auto submit form (eg. after redirect)
             'label_camelcase':              true,
             'label_replace_underscores':    true,
+            'show_buttons_on_change':       false,
             'show_error_messages':          true,
             'show_success_messages':        true,
             'show_submit_button':           true,
