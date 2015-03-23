@@ -1,10 +1,11 @@
 module.exports = {
     options: {
         stripBanners: true,
-        sourceMap: false
+        sourceMap: false,
+        banner: '/*!\n * <%= config.pkg.name %> v<%= config.pkg.version %>\n * http://intellipharm.com/\n *\n * Copyright 2015 Intellipharm\n *\n * <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n *\n */\n'
     },
-    'dist-js': {
-    	dest: '<%= config.dist %>/angular-dynamic-form.js',
+    dist: {
+        dest: '<%= config.dist %>/angular-dynamic-form.js',
         src: [
             '<%= config.lib %>/scripts/dynamic-form.js',
             '<%= config.lib %>/scripts/dynamic-form-settings.js',
@@ -19,8 +20,8 @@ module.exports = {
             '<%= config.lib %>/scripts/fieldset/dynamic-form-fieldset-directive.js'
         ]
     },
-    'dist-js-tmpl': {
-    	dest: '<%= config.dist %>/angular-dynamic-form.tmpl.js',
+    'dist-tmpl': {
+        dest: '<%= config.dist %>/angular-dynamic-form.tmpl.js',
         src: [
             '<%= config.lib %>/scripts/dynamic-form.js',
             '<%= config.lib %>/scripts/dynamic-form-templates.js',
@@ -34,12 +35,6 @@ module.exports = {
             '<%= config.lib %>/scripts/transformers/field-transformer-service.js',
             '<%= config.lib %>/scripts/fieldset/dynamic-form-fieldset-controller.js',
             '<%= config.lib %>/scripts/fieldset/dynamic-form-fieldset-directive.js'
-        ]
-    },
-    'dist-css': {
-    	dest: '<%= config.dist %>/angular-dynamic-form.css',
-        src: [
-            '<%= config.lib %>/styles/dynamic-form.css'
         ]
     }
 };

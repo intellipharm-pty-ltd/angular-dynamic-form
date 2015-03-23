@@ -1,14 +1,17 @@
 module.exports = function(grunt) {
     grunt.registerTask('build', [
         'notify:build',
+        'jshint:lib',
+        'jshint:tests',
+        'jshint:grunt',
+        'jscs:lib',
+        'jscs:tests',
+        'jscs:grunt',
         'clean:dist',
         'ngtemplates:dist',
-        'concat:dist-js',
-        'concat:dist-js-tmpl',
-        //'concat:dist-css',
-        //'uglify:dist',
-        'uglify:dist-tmpl',
-        //'cssmin:dist',
+        'concat:dist',
+        'concat:dist-tmpl',
+        'uglify:dist',
         'notify:buildComplete'
     ]);
-}
+};

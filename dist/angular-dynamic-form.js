@@ -1,6 +1,14 @@
-'use strict';
-
+/*!
+ * angular-dynamic-form v0.1.0
+ * http://intellipharm.com/
+ *
+ * Copyright 2015 Intellipharm
+ *
+ * 2015-03-24 09:25:11
+ *
+ */
 (function() {
+    'use strict';
 
     //----------------------------------
     // Angular Dynamic Form
@@ -11,41 +19,40 @@
     ]);
 })();
 
-'use strict';
-
 (function() {
+    'use strict';
 
-	//----------------------------------
-	// DynamicForm Settings
-	//----------------------------------
+    //----------------------------------
+    // DynamicForm Settings
+    //----------------------------------
 
-    var message_prefix = "AngularDynamicForm: ";
+    var message_prefix = 'AngularDynamicForm: ';
 
-	angular.module('AngularDynamicForm')
-		.constant('DYNAMIC_FORM_EVENTS', {
-			init:           "dynamic-form:init",
-			valid:          "dynamic-form:valid",
-			invalid:        "dynamic-form:invalid",
-			saveSuccess:    "dynamic-form:process-success",
-            saveError:      "dynamic-form:process-error",
-			submit:         "dynamic-form:submit",
-			validate:       "dynamic-form:validate"
-		})
-		.constant('MESSAGE_EXTERNAL_METHOD_ERROR',                      message_prefix + "Custom method must handle its own errors")
-        .constant('MESSAGE_EXTERNAL_METHOD_INVALID_RETURN',             message_prefix + "Custom method must return either Boolean value or Promise")
-        .constant('MESSAGE_INVALID_STEP',                               message_prefix + "Invalid step")
-        .constant('MESSAGE_UNRECOGNISED_STEP_NAME',                     message_prefix + "Unrecognised step name")
-        .constant('MESSAGE_INVALID_CONFIG',                             message_prefix + "Invalid config")
-        .constant('MESSAGE_INVALID_FIELDS_OBJECT',                      message_prefix + "Invalid fields object")
-        .constant('MESSAGE_INVALID_OPTIONS_ARRAY',                      message_prefix + "Invalid options array")
-        .constant('MESSAGE_INVALID_OPTIONS_OBJECT',                     message_prefix + "Invalid options object")
-        .constant('MESSAGE_UNRECOGNISED_CONFIG_NAME',                   message_prefix + "Unrecognised config name")
-        .constant('MESSAGE_INVALID_MODEL_METHOD',                       message_prefix + "Invalid model method");
+    angular.module('AngularDynamicForm')
+        .value('AngularDynamicFormCustomInputViewUrl', 'views/inputs/')
+        .constant('DYNAMIC_FORM_EVENTS', {
+            init:           'dynamic-form:init',
+            valid:          'dynamic-form:valid',
+            invalid:        'dynamic-form:invalid',
+            saveSuccess:    'dynamic-form:process-success',
+            saveError:      'dynamic-form:process-error',
+            submit:         'dynamic-form:submit',
+            validate:       'dynamic-form:validate'
+        })
+        .constant('MESSAGE_EXTERNAL_METHOD_ERROR',                      message_prefix + 'Custom method must handle its own errors')
+        .constant('MESSAGE_EXTERNAL_METHOD_INVALID_RETURN',             message_prefix + 'Custom method must return either Boolean value or Promise')
+        .constant('MESSAGE_INVALID_STEP',                               message_prefix + 'Invalid step')
+        .constant('MESSAGE_UNRECOGNISED_STEP_NAME',                     message_prefix + 'Unrecognised step name')
+        .constant('MESSAGE_INVALID_CONFIG',                             message_prefix + 'Invalid config')
+        .constant('MESSAGE_INVALID_FIELDS_OBJECT',                      message_prefix + 'Invalid fields object')
+        .constant('MESSAGE_INVALID_OPTIONS_ARRAY',                      message_prefix + 'Invalid options array')
+        .constant('MESSAGE_INVALID_OPTIONS_OBJECT',                     message_prefix + 'Invalid options object')
+        .constant('MESSAGE_UNRECOGNISED_CONFIG_NAME',                   message_prefix + 'Unrecognised config name')
+        .constant('MESSAGE_INVALID_MODEL_METHOD',                       message_prefix + 'Invalid model method');
 })();
 
-'use strict';
-
 (function() {
+    'use strict';
 
     //----------------------------------
     // Dynamic Form Controller
@@ -56,7 +63,7 @@
         var self = this;
 
         // control
-        $scope.submit_step;
+        $scope.submit_step = null;
         $scope.show_buttons = false;
 
         var dont_clear_fields = ['model'];
@@ -93,7 +100,7 @@
             }, this);
 
             if (!_.isUndefined($scope.onClear)) {
-                $scope.onClear("");
+                $scope.onClear('');
             }
         };
 
@@ -103,7 +110,7 @@
         this.onCancel = function() {
 
             if (!_.isUndefined($scope.onCancel)) {
-                $scope.onCancel("");
+                $scope.onCancel('');
             }
         };
 
@@ -119,7 +126,7 @@
             SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
 
                 // complete
-                function(message) {
+                function() {
 
                     // custom complete handler
                     if (!_.isUndefined($scope.onSubmitComplete)) {
@@ -128,7 +135,7 @@
                 },
 
                 // error
-                function(message) {
+                function() {
 
                     // custom error handler
                     if (!_.isUndefined($scope.onError)) {
@@ -232,7 +239,7 @@
          */
         this.hideMessage = function() {
             $scope.message = {};
-            _.forEach($scope.message_state, function (item, key, obj) {
+            _.forEach($scope.message_state, function (item) {
                 item = false;
             });
         };
@@ -305,61 +312,43 @@
         .controller('DynamicFormCtrl', DynamicFormCtrl);
 })();
 
-"use strict";
-
 (function() {
+    'use strict';
 
     var dynamicForm = function() {
 
         return {
             restrict: 'E',
             scope: {
-                model:              "=",
-                fields:             "=",
-                form_config:        "=config",
-                form_field_config:  "=fieldConfig",
-                form_style_config:  "=styleConfig",
-                groups_config:      "=groupsConfig",
-                submit_steps:       "=submitSteps",
-                onSubmitComplete:   "&",
-                onCancel:           "&",
-                onClear:            "&",
-                onError:            "&",
-                onChange:           "&",
-                onBlur:             "&"
+                model:              '=',
+                fields:             '=',
+                form_config:        '=config',
+                form_field_config:  '=fieldConfig',
+                form_style_config:  '=styleConfig',
+                groups_config:      '=groupsConfig',
+                submit_steps:       '=submitSteps',
+                onSubmitComplete:   '&',
+                onCancel:           '&',
+                onClear:            '&',
+                onError:            '&',
+                onChange:           '&',
+                onBlur:             '&'
             },
             controller: 'DynamicFormCtrl as ctrl',
-            link: function(scope, element, attrs, ctrl) {
+            templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
+            link: function(scope, element) {
 
                 element.addClass('dynamic-form');
 
                 // set form template
                 if (!_.isUndefined(scope.groups_config)) {
                     scope.has_groups = true;
-                    scope.form_view_template = "views/dynamic-form-groups.html";
-                    //scope.form_view_template = "/angular-dynamic-form/lib/views/dynamic-form-groups.html";
+                    scope.form_view_template = 'angular-dynamic-form/views/dynamic-form-groups.html';
                 } else {
                     scope.has_groups = false;
-                    scope.form_view_template = "views/dynamic-form-no-groups.html";
-                    //scope.form_view_template = "/angular-dynamic-form/lib/views/dynamic-form-no-groups.html";
+                    scope.form_view_template = 'angular-dynamic-form/views/dynamic-form-no-groups.html';
                 }
-
-                // remove function scope properties if they don't exist as attrs
-                /*if (!_.has(attrs, 'onSubmitComplete')) {
-                    delete scope.onSubmitComplete;
-                }
-                if (!_.has(attrs, 'onCancel')) {
-                    delete scope.onCancel;
-                }
-                if (!_.has(attrs, 'onClear')) {
-                    delete scope.onClear;
-                }
-                if (!_.has(attrs, 'onError')) {
-                    delete scope.onError;
-                }*/
-            },
-            //templateUrl: '/angular-dynamic-form/lib/views/dynamic-form.html'
-            templateUrl: 'views/dynamic-form.html'
+            }
         };
     };
 
@@ -370,9 +359,8 @@
 
 })();
 
-"use strict";
-
 (function () {
+    'use strict';
 
     //----------------------------------
     // Submit Service
@@ -385,10 +373,6 @@
                            MESSAGE_UNRECOGNISED_STEP_NAME) {
 
         var self = this;
-
-        //var _submit_update_handler      = {};
-        //var _submit_complete_handler    = {};
-        //var _submit_error_handler       = {};
 
         var _model;
         var _form_config;
@@ -419,10 +403,6 @@
             var deferred = $q.defer();
 
             // set handlers
-            //_submit_complete_handler = deferred.resolve;
-            //_submit_update_handler = deferred.notify;
-            //_submit_error_handler = deferred.reject;
-
             var handlers = {
                 'submit_complete': deferred.resolve,
                 'submit_update': deferred.notify,
@@ -516,7 +496,7 @@
             }
 
             // get message from form config using step
-            var step = _.isFunction(steps[step]) ? 'custom' : steps[step];
+            step = _.isFunction(steps[step]) ? 'custom' : steps[step];
             var form_config_message_key;
 
             switch (step) {
@@ -554,7 +534,6 @@
                 // step is invalid
                 if (!_.isFunction(steps[step]) && !_.isString(steps[step])) {
                     throw new Error(MESSAGE_INVALID_STEP);
-                    return;
                 }
 
                 // step is a custom method
@@ -601,32 +580,13 @@
             // call internal method
             switch (step_method_key) {
 
-                case "validate":
+                case 'validate':
                     return self.internal_methods.validate(_model, _form_config);
-                    break;
 
                 default:
                     return self.internal_methods[step_method_key]();
-                    break;
             }
         };
-
-        ///**
-        // * handleError
-        // *
-        // * @param message
-        // */
-        //this.handleError = function(message) {
-        //
-        //    // call error handler
-        //    if (!_.isNull(_submit_error_handler)) {
-        //        _submit_error_handler(message);
-        //        return;
-        //    }
-        //
-        //    // log error
-        //    console.error(message);
-        //};
 
 
         ///////////////////////////////////////
@@ -641,7 +601,7 @@
          * @returns Promise
          */
         this.save = function() {
-            console.log("Step X: save");
+            console.log('Step X: save');
             return ExternalCallService.callExternalMethod(_model.save, [], _model);
         };
 
@@ -674,9 +634,8 @@
 
 })();
 
-"use strict";
-
 (function () {
+    'use strict';
 
     //----------------------------------
     // External Call Service
@@ -685,8 +644,6 @@
     var Service = function($q,
                            MESSAGE_EXTERNAL_METHOD_ERROR,
                            MESSAGE_EXTERNAL_METHOD_INVALID_RETURN) {
-
-        var self = this;
 
         /**
          * callExternalMethod
@@ -767,18 +724,14 @@
 
 })();
 
-"use strict";
-
 (function () {
+    'use strict';
 
     //----------------------------------
     // Validation Service
     //----------------------------------
 
-    var Service = function($q,
-                           ExternalCallService) {
-
-        var self = this;
+    var Service = function($q, ExternalCallService) {
 
         /**
          * validate
@@ -821,7 +774,7 @@
             // validation fields by exclusion (black list)
             else if (!_.isNull(config.validate_fields_exclude)) {
 
-                _.forEach(model, function (item, key, obj) {
+                _.forEach(model, function (item, key) {
                     if (!_.include(config.validate_fields_exclude, key) && !_.include(config.validate_fields, key)) {
                         list.push(key);
                     }
@@ -833,27 +786,21 @@
 
     };
 
-    Service.$inject = [
-        '$q',
-        'AngularDynamicForm.helpers.ExternalCallService'
-    ];
+    Service.$inject = ['$q', 'AngularDynamicForm.helpers.ExternalCallService'];
 
     angular.module('AngularDynamicForm')
         .service('AngularDynamicForm.validation.ValidationService', Service);
 
 })();
 
-"use strict";
-
 (function () {
+    'use strict';
 
     //----------------------------------
     // Config Transformer Service
     //----------------------------------
 
     var Service = function(MESSAGE_UNRECOGNISED_CONFIG_NAME) {
-
-        var self = this;
 
         var _form_config = {
             'auto_submit':                  false, // use when you need to auto submit form (eg. after redirect)
@@ -865,9 +812,9 @@
             'show_submit_button':           true,
             'show_cancel_button':           false,
             'show_clear_button':            false,
-            'submit_button_label':          "SUBMIT",
-            'cancel_button_label':          "CANCEL",
-            'clear_button_label':           "CLEAR",
+            'submit_button_label':          'SUBMIT',
+            'cancel_button_label':          'CANCEL',
+            'clear_button_label':           'CLEAR',
             'validate_fields':              null,
             'validate_fields_exclude':      null,
             'validation_error_message':     null,
@@ -887,19 +834,19 @@
         };
 
         var _form_style_config = {
-            'fieldset_class':               "",
-            'label_class':                  "",
-            'input_box_class':              "",
-            'input_class':                  "",
-            'validation_feedback_class':    "",
-            'required_indicator_class':     "",
-            'message_box_class':            "",
-            'button_box_class':             "",
-            'submit_button_class':          "",
-            'cancel_button_class':          "",
-            'clear_button_class':           "",
-            'message_error_class':          "",
-            'message_success_class':        ""
+            'fieldset_class':               '',
+            'label_class':                  '',
+            'input_box_class':              '',
+            'input_class':                  '',
+            'validation_feedback_class':    '',
+            'required_indicator_class':     '',
+            'message_box_class':            '',
+            'button_box_class':             '',
+            'submit_button_class':          '',
+            'cancel_button_class':          '',
+            'clear_button_class':           '',
+            'message_error_class':          '',
+            'message_success_class':        ''
         };
 
         this.config  = {
@@ -933,9 +880,8 @@
 
 })();
 
-"use strict";
-
 (function () {
+    'use strict';
 
     //----------------------------------
     // Field Transformer Service
@@ -945,8 +891,6 @@
                            MESSAGE_INVALID_FIELDS_OBJECT,
                            MESSAGE_INVALID_OPTIONS_ARRAY,
                            MESSAGE_INVALID_OPTIONS_OBJECT) {
-
-        var self = this;
 
         var _config_required_keys = ['label_camelcase', 'label_replace_underscores'];
         var _fields_required_keys = ['type'];
@@ -988,7 +932,7 @@
          * @param model
          * @returns []
          */
-        this.transformFields = function(fields, config, model) {
+        this.transformFields = function(fields, config) {
 
             var result = [];
 
@@ -998,7 +942,7 @@
             }
 
             // process form field by type property
-            _.forEach(fields, function (item, key, obj) {
+            _.forEach(fields, function (item, key) {
 
                 // validate field object
                 if (_.difference(_fields_required_keys, _.keys(item)).length !== 0) {
@@ -1029,7 +973,7 @@
             var result = [];
 
             // add group to each field
-            _.forEach(fields_array, function(field, index, array) {
+            _.forEach(fields_array, function(field) {
 
                 var group_order = 1;
 
@@ -1137,7 +1081,7 @@
 
             // replace underscores
             if (replace_underscores) {
-                label = label.replace(/\_/g, " ");
+                label = label.replace(/\_/g, ' ');
             }
 
             // camelcase
@@ -1162,17 +1106,14 @@
 
 })();
 
-'use strict';
-
 (function() {
+    'use strict';
 
         //----------------------------------
         // Dynamic Form Fieldset Controller
         //----------------------------------
 
     var DynamicFormFieldsetCtrl = function($scope) {
-
-        var self = this;
 
         /**
          * onChange
@@ -1202,41 +1143,41 @@
     angular.module('AngularDynamicForm').controller('DynamicFormFieldsetCtrl', DynamicFormFieldsetCtrl);
 })();
 
-"use strict";
-
 (function() {
+    'use strict';
 
-    var dynamicFormFieldset = function() {
+    var dynamicFormFieldset = function($templateCache, AngularDynamicFormCustomInputViewUrl) {
         return {
             restrict: 'E',
             scope: {
-                field: 				"=",
-                model: 				"=",
-                errors: 			"=",
-                show_validation: 	"=showValidation",
-                config: 	        "=",
-                style_config: 	    "=styleConfig",
-                onChange:           "&",
-                onBlur:             "&"
+                field:              '=',
+                model:              '=',
+                errors:             '=',
+                show_validation:    '=showValidation',
+                config:             '=',
+                style_config:       '=styleConfig',
+                onChange:           '&',
+                onBlur:             '&'
             },
             controller: 'DynamicFormFieldsetCtrl as ctrl',
             replace: true,
-			link: function(scope, element, attrs, ctrl) {
+            link: function(scope, element) {
 
                 // add class
-				element.addClass('dynamic-form-fieldset');
+                element.addClass('dynamic-form-fieldset');
 
                 // set input view template
-                scope.input_view_template = "views/inputs/" + scope.field.type + ".html";
-                //scope.input_view_template = "/angular-dynamic-form/lib/views/inputs/" + scope.field.type + ".html";
+                scope.input_view_template = 'angular-dynamic-form/views/inputs/' + scope.field.type + '.html';
 
-			},
-            //templateUrl: '/angular-dynamic-form/lib/views/dynamic-form-fieldset.html'
-            templateUrl: 'views/dynamic-form-fieldset.html'
+                if (_.isUndefined($templateCache.get(scope.input_view_template))) {
+                    scope.input_view_template = AngularDynamicFormCustomInputViewUrl + scope.field.type + '.html';
+                }
+            },
+            templateUrl: 'angular-dynamic-form/views/dynamic-form-fieldset.html'
         };
     };
 
-	dynamicFormFieldset.$inject = [];
+    dynamicFormFieldset.$inject = ['$templateCache', 'AngularDynamicFormCustomInputViewUrl'];
 
     angular.module('AngularDynamicForm')
         .directive('dynamicFormFieldset', dynamicFormFieldset);
