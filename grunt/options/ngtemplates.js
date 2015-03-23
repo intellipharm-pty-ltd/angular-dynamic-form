@@ -3,7 +3,8 @@ module.exports = {
         options: {
             module: 'AngularDynamicForm',
             url: function(url) {
-                return url.replace("lib/", "");
+            	console.log(url);
+                return 'angular-dynamic-form/' + url.replace('lib/', '');
             }
             //
             /*htmlmin: {
