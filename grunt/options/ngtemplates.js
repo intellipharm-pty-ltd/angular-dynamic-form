@@ -4,10 +4,10 @@ module.exports = {
             module: 'AngularDynamicForm',
             url: function(url) {
                 console.log(url);
-                return 'angular-dynamic-form/' + url.replace('lib/', '');
+                return 'angular-dynamic-form/' + url.replace('src/', '');
             }
         },
-        src: ['<%= config.lib %>/views/**/*.html'],
-        dest: '<%= config.lib %>/scripts/dynamic-form-templates.js'
+        src: ['<%= config.src %>/views/**/*.html'],
+        dest: '<%= config.src %>/scripts/dynamic-form-templates.js'
     }
 };

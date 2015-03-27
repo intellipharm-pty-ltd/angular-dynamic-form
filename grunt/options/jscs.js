@@ -25,8 +25,8 @@ module.exports = {
     },
     lib: {
         src: [
-            '<%= config.lib %>/scripts/**/*.js',
-            '!<%= config.lib %>/scripts/dynamic-form-templates.js'
+            '<%= config.src %>/scripts/**/*.js',
+            '!<%= config.src %>/scripts/dynamic-form-templates.js'
         ]
     },
     tests: {
