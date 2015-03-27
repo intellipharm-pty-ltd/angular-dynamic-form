@@ -14,12 +14,12 @@ module.exports = {
             // grunt globals
             module: true,
             require: true,
-            process: true,
+            process: true
         }
     },
     lib: [
         '<%= config.lib %>/scripts/**/*.js',
-        '!<%= config.lib %>/scripts/dynamic-form-templates.js',
+        '!<%= config.lib %>/scripts/dynamic-form-templates.js'
     ],
     tests: [
         '<%= config.tests %>/scripts/**/*.js'

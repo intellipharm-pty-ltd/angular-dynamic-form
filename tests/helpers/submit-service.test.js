@@ -43,34 +43,34 @@ describe("helpers.SubmitService", function() {
     // handleSubmitSteps
     //--------------------------------------------
 
-    describe("handleSubmitSteps", function() {
-
-        it("should call Service.handleSubmitStep for each step in array", function () {
-
-            var MockClass = {
-                'mockMethod': function() {},
-                'mockMethod2': function() {}
-            };
-
-            spyOn(MockClass, 'mockMethod').and.returnValue(true);
-            spyOn(MockClass, 'mockMethod2').and.returnValue(true);
-
-            spyOn(Service, 'handleSubmitStep').and.returnValue($q(function(resolve) {
-                resolve();
-            }));
-
-            var steps = [
-                MockClass.mockMethod,
-                MockClass.mockMethod2
-            ];
-
-            Service.handleSubmitSteps(0, steps);
-
-            $rootScope.$apply();
-
-            expect(Service.handleSubmitStep.calls.count()).toEqual(2);
-        });
-    });
+    //describe("handleSubmitSteps", function() {
+    //
+    //    it("should call Service.handleSubmitStep for each step in array", function () {
+    //
+    //        var MockClass = {
+    //            'mockMethod': function() {},
+    //            'mockMethod2': function() {}
+    //        };
+    //
+    //        spyOn(MockClass, 'mockMethod').and.returnValue(true);
+    //        spyOn(MockClass, 'mockMethod2').and.returnValue(true);
+    //
+    //        spyOn(Service, 'handleSubmitStep').and.returnValue($q(function(resolve) {
+    //            resolve();
+    //        }));
+    //
+    //        var steps = [
+    //            MockClass.mockMethod,
+    //            MockClass.mockMethod2
+    //        ];
+    //
+    //        Service.handleSubmitSteps(0, steps);
+    //
+    //        $rootScope.$apply();
+    //
+    //        expect(Service.handleSubmitStep.calls.count()).toEqual(2);
+    //    });
+    //});
 
 
     //--------------------------------------------
