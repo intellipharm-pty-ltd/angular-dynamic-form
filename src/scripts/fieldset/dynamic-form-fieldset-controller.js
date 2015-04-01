@@ -1,9 +1,9 @@
 (function() {
     'use strict';
 
-        //----------------------------------
-        // Dynamic Form Fieldset Controller
-        //----------------------------------
+    //----------------------------------
+    // Dynamic Form Fieldset Controller
+    //----------------------------------
 
     var DynamicFormFieldsetCtrl = function($scope) {
 

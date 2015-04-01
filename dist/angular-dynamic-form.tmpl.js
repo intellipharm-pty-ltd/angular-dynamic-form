@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.0
+ * angular-dynamic-form v0.1.1
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-03-27 14:33:15
+ * 2015-04-01 14:49:20
  *
  */
 (function() {
@@ -245,6 +245,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         $scope.show_buttons = false;
 
         var dont_clear_fields = ['model'];
+        var inited = false;
 
         // defaults
         this.default_submit_steps = [
@@ -436,7 +437,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         var unWatchModel = $scope.$watchCollection('model', function(model, old_model) {
 
             if (!_.isUndefined(model)) {
-                self.init();
+                if (!inited) {
+                    self.init();
+                    inited = true;
+                }
 
                 if (!$scope.form_config.show_buttons_on_change) {
                     unWatchModel();
@@ -1283,9 +1287,9 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 (function() {
     'use strict';
 
-        //----------------------------------
-        // Dynamic Form Fieldset Controller
-        //----------------------------------
+    //----------------------------------
+    // Dynamic Form Fieldset Controller
+    //----------------------------------
 
     var DynamicFormFieldsetCtrl = function($scope) {
 
