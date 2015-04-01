@@ -203,8 +203,7 @@
         // model
         //-----------------------------------
 
-        var unWatchModel = $scope.$watchCollection('model', function(model, old_model) {
-
+        var unWatchModel = $scope.$watch('model', function(model, old_model) {
             if (!_.isUndefined(model)) {
                 if (!inited) {
                     self.init();
@@ -218,7 +217,7 @@
                     unWatchModel();
                 }
             }
-        });
+        }, true);
 
 
         /////////////////////////////////////////////////////////////////////
