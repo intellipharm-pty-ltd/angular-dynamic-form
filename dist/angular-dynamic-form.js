@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-03-24 09:25:11
+ * 2015-03-27 14:33:15
  *
  */
 (function() {
@@ -601,7 +601,6 @@
          * @returns Promise
          */
         this.save = function() {
-            console.log('Step X: save');
             return ExternalCallService.callExternalMethod(_model.save, [], _model);
         };
 
@@ -673,7 +672,6 @@
                     // TODO: end
 
                 } catch (error) {
-                    console.log(error);
                     throw new Error(MESSAGE_EXTERNAL_METHOD_ERROR);
                 }
 
@@ -932,11 +930,11 @@
          * @param model
          * @returns []
          */
-        this.transformFields = function(fields, config) {
+        this.transformFields = function(fields, config, model) {
 
             var result = [];
 
-            // valdiate config
+            // validate config
             if (_.difference(_config_required_keys, _.keys(config)).length !== 0) {
                 throw new Error(MESSAGE_INVALID_CONFIG);
             }
@@ -950,9 +948,7 @@
                 }
 
                 // transform field
-                //console.log(fields[key]);
-                var _item  = transformField(item, key, config, fields[key].model);
-
+                var _item  = transformField(item, key, config, model[key]);
 
                 // add to array
                 result.push(_item);

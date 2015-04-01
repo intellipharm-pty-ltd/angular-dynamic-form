@@ -13,10 +13,10 @@
             var gruntConfig = {config: {
                 // base folders
                 dist: 'dist',
-                lib: 'lib',
+                src: 'src',
                 tests: 'tests',
                 grunt: 'grunt',
-                pkg: grunt.file.readJSON('package.json'),
+                pkg: grunt.file.readJSON('package.json')
             }};
 
             // loads tasks in the 'grunt' folder

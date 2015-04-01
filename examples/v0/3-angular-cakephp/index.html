@@ -1,0 +1,80 @@
+<html>
+<head>
+	<title>AngularDynamicForm : Simple Example</title>
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../styles/global.css">
+</head>
+<body ng-app="App" ng-controller="AppController as app">
+
+<div class="row">
+	<div class="col-xs-12 description">
+		<h2>Angular CakePHP Example</h2>
+	</div>
+</div><!--/.row-->
+
+
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 example well">
+
+        <!-- dynamic-form -->
+        <dynamic-form model="app.user"
+                      fields="app.form_fields"
+                      config="app.form_config"
+                      field-config="app.form_field_config"
+                      style-config="app.form_style_config"
+                      on-submit-complete="app.onSubmitComplete(message)"
+                      on-cancel="app.onCancel(message)"
+                      on-clear="app.onClear(message)"
+                      on-error="app.onError(message)"></dynamic-form>
+
+        <!--submit-steps="app.submit_steps"-->
+
+	</div>
+</div><!--/.row-->
+
+
+<!-- dependencies -->
+<script src="../bower_components/lodash/lodash.min.js"></script>
+<script src="../bower_components/angular/angular.min.js"></script>
+<script src="../bower_components/angular-filter/dist/angular-filter.min.js"></script>
+<script src="../bower_components/pluralize/pluralize.js"></script>
+
+<!-- Angular CakePHP -->
+<!--<script src="../bower_components/angular-cakephp/dist/angular-cakephp.min.js"></script>-->
+
+<!-- AngularCakePHP : local lib -->
+<script src="http://localhost/angular-cakephp/lib/angular-cakephp.js"></script>
+<script src="http://localhost/angular-cakephp/lib/angular-cakephp-settings.js"></script>
+<script src="http://localhost/angular-cakephp/lib/http/http-response-service.js"></script>
+<script src="http://localhost/angular-cakephp/lib/transformers/transformer-service.js"></script>
+<script src="http://localhost/angular-cakephp/lib/util/util-service.js"></script>
+<script src="http://localhost/angular-cakephp/lib/base/base-active-record.js"></script>
+<script src="http://localhost/angular-cakephp/lib/base/base-model.js"></script>
+
+<!-- Angular Dynamic Form -->
+<!--<script src="../../../dist/angular-dynamic-form.tmpl.min.js"></script>-->
+
+<!-- Angular Dynamic Form -->
+<script src="../../../src/scripts/dynamic-form.js"></script>
+<script src="../../../src/scripts/dynamic-form-settings.js"></script>
+<script src="../../../src/scripts/dynamic-form-service.js"></script>
+<script src="../../../src/scripts/transformers/field-transformer-service.js"></script>
+<script src="../../../src/scripts/transformers/config-transformer-service.js"></script>
+<script src="../../../src/scripts/helpers/submit-service.js"></script>
+<script src="../../../src/scripts/helpers/external-call-service.js"></script>
+<script src="../../../src/scripts/validation/validation-service.js"></script>
+<script src="../../../src/scripts/dynamic-form-controller.js"></script>
+<script src="../../../src/scripts/dynamic-form-directive.js"></script>
+<script src="../../../src/scripts/dynamic-form-templates.js"></script>
+<script src="../../../src/scripts/fieldset/dynamic-form-fieldset-controller.js"></script>
+<script src="../../../src/scripts/fieldset/dynamic-form-fieldset-directive.js"></script>
+
+<!-- example app -->
+<script src="scripts/app.js"></script>
+<script src="scripts/angular-cakephp-settings.js"></script>
+<script src="scripts/models/user-model.js"></script>
+<script src="scripts/app-controller.js"></script>
+
+</body>
+</html>
+</html>
