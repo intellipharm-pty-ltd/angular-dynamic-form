@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.1
+ * angular-dynamic-form v0.1.2
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-01 14:49:20
+ * 2015-04-02 12:21:50
  *
  */
 (function() {
@@ -256,8 +256,7 @@
         // model
         //-----------------------------------
 
-        var unWatchModel = $scope.$watchCollection('model', function(model, old_model) {
-
+        var unWatchModel = $scope.$watch('model', function(model, old_model) {
             if (!_.isUndefined(model)) {
                 if (!inited) {
                     self.init();
@@ -271,7 +270,7 @@
                     unWatchModel();
                 }
             }
-        });
+        }, true);
 
 
         /////////////////////////////////////////////////////////////////////
@@ -1060,7 +1059,7 @@
             }
 
             // add extra field properties
-            if (!_.has(result[key], 'label')) {
+            if (!_.has(result, 'label')) {
                 result.label = transformLabel(key, config.label_camelcase, config.label_replace_underscores);
             }
             result.name = key;
