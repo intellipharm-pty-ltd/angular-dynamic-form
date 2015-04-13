@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-02 12:21:50
+ * 2015-04-14 08:39:46
  *
  */
 (function() {
@@ -67,7 +67,6 @@
         $scope.show_buttons = false;
 
         var dont_clear_fields = ['model'];
-        var inited = false;
 
         // defaults
         this.default_submit_steps = [
@@ -85,6 +84,16 @@
         // handlers
         //
         /////////////////////////////////////////////////////
+
+        /**
+         * onCancel
+         */
+        this.onCancel = function() {
+
+            if (!_.isUndefined($scope.onCancel)) {
+                $scope.onCancel('');
+            }
+        };
 
         /**
          * onClear
@@ -106,12 +115,24 @@
         };
 
         /**
-         * onCancel
+         * onFieldBlur
          */
-        this.onCancel = function() {
+        this.onFieldBlur = function() {
 
-            if (!_.isUndefined($scope.onCancel)) {
-                $scope.onCancel('');
+            // custom blur handler
+            if (!_.isUndefined($scope.onBlur)) {
+                $scope.onBlur();
+            }
+        };
+
+        /**
+         * onFieldChange
+         */
+        this.onFieldChange = function() {
+
+            // custom change handler
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange();
             }
         };
 
@@ -224,6 +245,16 @@
         /////////////////////////////////////////////////////
 
         /**
+         * hideMessage
+         */
+        this.hideMessage = function() {
+            $scope.message = {};
+            _.forEach($scope.message_state, function (item) {
+                item = false;
+            });
+        };
+
+        /**
          * showMessage
          *
          * @param type
@@ -233,16 +264,6 @@
             this.hideMessage();
             $scope.message[type] = message;
             $scope.message_state[type] = true;
-        };
-
-        /**
-         * hideMessage
-         */
-        this.hideMessage = function() {
-            $scope.message = {};
-            _.forEach($scope.message_state, function (item) {
-                item = false;
-            });
         };
 
 
@@ -256,19 +277,10 @@
         // model
         //-----------------------------------
 
-        var unWatchModel = $scope.$watch('model', function(model, old_model) {
+        var unWatchModel = $scope.$watch('model', function(model) {
             if (!_.isUndefined(model)) {
-                if (!inited) {
-                    self.init();
-                    inited = true;
-                }
-
-                if (!$scope.form_config.show_buttons_on_change) {
-                    unWatchModel();
-                } else if (!_.isUndefined(old_model) && (model !== old_model)) {
-                    $scope.show_buttons = true;
-                    unWatchModel();
-                }
+                self.init();
+                unWatchModel();
             }
         }, true);
 
@@ -1115,24 +1127,20 @@
     var DynamicFormFieldsetCtrl = function($scope) {
 
         /**
-         * onChange
+         * onBlur
          */
-        this.onChange = function() {
-
-            // custom change handler
-            if (!_.isUndefined($scope.onChange)) {
-                $scope.onChange();
+        this.onBlur = function() {
+            if (!_.isUndefined($scope.onBlur)) {
+                $scope.onBlur();
             }
         };
 
         /**
-         * onBlur
+         * onChange
          */
-        this.onBlur = function() {
-
-            // custom change handler
-            if (!_.isUndefined($scope.onBlur)) {
-                $scope.onBlur();
+        this.onChange = function() {
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange();
             }
         };
     };

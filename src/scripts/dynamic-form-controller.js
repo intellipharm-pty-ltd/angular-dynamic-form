@@ -14,7 +14,6 @@
         $scope.show_buttons = false;
 
         var dont_clear_fields = ['model'];
-        var inited = false;
 
         // defaults
         this.default_submit_steps = [
@@ -59,6 +58,33 @@
 
             if (!_.isUndefined($scope.onClear)) {
                 $scope.onClear('');
+            }
+        };
+
+        /**
+         * onFieldBlur
+         */
+        this.onFieldBlur = function() {
+
+            // custom blur handler
+            if (!_.isUndefined($scope.onBlur)) {
+                $scope.onBlur();
+            }
+        };
+
+        /**
+         * onFieldChange
+         */
+        this.onFieldChange = function() {
+
+            // custom change handler
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange();
+            }
+
+            // show button on change
+            if ($scope.form_config.show_buttons_on_change) {
+                $scope.show_buttons = true;
             }
         };
 
@@ -203,19 +229,10 @@
         // model
         //-----------------------------------
 
-        var unWatchModel = $scope.$watch('model', function(model, old_model) {
+        var unWatchModel = $scope.$watch('model', function(model) {
             if (!_.isUndefined(model)) {
-                if (!inited) {
-                    self.init();
-                    inited = true;
-                }
-
-                if (!$scope.form_config.show_buttons_on_change) {
-                    unWatchModel();
-                } else if (!_.isUndefined(old_model) && (model !== old_model)) {
-                    $scope.show_buttons = true;
-                    unWatchModel();
-                }
+                self.init();
+                unWatchModel();
             }
         }, true);
 

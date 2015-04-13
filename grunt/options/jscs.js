@@ -3,6 +3,7 @@ module.exports = {
         //disallowAnonymousFunctions: true,
         //disallowDanglingUnderscores: true,
         disallowMixedSpacesAndTabs: true,
+        //disallowMultipleLineBreaks: true,
         disallowTrailingWhitespace: true,
         disallowYodaConditions: true,
         requireCapitalizedConstructors: true,
@@ -20,7 +21,7 @@ module.exports = {
         safeContextKeyword: ['self'],
         validateLineBreaks: 'LF',
         validateParameterSeparator: ', ',
-        validateQuoteMarks: '\'',
+        //validateQuoteMarks: '\'',
         validateIndentation: 4
     },
     lib: {

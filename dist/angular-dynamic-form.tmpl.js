@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-02 12:21:50
+ * 2015-04-14 08:39:46
  *
  */
 (function() {
@@ -78,8 +78,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                               style-config=\"form_style_config\"\n" +
     "                               errors=\"errors[field.name]\"\n" +
     "                               show-validation=\"errors[field.name]\"\n" +
-    "                               on-change=\"onChange()\"\n" +
-    "                               on-blur=\"onBlur()\"></dynamic-form-fieldset>\n" +
+    "                               on-change=\"ctrl.onFieldChange()\"\n" +
+    "                               on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>\n" +
     "\n" +
     "    </div>\n" +
     "</div>"
@@ -97,8 +97,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       style-config=\"form_style_config\"\n" +
     "                       errors=\"errors[field.name]\"\n" +
     "                       show-validation=\"errors[field.name]\"\n" +
-    "                       on-change=\"onChange()\"\n" +
-    "                       on-blur=\"onBlur()\"></dynamic-form-fieldset>"
+    "                       on-change=\"ctrl.onFieldChange()\"\n" +
+    "                       on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>"
   );
 
 
@@ -245,7 +245,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         $scope.show_buttons = false;
 
         var dont_clear_fields = ['model'];
-        var inited = false;
 
         // defaults
         this.default_submit_steps = [
@@ -263,6 +262,16 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         // handlers
         //
         /////////////////////////////////////////////////////
+
+        /**
+         * onCancel
+         */
+        this.onCancel = function() {
+
+            if (!_.isUndefined($scope.onCancel)) {
+                $scope.onCancel('');
+            }
+        };
 
         /**
          * onClear
@@ -284,12 +293,24 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         };
 
         /**
-         * onCancel
+         * onFieldBlur
          */
-        this.onCancel = function() {
+        this.onFieldBlur = function() {
 
-            if (!_.isUndefined($scope.onCancel)) {
-                $scope.onCancel('');
+            // custom blur handler
+            if (!_.isUndefined($scope.onBlur)) {
+                $scope.onBlur();
+            }
+        };
+
+        /**
+         * onFieldChange
+         */
+        this.onFieldChange = function() {
+
+            // custom change handler
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange();
             }
         };
 
@@ -402,6 +423,16 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         /////////////////////////////////////////////////////
 
         /**
+         * hideMessage
+         */
+        this.hideMessage = function() {
+            $scope.message = {};
+            _.forEach($scope.message_state, function (item) {
+                item = false;
+            });
+        };
+
+        /**
          * showMessage
          *
          * @param type
@@ -411,16 +442,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             this.hideMessage();
             $scope.message[type] = message;
             $scope.message_state[type] = true;
-        };
-
-        /**
-         * hideMessage
-         */
-        this.hideMessage = function() {
-            $scope.message = {};
-            _.forEach($scope.message_state, function (item) {
-                item = false;
-            });
         };
 
 
@@ -434,19 +455,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         // model
         //-----------------------------------
 
-        var unWatchModel = $scope.$watch('model', function(model, old_model) {
+        var unWatchModel = $scope.$watch('model', function(model) {
             if (!_.isUndefined(model)) {
-                if (!inited) {
-                    self.init();
-                    inited = true;
-                }
-
-                if (!$scope.form_config.show_buttons_on_change) {
-                    unWatchModel();
-                } else if (!_.isUndefined(old_model) && (model !== old_model)) {
-                    $scope.show_buttons = true;
-                    unWatchModel();
-                }
+                self.init();
+                unWatchModel();
             }
         }, true);
 
@@ -1293,24 +1305,20 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     var DynamicFormFieldsetCtrl = function($scope) {
 
         /**
-         * onChange
+         * onBlur
          */
-        this.onChange = function() {
-
-            // custom change handler
-            if (!_.isUndefined($scope.onChange)) {
-                $scope.onChange();
+        this.onBlur = function() {
+            if (!_.isUndefined($scope.onBlur)) {
+                $scope.onBlur();
             }
         };
 
         /**
-         * onBlur
+         * onChange
          */
-        this.onBlur = function() {
-
-            // custom change handler
-            if (!_.isUndefined($scope.onBlur)) {
-                $scope.onBlur();
+        this.onChange = function() {
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange();
             }
         };
     };
