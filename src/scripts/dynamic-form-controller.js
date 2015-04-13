@@ -34,6 +34,16 @@
         /////////////////////////////////////////////////////
 
         /**
+         * onCancel
+         */
+        this.onCancel = function() {
+
+            if (!_.isUndefined($scope.onCancel)) {
+                $scope.onCancel('');
+            }
+        };
+
+        /**
          * onClear
          */
         this.onClear = function() {
@@ -49,16 +59,6 @@
 
             if (!_.isUndefined($scope.onClear)) {
                 $scope.onClear('');
-            }
-        };
-
-        /**
-         * onCancel
-         */
-        this.onCancel = function() {
-
-            if (!_.isUndefined($scope.onCancel)) {
-                $scope.onCancel('');
             }
         };
 
@@ -171,6 +171,16 @@
         /////////////////////////////////////////////////////
 
         /**
+         * hideMessage
+         */
+        this.hideMessage = function() {
+            $scope.message = {};
+            _.forEach($scope.message_state, function (item) {
+                item = false;
+            });
+        };
+
+        /**
          * showMessage
          *
          * @param type
@@ -180,16 +190,6 @@
             this.hideMessage();
             $scope.message[type] = message;
             $scope.message_state[type] = true;
-        };
-
-        /**
-         * hideMessage
-         */
-        this.hideMessage = function() {
-            $scope.message = {};
-            _.forEach($scope.message_state, function (item) {
-                item = false;
-            });
         };
 
 
