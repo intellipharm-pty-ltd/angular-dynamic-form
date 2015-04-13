@@ -15,25 +15,25 @@
         var _options_required_keys = ['label', 'value'];
 
         var _fields_defaults = {
-            'text': {
+            text: {
                 type: 'text', required: false
             },
-            'textarea': {
+            textarea: {
                 type: 'textarea', required: false
             },
-            'currency': {
+            currency: {
                 type: 'currency', symbol: '$', required: false
             },
-            'password': {
+            password: {
                 type: 'password', required: false
             },
-            'checkbox': {
+            checkbox: {
                 type: 'checkbox', required: false
             },
-            'select': {
+            select: {
                 type: 'select', options: [], required: false
             },
-            'multi-select': {
+            multi_select: {
                 type: 'select', options: [], size: 4, required: false
             }
         };
@@ -126,7 +126,6 @@
             return result;
         };
 
-
         //----------------------------------
         // private
         //----------------------------------
@@ -215,7 +214,6 @@
         'MESSAGE_INVALID_OPTIONS_ARRAY',
         'MESSAGE_INVALID_OPTIONS_OBJECT'
     ];
-
 
     angular.module('AngularDynamicForm')
         .service('AngularDynamicForm.transformers.FieldTransformer', Service);

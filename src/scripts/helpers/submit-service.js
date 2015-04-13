@@ -19,7 +19,6 @@
         var _last_response_type;
         var _last_response;
 
-
         ///////////////////////////////////////
         //
         // step handlers
@@ -43,9 +42,9 @@
 
             // set handlers
             var handlers = {
-                'submit_complete': deferred.resolve,
-                'submit_update': deferred.notify,
-                'submit_error': deferred.reject
+                submit_complete: deferred.resolve,
+                submit_update: deferred.notify,
+                submit_error: deferred.reject
             };
 
             // process
@@ -128,7 +127,6 @@
          */
         var sendUpdate = function(response_type, response, steps, step, handlers) {
 
-
             // transform response if not an object
             if (!_.isObject(response)) {
                 response = {message: response};
@@ -145,8 +143,8 @@
             }
 
             var args = {
-                'message_state': response_type,
-                'step': step
+                message_state: response_type,
+                step: step
             };
 
             // set message to form config message or response message
@@ -227,7 +225,6 @@
             }
         };
 
-
         ///////////////////////////////////////
         //
         // internal methods
@@ -243,7 +240,6 @@
             return ExternalCallService.callExternalMethod(_model.save, [], _model);
         };
 
-
         ///////////////////////////////////////
         //
         // init
@@ -253,10 +249,9 @@
         // set internal methods
 
         this.internal_methods = {
-            'validate':     ValidationService.validate,
-            'save':         this.save
+            validate:     ValidationService.validate,
+            save:         this.save
         };
-
     };
 
     Service.$inject = [
