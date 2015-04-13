@@ -4,7 +4,7 @@
 
 The build steps to releasing a new version. Before you can do this you need to to make sure the node packages are up to date - ``` npm update ```
 
-  * Make sure all tests pass - ``` grunt test ```
+  * Make sure all tests pass - ``` karma start ``` or ``` grunt test ```
   * Commit and push all changes with a meaningful message
   * Update version in bower.json and package.json
   * Build the dist folder -  ``` grunt build ```
