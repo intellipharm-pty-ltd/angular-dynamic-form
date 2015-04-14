@@ -138,7 +138,7 @@
          * @param config
          * @param model
          */
-        var transformField = function(item, key, config, model) {
+        var transformField = function(item, key, config) {//, model) {
 
             var result = {};
 
@@ -179,7 +179,7 @@
                 result.label = transformLabel(key, config.label_camelcase, config.label_replace_underscores);
             }
             result.name = key;
-            result.model = model;
+            result.model = _.has(item, 'model') ? item.model : null;
             result.validate = false;
 
             return result;

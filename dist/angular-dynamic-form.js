@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-14 11:08:07
+ * 2015-04-14 14:12:05
  *
  */
 (function() {
@@ -1039,7 +1039,7 @@
          * @param config
          * @param model
          */
-        var transformField = function(item, key, config, model) {
+        var transformField = function(item, key, config) {//, model) {
 
             var result = {};
 
@@ -1080,7 +1080,7 @@
                 result.label = transformLabel(key, config.label_camelcase, config.label_replace_underscores);
             }
             result.name = key;
-            result.model = model;
+            result.model = _.has(item, 'model') ? item.model : null;
             result.validate = false;
 
             return result;
