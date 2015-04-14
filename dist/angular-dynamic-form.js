@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-14 09:11:52
+ * 2015-04-14 11:08:07
  *
  */
 (function() {
@@ -388,9 +388,6 @@
 
         var self = this;
 
-        var _model;
-        var _form_config;
-
         var _last_response_type;
         var _last_response;
 
@@ -410,9 +407,6 @@
          */
         this.handleSubmit = function(steps, model, form_config) {
 
-            _model = model;
-            _form_config = form_config;
-
             var deferred = $q.defer();
 
             // set handlers
@@ -423,7 +417,7 @@
             };
 
             // process
-            self.handleSubmitSteps(0, steps, handlers);
+            self.handleSubmitSteps(0, steps, model, form_config, handlers);
 
             return deferred.promise;
         };
@@ -433,8 +427,11 @@
          *
          * @param step
          * @param steps
+         * @param model
+         * @param form_config
+         * @param handlers
          */
-        this.handleSubmitSteps = function(step, steps, handlers) {
+        this.handleSubmitSteps = function(step, steps, model, form_config, handlers) {
 
             // default
             step = !_.isUndefined(step) ? step : 0;
@@ -449,27 +446,27 @@
                 return;
             }
 
-            self.handleSubmitStep(step, steps).then(
+            self.handleSubmitStep(step, steps, model, form_config).then(
 
                 // resolve
                 function (response) {
 
                     // redefined model & form config
                     if (_.has(response, 'model')) {
-                        _model = response.model;
+                        model = response.model;
                     }
                     if (_.has(response, 'form_config')) {
-                        _form_config = response.form_config;
+                        form_config = response.form_config;
                     }
 
                     _last_response = response;
                     _last_response_type = 'success';
 
                     // send update
-                    sendUpdate('success', response, steps, step, handlers);
+                    sendUpdate('success', response, step, steps, form_config, handlers);
 
                     // continue...
-                    self.handleSubmitSteps(++step, steps, handlers);
+                    self.handleSubmitSteps(++step, steps, model, form_config, handlers);
                 },
 
                 // rejection
@@ -477,17 +474,17 @@
 
                     // redefined model & form config
                     if (_.has(response, 'model')) {
-                        _model = response.model;
+                        model = response.model;
                     }
                     if (_.has(response, 'form_config')) {
-                        _form_config = response.form_config;
+                        form_config = response.form_config;
                     }
 
                     _last_response = response;
                     _last_response_type = 'success';
 
                     // send update
-                    sendUpdate('error', response, steps, step, handlers);
+                    sendUpdate('error', response, step, steps, form_config, handlers);
                 }
             );
         };
@@ -497,10 +494,12 @@
          *
          * @param response_type
          * @param response
-         * @param steps
          * @param step
+         * @param steps
+         * @param form_config
+         * @param handlers
          */
-        var sendUpdate = function(response_type, response, steps, step, handlers) {
+        var sendUpdate = function(response_type, response, step, steps, form_config, handlers) {
 
             // transform response if not an object
             if (!_.isObject(response)) {
@@ -523,7 +522,7 @@
             };
 
             // set message to form config message or response message
-            args.message = !_.isNull(_form_config[form_config_message_key]) ? _form_config[form_config_message_key] : response.message;
+            args.message = !_.isNull(form_config[form_config_message_key]) ? form_config[form_config_message_key] : response.message;
 
             // errors
             args.errors = _.has(response, 'data') ? response.data : {};
@@ -539,8 +538,12 @@
          *
          * @param step
          * @param steps
+         * @param model
+         * @param form_config
+         * @returns Promise
          */
-        this.handleSubmitStep = function(step, steps) {
+        this.handleSubmitStep = function(step, steps, model, form_config) {
+
             return $q(function(resolve, reject) {
 
                 // step is invalid
@@ -569,7 +572,7 @@
                 }
 
                 // step is a string (internal method)
-                self.handleSubmitStepInternalMethod(step, steps).then(resolve, reject);
+                self.handleSubmitStepInternalMethod(step, steps, model, form_config).then(resolve, reject);
             });
         };
 
@@ -578,9 +581,11 @@
          *
          * @param step
          * @param steps
+         * @param model
+         * @param form_config
          * @returns Promise
          */
-        this.handleSubmitStepInternalMethod = function(step, steps) {
+        this.handleSubmitStepInternalMethod = function(step, steps, model, form_config) {
 
             var step_method_key = steps[step];
 
@@ -593,7 +598,10 @@
             switch (step_method_key) {
 
                 case 'validate':
-                    return self.internal_methods.validate(_model, _form_config);
+                    return self.internal_methods.validate(model, form_config);
+
+                case 'save':
+                    return self.internal_methods.save(model);
 
                 default:
                     return self.internal_methods[step_method_key]();
@@ -609,10 +617,11 @@
         /**
          * save
          *
+         * @param model
          * @returns Promise
          */
-        this.save = function() {
-            return ExternalCallService.callExternalMethod(_model.save, [], _model);
+        this.save = function(model) {
+            return ExternalCallService.callExternalMethod(model.save, [], model);
         };
 
         ///////////////////////////////////////
@@ -787,6 +796,10 @@
                     }
                 });
             }
+
+            //console.log(model);
+            //console.log(config);
+            //console.log(list);
 
             return list;
         };

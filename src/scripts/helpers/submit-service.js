@@ -224,15 +224,12 @@
 
                 case 'validate':
                     return self.internal_methods.validate(model, form_config);
-                    break;
 
                 case 'save':
                     return self.internal_methods.save(model);
-                    break;
 
                 default:
                     return self.internal_methods[step_method_key]();
-                    break;
             }
         };
 
