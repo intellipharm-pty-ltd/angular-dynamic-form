@@ -55,6 +55,10 @@
                 });
             }
 
+            //console.log(model);
+            //console.log(config);
+            //console.log(list);
+
             return list;
         };
 
