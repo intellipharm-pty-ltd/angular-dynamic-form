@@ -91,7 +91,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "</div>\n" +
     "\n" +
     "<!-- form -->\n" +
-    "<form role=\"form\" class=\"form-horizontal\">\n" +
+    "<form role=\"form\" class=\"{{form_style_config.form_class}}\">\n" +
     "\n" +
     "    <!-- groups or no-groups template -->\n" +
     "    <div ng-include src=\"form_view_template\"></div>\n" +
