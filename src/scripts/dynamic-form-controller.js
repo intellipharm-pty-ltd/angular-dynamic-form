@@ -74,20 +74,20 @@
             SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
 
                 // complete
-                function() {
+                function(response) {
 
                     // custom complete handler
                     if (!_.isUndefined($scope.onSubmitComplete)) {
-                        $scope.onSubmitComplete();
+                        $scope.onSubmitComplete(response);
                     }
                 },
 
                 // error
-                function() {
+                function(response) {
 
                     // custom error handler
                     if (!_.isUndefined($scope.onError)) {
-                        $scope.onError();
+                        $scope.onError(response);
                     }
                 },
 
@@ -115,7 +115,7 @@
                             if (response.message_state === 'success') {
                                 $scope.$emit(DYNAMIC_FORM_EVENTS.saveSucccess);
                             } else {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveError);
+                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveError, response);
                             }
                             break;
 

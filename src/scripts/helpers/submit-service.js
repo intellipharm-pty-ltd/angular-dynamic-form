@@ -60,7 +60,7 @@
          * @param step
          * @param steps
          */
-        this.handleSubmitSteps = function(step, steps, handlers) {
+        this.handleSubmitSteps = function(step, steps, handlers, response) {
 
             // default
             step = !_.isUndefined(step) ? step : 0;
@@ -70,7 +70,7 @@
 
                 // call complete handler
                 if (!_.isNull(handlers.submit_complete)) {
-                    handlers.submit_complete();
+                    handlers.submit_complete(response);
                 }
                 return;
             }
@@ -95,7 +95,7 @@
                     sendUpdate('success', response, steps, step, handlers);
 
                     // continue...
-                    self.handleSubmitSteps(++step, steps, handlers);
+                    self.handleSubmitSteps(++step, steps, handlers, response);
                 },
 
                 // rejection
