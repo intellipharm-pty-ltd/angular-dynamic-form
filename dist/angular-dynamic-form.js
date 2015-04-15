@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.3
+ * angular-dynamic-form v0.1.4
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-14 14:12:05
+ * 2015-04-15 10:33:52
  *
  */
 (function() {
@@ -152,20 +152,20 @@
             SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
 
                 // complete
-                function() {
+                function(response) {
 
                     // custom complete handler
                     if (!_.isUndefined($scope.onSubmitComplete)) {
-                        $scope.onSubmitComplete();
+                        $scope.onSubmitComplete(response);
                     }
                 },
 
                 // error
-                function() {
+                function(response) {
 
                     // custom error handler
                     if (!_.isUndefined($scope.onError)) {
-                        $scope.onError();
+                        $scope.onError(response);
                     }
                 },
 
@@ -193,7 +193,7 @@
                             if (response.message_state === 'success') {
                                 $scope.$emit(DYNAMIC_FORM_EVENTS.saveSucccess);
                             } else {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveError);
+                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveError, response);
                             }
                             break;
 
@@ -431,7 +431,7 @@
          * @param form_config
          * @param handlers
          */
-        this.handleSubmitSteps = function(step, steps, model, form_config, handlers) {
+        this.handleSubmitSteps = function(step, steps, model, form_config, handlers, response) {
 
             // default
             step = !_.isUndefined(step) ? step : 0;
@@ -441,7 +441,7 @@
 
                 // call complete handler
                 if (!_.isNull(handlers.submit_complete)) {
-                    handlers.submit_complete();
+                    handlers.submit_complete(response);
                 }
                 return;
             }
@@ -466,7 +466,7 @@
                     sendUpdate('success', response, step, steps, form_config, handlers);
 
                     // continue...
-                    self.handleSubmitSteps(++step, steps, model, form_config, handlers);
+                    self.handleSubmitSteps(++step, steps, model, form_config, handlers, response);
                 },
 
                 // rejection
