@@ -56,7 +56,7 @@
          * @param form_config
          * @param handlers
          */
-        this.handleSubmitSteps = function(step, steps, model, form_config, handlers) {
+        this.handleSubmitSteps = function(step, steps, model, form_config, handlers, response) {
 
             // default
             step = !_.isUndefined(step) ? step : 0;
@@ -66,7 +66,7 @@
 
                 // call complete handler
                 if (!_.isNull(handlers.submit_complete)) {
-                    handlers.submit_complete();
+                    handlers.submit_complete(response);
                 }
                 return;
             }
@@ -91,7 +91,7 @@
                     sendUpdate('success', response, step, steps, form_config, handlers);
 
                     // continue...
-                    self.handleSubmitSteps(++step, steps, model, form_config, handlers);
+                    self.handleSubmitSteps(++step, steps, model, form_config, handlers, response);
                 },
 
                 // rejection
