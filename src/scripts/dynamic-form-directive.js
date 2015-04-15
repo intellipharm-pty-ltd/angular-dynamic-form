@@ -25,7 +25,6 @@
             link: function(scope, element) {
 
                 element.addClass('dynamic-form');
-                console.log("ASASASASASS");
 
                 // set form template
                 if (!_.isUndefined(scope.groups_config)) {

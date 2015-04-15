@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-15 14:36:49
+ * 2015-04-15 14:48:04
  *
  */
 (function() {
@@ -353,7 +353,6 @@
             link: function(scope, element) {
 
                 element.addClass('dynamic-form');
-                console.log("ASASASASASS");
 
                 // set form template
                 if (!_.isUndefined(scope.groups_config)) {
