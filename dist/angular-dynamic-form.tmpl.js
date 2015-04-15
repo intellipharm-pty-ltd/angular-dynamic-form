@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.2
+ * angular-dynamic-form v0.1.3
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-02 12:21:50
+ * 2015-04-14 14:12:05
  *
  */
 (function() {
@@ -78,8 +78,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                               style-config=\"form_style_config\"\n" +
     "                               errors=\"errors[field.name]\"\n" +
     "                               show-validation=\"errors[field.name]\"\n" +
-    "                               on-change=\"onChange()\"\n" +
-    "                               on-blur=\"onBlur()\"></dynamic-form-fieldset>\n" +
+    "                               on-change=\"ctrl.onFieldChange()\"\n" +
+    "                               on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>\n" +
     "\n" +
     "    </div>\n" +
     "</div>"
@@ -97,8 +97,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       style-config=\"form_style_config\"\n" +
     "                       errors=\"errors[field.name]\"\n" +
     "                       show-validation=\"errors[field.name]\"\n" +
-    "                       on-change=\"onChange()\"\n" +
-    "                       on-blur=\"onBlur()\"></dynamic-form-fieldset>"
+    "                       on-change=\"ctrl.onFieldChange()\"\n" +
+    "                       on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>"
   );
 
 
@@ -156,8 +156,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   );
 
 
-  $templateCache.put('angular-dynamic-form/views/inputs/multi-select.html',
-    "<!-- multi-select -->\n" +
+  $templateCache.put('angular-dynamic-form/views/inputs/multi_select.html',
+    "<!-- multi_select -->\n" +
     "<select class=\"form-control\"\n" +
     "        ng-model=\"model[field.name]\" multiple size=\"{{field.type.size}}\" ng-options=\"option.value as option.label for option in field.options\"\n" +
     "        ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +
@@ -245,7 +245,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         $scope.show_buttons = false;
 
         var dont_clear_fields = ['model'];
-        var inited = false;
 
         // defaults
         this.default_submit_steps = [
@@ -257,12 +256,21 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         $scope.message        = {};
         $scope.message_state  = {success: false, error: false};
 
-
         /////////////////////////////////////////////////////
         //
         // handlers
         //
         /////////////////////////////////////////////////////
+
+        /**
+         * onCancel
+         */
+        this.onCancel = function() {
+
+            if (!_.isUndefined($scope.onCancel)) {
+                $scope.onCancel('');
+            }
+        };
 
         /**
          * onClear
@@ -284,12 +292,29 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         };
 
         /**
-         * onCancel
+         * onFieldBlur
          */
-        this.onCancel = function() {
+        this.onFieldBlur = function() {
 
-            if (!_.isUndefined($scope.onCancel)) {
-                $scope.onCancel('');
+            // custom blur handler
+            if (!_.isUndefined($scope.onBlur)) {
+                $scope.onBlur();
+            }
+        };
+
+        /**
+         * onFieldChange
+         */
+        this.onFieldChange = function() {
+
+            // custom change handler
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange();
+            }
+
+            // show button on change
+            if ($scope.form_config.show_buttons_on_change) {
+                $scope.show_buttons = true;
             }
         };
 
@@ -355,7 +380,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             );
         };
 
-
         /////////////////////////////////////////////////////
         //
         // init
@@ -394,12 +418,21 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             }
         };
 
-
         /////////////////////////////////////////////////////
         //
         // messaging
         //
         /////////////////////////////////////////////////////
+
+        /**
+         * hideMessage
+         */
+        this.hideMessage = function() {
+            $scope.message = {};
+            _.forEach($scope.message_state, function (item) {
+                item = false;
+            });
+        };
 
         /**
          * showMessage
@@ -413,17 +446,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             $scope.message_state[type] = true;
         };
 
-        /**
-         * hideMessage
-         */
-        this.hideMessage = function() {
-            $scope.message = {};
-            _.forEach($scope.message_state, function (item) {
-                item = false;
-            });
-        };
-
-
         /////////////////////////////////////////////////////
         //
         // watchers
@@ -434,28 +456,18 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         // model
         //-----------------------------------
 
-        var unWatchModel = $scope.$watch('model', function(model, old_model) {
+        var unWatchModel = $scope.$watch('model', function(model) {
             if (!_.isUndefined(model)) {
-                if (!inited) {
-                    self.init();
-                    inited = true;
-                }
-
-                if (!$scope.form_config.show_buttons_on_change) {
-                    unWatchModel();
-                } else if (!_.isUndefined(old_model) && (model !== old_model)) {
-                    $scope.show_buttons = true;
-                    unWatchModel();
-                }
+                self.init();
+                unWatchModel();
             }
         }, true);
 
-
-        /////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////
         //
-        // Events
+        // events
         //
-        /////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////
 
         //-----------------------------------
         // submit (force submit)
@@ -476,7 +488,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             //    $scope.submitted = false;
             //}
         });
-
     };
 
     DynamicFormCtrl.$inject = [
@@ -555,12 +566,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
         var self = this;
 
-        var _model;
-        var _form_config;
-
         var _last_response_type;
         var _last_response;
-
 
         ///////////////////////////////////////
         //
@@ -578,20 +585,17 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          */
         this.handleSubmit = function(steps, model, form_config) {
 
-            _model = model;
-            _form_config = form_config;
-
             var deferred = $q.defer();
 
             // set handlers
             var handlers = {
-                'submit_complete': deferred.resolve,
-                'submit_update': deferred.notify,
-                'submit_error': deferred.reject
+                submit_complete: deferred.resolve,
+                submit_update: deferred.notify,
+                submit_error: deferred.reject
             };
 
             // process
-            self.handleSubmitSteps(0, steps, handlers);
+            self.handleSubmitSteps(0, steps, model, form_config, handlers);
 
             return deferred.promise;
         };
@@ -601,8 +605,11 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          *
          * @param step
          * @param steps
+         * @param model
+         * @param form_config
+         * @param handlers
          */
-        this.handleSubmitSteps = function(step, steps, handlers) {
+        this.handleSubmitSteps = function(step, steps, model, form_config, handlers) {
 
             // default
             step = !_.isUndefined(step) ? step : 0;
@@ -617,27 +624,27 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 return;
             }
 
-            self.handleSubmitStep(step, steps).then(
+            self.handleSubmitStep(step, steps, model, form_config).then(
 
                 // resolve
                 function (response) {
 
                     // redefined model & form config
                     if (_.has(response, 'model')) {
-                        _model = response.model;
+                        model = response.model;
                     }
                     if (_.has(response, 'form_config')) {
-                        _form_config = response.form_config;
+                        form_config = response.form_config;
                     }
 
                     _last_response = response;
                     _last_response_type = 'success';
 
                     // send update
-                    sendUpdate('success', response, steps, step, handlers);
+                    sendUpdate('success', response, step, steps, form_config, handlers);
 
                     // continue...
-                    self.handleSubmitSteps(++step, steps, handlers);
+                    self.handleSubmitSteps(++step, steps, model, form_config, handlers);
                 },
 
                 // rejection
@@ -645,17 +652,17 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
                     // redefined model & form config
                     if (_.has(response, 'model')) {
-                        _model = response.model;
+                        model = response.model;
                     }
                     if (_.has(response, 'form_config')) {
-                        _form_config = response.form_config;
+                        form_config = response.form_config;
                     }
 
                     _last_response = response;
                     _last_response_type = 'success';
 
                     // send update
-                    sendUpdate('error', response, steps, step, handlers);
+                    sendUpdate('error', response, step, steps, form_config, handlers);
                 }
             );
         };
@@ -665,11 +672,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          *
          * @param response_type
          * @param response
-         * @param steps
          * @param step
+         * @param steps
+         * @param form_config
+         * @param handlers
          */
-        var sendUpdate = function(response_type, response, steps, step, handlers) {
-
+        var sendUpdate = function(response_type, response, step, steps, form_config, handlers) {
 
             // transform response if not an object
             if (!_.isObject(response)) {
@@ -687,12 +695,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             }
 
             var args = {
-                'message_state': response_type,
-                'step': step
+                message_state: response_type,
+                step: step
             };
 
             // set message to form config message or response message
-            args.message = !_.isNull(_form_config[form_config_message_key]) ? _form_config[form_config_message_key] : response.message;
+            args.message = !_.isNull(form_config[form_config_message_key]) ? form_config[form_config_message_key] : response.message;
 
             // errors
             args.errors = _.has(response, 'data') ? response.data : {};
@@ -708,8 +716,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          *
          * @param step
          * @param steps
+         * @param model
+         * @param form_config
+         * @returns Promise
          */
-        this.handleSubmitStep = function(step, steps) {
+        this.handleSubmitStep = function(step, steps, model, form_config) {
+
             return $q(function(resolve, reject) {
 
                 // step is invalid
@@ -738,7 +750,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 }
 
                 // step is a string (internal method)
-                self.handleSubmitStepInternalMethod(step, steps).then(resolve, reject);
+                self.handleSubmitStepInternalMethod(step, steps, model, form_config).then(resolve, reject);
             });
         };
 
@@ -747,9 +759,11 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          *
          * @param step
          * @param steps
+         * @param model
+         * @param form_config
          * @returns Promise
          */
-        this.handleSubmitStepInternalMethod = function(step, steps) {
+        this.handleSubmitStepInternalMethod = function(step, steps, model, form_config) {
 
             var step_method_key = steps[step];
 
@@ -762,13 +776,15 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             switch (step_method_key) {
 
                 case 'validate':
-                    return self.internal_methods.validate(_model, _form_config);
+                    return self.internal_methods.validate(model, form_config);
+
+                case 'save':
+                    return self.internal_methods.save(model);
 
                 default:
                     return self.internal_methods[step_method_key]();
             }
         };
-
 
         ///////////////////////////////////////
         //
@@ -779,12 +795,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         /**
          * save
          *
+         * @param model
          * @returns Promise
          */
-        this.save = function() {
-            return ExternalCallService.callExternalMethod(_model.save, [], _model);
+        this.save = function(model) {
+            return ExternalCallService.callExternalMethod(model.save, [], model);
         };
-
 
         ///////////////////////////////////////
         //
@@ -795,10 +811,9 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         // set internal methods
 
         this.internal_methods = {
-            'validate':     ValidationService.validate,
-            'save':         this.save
+            validate:     ValidationService.validate,
+            save:         this.save
         };
-
     };
 
     Service.$inject = [
@@ -960,6 +975,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 });
             }
 
+            //console.log(model);
+            //console.log(config);
+            //console.log(list);
+
             return list;
         };
 
@@ -982,58 +1001,57 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     var Service = function(MESSAGE_UNRECOGNISED_CONFIG_NAME) {
 
         var _form_config = {
-            'auto_submit':                  false, // use when you need to auto submit form (eg. after redirect)
-            'label_camelcase':              true,
-            'label_replace_underscores':    true,
-            'show_buttons_on_change':       false,
-            'show_error_messages':          true,
-            'show_success_messages':        true,
-            'show_submit_button':           true,
-            'show_cancel_button':           false,
-            'show_clear_button':            false,
-            'submit_button_label':          'SUBMIT',
-            'cancel_button_label':          'CANCEL',
-            'clear_button_label':           'CLEAR',
-            'validate_fields':              null,
-            'validate_fields_exclude':      null,
-            'validation_error_message':     null,
-            'validation_success_message':   null,
-            'save_error_message':           null,
-            'save_success_message':         null,
-            'custom_error_message':         null,
-            'custom_success_message':       null
+            auto_submit:                  false, // use when you need to auto submit form (eg. after redirect)
+            label_camelcase:              true,
+            label_replace_underscores:    true,
+            show_buttons_on_change:       false,
+            show_error_messages:          true,
+            show_success_messages:        true,
+            show_submit_button:           true,
+            show_cancel_button:           false,
+            show_clear_button:            false,
+            submit_button_label:          'SUBMIT',
+            cancel_button_label:          'CANCEL',
+            clear_button_label:           'CLEAR',
+            validate_fields:              null,
+            validate_fields_exclude:      null,
+            validation_error_message:     null,
+            validation_success_message:   null,
+            save_error_message:           null,
+            save_success_message:         null,
+            custom_error_message:         null,
+            custom_success_message:       null
         };
 
         var _form_field_config = {
-            'has_messages':                 true,
-            'has_groups':                   true,
-            'show_labels':                  true,
-            'has_validation_feedback':      true,
-            'has_required_indicator':       true
+            has_messages:                 true,
+            has_groups:                   true,
+            show_labels:                  true,
+            has_validation_feedback:      true,
+            has_required_indicator:       true
         };
 
         var _form_style_config = {
-            'fieldset_class':               '',
-            'label_class':                  '',
-            'input_box_class':              '',
-            'input_class':                  '',
-            'validation_feedback_class':    '',
-            'required_indicator_class':     '',
-            'message_box_class':            '',
-            'button_box_class':             '',
-            'submit_button_class':          '',
-            'cancel_button_class':          '',
-            'clear_button_class':           '',
-            'message_error_class':          '',
-            'message_success_class':        ''
+            fieldset_class:               '',
+            label_class:                  '',
+            input_box_class:              '',
+            input_class:                  '',
+            validation_feedback_class:    '',
+            required_indicator_class:     '',
+            message_box_class:            '',
+            button_box_class:             '',
+            submit_button_class:          '',
+            cancel_button_class:          '',
+            clear_button_class:           '',
+            message_error_class:          '',
+            message_success_class:        ''
         };
 
         this.config  = {
-            'form': _form_config,
-            'form_field': _form_field_config,
-            'form_style': _form_style_config
+            form: _form_config,
+            form_field: _form_field_config,
+            form_style: _form_style_config
         };
-
 
         /**
         * transformConfig
@@ -1076,25 +1094,25 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         var _options_required_keys = ['label', 'value'];
 
         var _fields_defaults = {
-            'text': {
+            text: {
                 type: 'text', required: false
             },
-            'textarea': {
+            textarea: {
                 type: 'textarea', required: false
             },
-            'currency': {
+            currency: {
                 type: 'currency', symbol: '$', required: false
             },
-            'password': {
+            password: {
                 type: 'password', required: false
             },
-            'checkbox': {
+            checkbox: {
                 type: 'checkbox', required: false
             },
-            'select': {
+            select: {
                 type: 'select', options: [], required: false
             },
-            'multi-select': {
+            multi_select: {
                 type: 'select', options: [], size: 4, required: false
             }
         };
@@ -1187,7 +1205,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             return result;
         };
 
-
         //----------------------------------
         // private
         //----------------------------------
@@ -1200,7 +1217,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          * @param config
          * @param model
          */
-        var transformField = function(item, key, config, model) {
+        var transformField = function(item, key, config) {//, model) {
 
             var result = {};
 
@@ -1241,7 +1258,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 result.label = transformLabel(key, config.label_camelcase, config.label_replace_underscores);
             }
             result.name = key;
-            result.model = model;
+            result.model = _.has(item, 'model') ? item.model : null;
             result.validate = false;
 
             return result;
@@ -1277,7 +1294,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         'MESSAGE_INVALID_OPTIONS_OBJECT'
     ];
 
-
     angular.module('AngularDynamicForm')
         .service('AngularDynamicForm.transformers.FieldTransformer', Service);
 
@@ -1293,24 +1309,20 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     var DynamicFormFieldsetCtrl = function($scope) {
 
         /**
-         * onChange
+         * onBlur
          */
-        this.onChange = function() {
-
-            // custom change handler
-            if (!_.isUndefined($scope.onChange)) {
-                $scope.onChange();
+        this.onBlur = function() {
+            if (!_.isUndefined($scope.onBlur)) {
+                $scope.onBlur();
             }
         };
 
         /**
-         * onBlur
+         * onChange
          */
-        this.onBlur = function() {
-
-            // custom change handler
-            if (!_.isUndefined($scope.onBlur)) {
-                $scope.onBlur();
+        this.onChange = function() {
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange();
             }
         };
     };

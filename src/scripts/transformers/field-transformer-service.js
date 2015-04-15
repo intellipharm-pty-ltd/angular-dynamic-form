@@ -15,25 +15,25 @@
         var _options_required_keys = ['label', 'value'];
 
         var _fields_defaults = {
-            'text': {
+            text: {
                 type: 'text', required: false
             },
-            'textarea': {
+            textarea: {
                 type: 'textarea', required: false
             },
-            'currency': {
+            currency: {
                 type: 'currency', symbol: '$', required: false
             },
-            'password': {
+            password: {
                 type: 'password', required: false
             },
-            'checkbox': {
+            checkbox: {
                 type: 'checkbox', required: false
             },
-            'select': {
+            select: {
                 type: 'select', options: [], required: false
             },
-            'multi-select': {
+            multi_select: {
                 type: 'select', options: [], size: 4, required: false
             }
         };
@@ -126,7 +126,6 @@
             return result;
         };
 
-
         //----------------------------------
         // private
         //----------------------------------
@@ -139,7 +138,7 @@
          * @param config
          * @param model
          */
-        var transformField = function(item, key, config, model) {
+        var transformField = function(item, key, config) {//, model) {
 
             var result = {};
 
@@ -180,7 +179,7 @@
                 result.label = transformLabel(key, config.label_camelcase, config.label_replace_underscores);
             }
             result.name = key;
-            result.model = model;
+            result.model = _.has(item, 'model') ? item.model : null;
             result.validate = false;
 
             return result;
@@ -215,7 +214,6 @@
         'MESSAGE_INVALID_OPTIONS_ARRAY',
         'MESSAGE_INVALID_OPTIONS_OBJECT'
     ];
-
 
     angular.module('AngularDynamicForm')
         .service('AngularDynamicForm.transformers.FieldTransformer', Service);

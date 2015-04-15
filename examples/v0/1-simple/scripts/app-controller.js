@@ -156,7 +156,7 @@
             },
             colours: {
                 label: 'Colours',
-                type: 'multi-select',
+                type: 'multi_select',
                 options: [
                     {label: 'Blue', value: 'blue'},
                     {label: 'Red', value: 'red'}

@@ -106,7 +106,7 @@
             },
             morecolours: {
                 label: 'More Colours',
-                type: 'multi-select',
+                type: 'multi_select',
                 size: 20,
                 options: [
                     {label: 'Blue', value: 'blue'},

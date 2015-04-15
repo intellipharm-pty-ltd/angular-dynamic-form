@@ -57,8 +57,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                               style-config=\"form_style_config\"\n" +
     "                               errors=\"errors[field.name]\"\n" +
     "                               show-validation=\"errors[field.name]\"\n" +
-    "                               on-change=\"onChange()\"\n" +
-    "                               on-blur=\"onBlur()\"></dynamic-form-fieldset>\n" +
+    "                               on-change=\"ctrl.onFieldChange()\"\n" +
+    "                               on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>\n" +
     "\n" +
     "    </div>\n" +
     "</div>"
@@ -76,8 +76,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       style-config=\"form_style_config\"\n" +
     "                       errors=\"errors[field.name]\"\n" +
     "                       show-validation=\"errors[field.name]\"\n" +
-    "                       on-change=\"onChange()\"\n" +
-    "                       on-blur=\"onBlur()\"></dynamic-form-fieldset>"
+    "                       on-change=\"ctrl.onFieldChange()\"\n" +
+    "                       on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>"
   );
 
 
@@ -135,8 +135,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   );
 
 
-  $templateCache.put('angular-dynamic-form/views/inputs/multi-select.html',
-    "<!-- multi-select -->\n" +
+  $templateCache.put('angular-dynamic-form/views/inputs/multi_select.html',
+    "<!-- multi_select -->\n" +
     "<select class=\"form-control\"\n" +
     "        ng-model=\"model[field.name]\" multiple size=\"{{field.type.size}}\" ng-options=\"option.value as option.label for option in field.options\"\n" +
     "        ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +

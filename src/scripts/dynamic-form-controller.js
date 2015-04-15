@@ -14,7 +14,6 @@
         $scope.show_buttons = false;
 
         var dont_clear_fields = ['model'];
-        var inited = false;
 
         // defaults
         this.default_submit_steps = [
@@ -26,12 +25,21 @@
         $scope.message        = {};
         $scope.message_state  = {success: false, error: false};
 
-
         /////////////////////////////////////////////////////
         //
         // handlers
         //
         /////////////////////////////////////////////////////
+
+        /**
+         * onCancel
+         */
+        this.onCancel = function() {
+
+            if (!_.isUndefined($scope.onCancel)) {
+                $scope.onCancel('');
+            }
+        };
 
         /**
          * onClear
@@ -53,12 +61,29 @@
         };
 
         /**
-         * onCancel
+         * onFieldBlur
          */
-        this.onCancel = function() {
+        this.onFieldBlur = function() {
 
-            if (!_.isUndefined($scope.onCancel)) {
-                $scope.onCancel('');
+            // custom blur handler
+            if (!_.isUndefined($scope.onBlur)) {
+                $scope.onBlur();
+            }
+        };
+
+        /**
+         * onFieldChange
+         */
+        this.onFieldChange = function() {
+
+            // custom change handler
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange();
+            }
+
+            // show button on change
+            if ($scope.form_config.show_buttons_on_change) {
+                $scope.show_buttons = true;
             }
         };
 
@@ -124,7 +149,6 @@
             );
         };
 
-
         /////////////////////////////////////////////////////
         //
         // init
@@ -163,12 +187,21 @@
             }
         };
 
-
         /////////////////////////////////////////////////////
         //
         // messaging
         //
         /////////////////////////////////////////////////////
+
+        /**
+         * hideMessage
+         */
+        this.hideMessage = function() {
+            $scope.message = {};
+            _.forEach($scope.message_state, function (item) {
+                item = false;
+            });
+        };
 
         /**
          * showMessage
@@ -182,17 +215,6 @@
             $scope.message_state[type] = true;
         };
 
-        /**
-         * hideMessage
-         */
-        this.hideMessage = function() {
-            $scope.message = {};
-            _.forEach($scope.message_state, function (item) {
-                item = false;
-            });
-        };
-
-
         /////////////////////////////////////////////////////
         //
         // watchers
@@ -203,28 +225,18 @@
         // model
         //-----------------------------------
 
-        var unWatchModel = $scope.$watch('model', function(model, old_model) {
+        var unWatchModel = $scope.$watch('model', function(model) {
             if (!_.isUndefined(model)) {
-                if (!inited) {
-                    self.init();
-                    inited = true;
-                }
-
-                if (!$scope.form_config.show_buttons_on_change) {
-                    unWatchModel();
-                } else if (!_.isUndefined(old_model) && (model !== old_model)) {
-                    $scope.show_buttons = true;
-                    unWatchModel();
-                }
+                self.init();
+                unWatchModel();
             }
         }, true);
 
-
-        /////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////
         //
-        // Events
+        // events
         //
-        /////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////
 
         //-----------------------------------
         // submit (force submit)
@@ -245,7 +257,6 @@
             //    $scope.submitted = false;
             //}
         });
-
     };
 
     DynamicFormCtrl.$inject = [

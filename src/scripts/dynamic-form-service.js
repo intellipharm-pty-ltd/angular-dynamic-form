@@ -1,18 +1,22 @@
 (function() {
     'use strict';
 
-
+    //----------------------------------
+    // Dynamic Form Service
     // TODO: remove once done, no longer using
+    //----------------------------------
 
     var DynamicFormService = function() {
 
         var self = this;
 
-        //------------------------------
-        // validateAllFields
-        // @return errors array
-        //------------------------------
-
+        /**
+         * validateAllFields
+         *
+         * @param model
+         * @param validation_rules
+         * @returns {{errors: {}, is_valid: boolean}}
+         */
         this.validateAllFields = function(model, validation_rules) {
 
             var are_all_valid = true;
@@ -52,11 +56,13 @@
             return {errors: errors, is_valid: are_all_valid};
         };
 
-        //------------------------------
-        // validateField
-        // @return errors
-        //------------------------------
-
+        /**
+         * validateField
+         *
+         * @param model
+         * @param key
+         * @returns {Array}
+         */
         this.validateField = function(model, key) {
             var errors = [];
             model.clearErrors(); // clear errors (so that we know the errors we retrieve after validation are for this instance)

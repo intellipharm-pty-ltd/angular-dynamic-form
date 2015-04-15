@@ -4,14 +4,14 @@
 
 The build steps to releasing a new version. Before you can do this you need to to make sure the node packages are up to date - ``` npm update ```
 
-  * Make sure all tests pass - ``` grunt test ```
+  * Make sure all tests pass - ``` karma start ``` or ``` grunt test ```
   * Commit and push all changes with a meaningful message
   * Update version in bower.json and package.json
   * Build the dist folder -  ``` grunt build ```
   * Commit and push with the message "Bumping to v\*.\*.\*"
-  * [Create a new release](https://github.com/Intellipharm/angular-cakephp/releases/new)
+  * [Create a new release](https://github.com/Intellipharm/angular-dynamic-form/releases/new)
     * Tag version is v\*.\*.\*
-    * Release title is "Angular CakePHP v\*.\*.\*"
+    * Release title is "Angular Dynamic Form v\*.\*.\*"
     * The comment section should be a list of commits and the changes the commit made. See below for an example
     * If it is under v1.0.0 then mark "This is a pre-release" as true
 

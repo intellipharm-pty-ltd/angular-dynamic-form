@@ -120,7 +120,7 @@
         //             model[key] = Util.formatTimeForMySQL(model[key]);
         //             }*/
         //
-        //            if (item.type === 'multi-select' && _.has(item, 'format') && item.format === 'map') {
+        //            if (item.type === 'multi_select' && _.has(item, 'format') && item.format === 'map') {
         //                Util.formatMultiSelectForMySQL(item, model, key);
         //            }
         //

@@ -8,24 +8,20 @@
     var DynamicFormFieldsetCtrl = function($scope) {
 
         /**
-         * onChange
+         * onBlur
          */
-        this.onChange = function() {
-
-            // custom change handler
-            if (!_.isUndefined($scope.onChange)) {
-                $scope.onChange();
+        this.onBlur = function() {
+            if (!_.isUndefined($scope.onBlur)) {
+                $scope.onBlur();
             }
         };
 
         /**
-         * onBlur
+         * onChange
          */
-        this.onBlur = function() {
-
-            // custom change handler
-            if (!_.isUndefined($scope.onBlur)) {
-                $scope.onBlur();
+        this.onChange = function() {
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange();
             }
         };
     };
