@@ -2,3 +2,6 @@
 <input type="checkbox"
        ng-model="model[field.name]"
        ng-change="ctrl.onChange()" ng-disabled="model.form_field_config[field.name].disabled">
+
+<label ng-if="field.right_label !== '' && config.show_right_labels" for="{{field.name}}"
+       class="{{style_config.right_label_class}}">{{field.right_label}}</label>

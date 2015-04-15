@@ -2,7 +2,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   'use strict';
 
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
-    "<div class=\"{{style_config.fieldset_class}}\" ng-class=\"{\n" +
+    "<div class=\"dynamic-form-fieldset {{style_config.fieldset_class}}\" ng-class=\"{\n" +
     "    'has-feedback': config.has_validation_feedback,\n" +
     "    'has-success': errors.length === 0 && show_validation,\n" +
     "    'has-error': errors.length > 0 && show_validation,\n" +
@@ -25,7 +25,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "              'glyphicon-remove': errors.length > 0 && show_validation\n" +
     "              }\"></span>\n" +
     "\n" +
-    "\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- indicators -->\n" +
@@ -34,7 +33,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    </div>\n" +
     "\n" +
     "    <div ng-show=\"errors.length > 0 && show_validation\"\n" +
-    "         class=\"{{style_config.message_box_class}}\">{{errors[0]}}</div>\n" +
+    "         class=\"{{style_config.field_message_error_class}}\">{{errors[0]}}</div>\n" +
     "\n" +
     "</div>"
   );
@@ -49,8 +48,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <div class=\"panel-heading\">{{group[0].group_label}}</div>\n" +
     "    <div class=\"panel-body\">\n" +
     "\n" +
-    "        <dynamic-form-fieldset class=\"dynamic-form-fieldset\"\n" +
-    "                               ng-repeat=\"field in group\"\n" +
+    "        <dynamic-form-fieldset ng-repeat=\"field in group\"\n" +
     "                               field=\"field\"\n" +
     "                               model=\"model\"\n" +
     "                               config=\"form_field_config\"\n" +
@@ -67,8 +65,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
   $templateCache.put('angular-dynamic-form/views/dynamic-form-no-groups.html',
     "<!-- no form groups -->\n" +
-    "<dynamic-form-fieldset class=\"dynamic-form-fieldset\"\n" +
-    "                       ng-if=\"!has_groups\"\n" +
+    "<dynamic-form-fieldset ng-if=\"!has_groups\"\n" +
     "                       ng-repeat=\"field in fields_array\"\n" +
     "                       field=\"field\"\n" +
     "                       model=\"model\"\n" +
@@ -106,11 +103,11 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                ng-click=\"ctrl.onSubmit()\">{{form_config.submit_button_label}}</button>\n" +
     "\n" +
     "        <button ng-show=\"form_config.show_cancel_button\" type=\"button\"\n" +
-    "                class=\"{{form_style_config.submit_cancel_class}}\"\n" +
+    "                class=\"{{form_style_config.cancel_button_class}}\"\n" +
     "                ng-click=\"ctrl.onCancel()\">{{form_config.cancel_button_label}}</button>\n" +
     "\n" +
     "        <button ng-show=\"form_config.show_clear_button\" type=\"button\"\n" +
-    "                class=\"{{form_style_config.submit_clear_class}}\"\n" +
+    "                class=\"{{form_style_config.clear_button_class}}\"\n" +
     "                ng-click=\"ctrl.onClear()\">{{form_config.clear_button_label}}</button>\n" +
     "    </div>\n" +
     "</form><!-- /form -->"
@@ -121,7 +118,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<!-- checkbox -->\n" +
     "<input type=\"checkbox\"\n" +
     "       ng-model=\"model[field.name]\"\n" +
-    "       ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\">\n"
+    "       ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\">\n" +
+    "\n" +
+    "<label ng-if=\"field.right_label !== '' && config.show_right_labels\" for=\"{{field.name}}\"\n" +
+    "       class=\"{{style_config.right_label_class}}\">{{field.right_label}}</label>"
   );
 
 

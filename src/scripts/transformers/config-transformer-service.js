@@ -34,6 +34,7 @@
             has_messages:                 true,
             has_groups:                   true,
             show_labels:                  true,
+            show_right_labels:            true,
             has_validation_feedback:      true,
             has_required_indicator:       true
         };
@@ -41,6 +42,7 @@
         var _form_style_config = {
             fieldset_class:               '',
             label_class:                  '',
+            right_label_class:            '',
             input_box_class:              '',
             input_class:                  '',
             validation_feedback_class:    '',
@@ -51,6 +53,7 @@
             cancel_button_class:          '',
             clear_button_class:           '',
             message_error_class:          '',
+            field_message_error_class:    '',
             message_success_class:        ''
         };
 

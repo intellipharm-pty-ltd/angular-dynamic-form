@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-14 14:12:05
+ * 2015-04-15 10:43:07
  *
  */
 (function() {
@@ -350,9 +350,9 @@
             },
             controller: 'DynamicFormCtrl as ctrl',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
-            link: function(scope, element) {
+            link: function(scope) {//, element) {
 
-                element.addClass('dynamic-form');
+                //element.addClass('dynamic-form');
 
                 // set form template
                 if (!_.isUndefined(scope.groups_config)) {
@@ -849,6 +849,7 @@
             has_messages:                 true,
             has_groups:                   true,
             show_labels:                  true,
+            show_right_labels:            true,
             has_validation_feedback:      true,
             has_required_indicator:       true
         };
@@ -856,6 +857,7 @@
         var _form_style_config = {
             fieldset_class:               '',
             label_class:                  '',
+            right_label_class:            '',
             input_box_class:              '',
             input_class:                  '',
             validation_feedback_class:    '',
@@ -866,6 +868,7 @@
             cancel_button_class:          '',
             clear_button_class:           '',
             message_error_class:          '',
+            field_message_error_class:    '',
             message_success_class:        ''
         };
 
@@ -1172,10 +1175,10 @@
             },
             controller: 'DynamicFormFieldsetCtrl as ctrl',
             replace: true,
-            link: function(scope, element) {
+            link: function(scope) {//}, element) {
 
                 // add class
-                element.addClass('dynamic-form-fieldset');
+                //element.addClass('dynamic-form-fieldset');
 
                 // set input view template
                 scope.input_view_template = 'angular-dynamic-form/views/inputs/' + scope.field.type + '.html';

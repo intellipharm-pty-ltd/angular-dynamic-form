@@ -1,4 +1,4 @@
-<div class="{{style_config.fieldset_class}}" ng-class="{
+<div class="dynamic-form-fieldset {{style_config.fieldset_class}}" ng-class="{
     'has-feedback': config.has_validation_feedback,
     'has-success': errors.length === 0 && show_validation,
     'has-error': errors.length > 0 && show_validation,
@@ -21,7 +21,6 @@
               'glyphicon-remove': errors.length > 0 && show_validation
               }"></span>
 
-
     </div>
 
     <!-- indicators -->
@@ -30,6 +29,6 @@
     </div>
 
     <div ng-show="errors.length > 0 && show_validation"
-         class="{{style_config.message_box_class}}">{{errors[0]}}</div>
+         class="{{style_config.field_message_error_class}}">{{errors[0]}}</div>
 
 </div>

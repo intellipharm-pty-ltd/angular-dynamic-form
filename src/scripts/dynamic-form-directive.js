@@ -22,9 +22,9 @@
             },
             controller: 'DynamicFormCtrl as ctrl',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
-            link: function(scope, element) {
+            link: function(scope) {//, element) {
 
-                element.addClass('dynamic-form');
+                //element.addClass('dynamic-form');
 
                 // set form template
                 if (!_.isUndefined(scope.groups_config)) {

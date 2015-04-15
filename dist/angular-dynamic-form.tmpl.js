@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-14 14:12:05
+ * 2015-04-15 10:43:07
  *
  */
 (function() {
@@ -23,7 +23,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   'use strict';
 
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
-    "<div class=\"{{style_config.fieldset_class}}\" ng-class=\"{\n" +
+    "<div class=\"dynamic-form-fieldset {{style_config.fieldset_class}}\" ng-class=\"{\n" +
     "    'has-feedback': config.has_validation_feedback,\n" +
     "    'has-success': errors.length === 0 && show_validation,\n" +
     "    'has-error': errors.length > 0 && show_validation,\n" +
@@ -46,7 +46,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "              'glyphicon-remove': errors.length > 0 && show_validation\n" +
     "              }\"></span>\n" +
     "\n" +
-    "\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- indicators -->\n" +
@@ -55,7 +54,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    </div>\n" +
     "\n" +
     "    <div ng-show=\"errors.length > 0 && show_validation\"\n" +
-    "         class=\"{{style_config.message_box_class}}\">{{errors[0]}}</div>\n" +
+    "         class=\"{{style_config.field_message_error_class}}\">{{errors[0]}}</div>\n" +
     "\n" +
     "</div>"
   );
@@ -70,8 +69,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <div class=\"panel-heading\">{{group[0].group_label}}</div>\n" +
     "    <div class=\"panel-body\">\n" +
     "\n" +
-    "        <dynamic-form-fieldset class=\"dynamic-form-fieldset\"\n" +
-    "                               ng-repeat=\"field in group\"\n" +
+    "        <dynamic-form-fieldset ng-repeat=\"field in group\"\n" +
     "                               field=\"field\"\n" +
     "                               model=\"model\"\n" +
     "                               config=\"form_field_config\"\n" +
@@ -88,8 +86,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
   $templateCache.put('angular-dynamic-form/views/dynamic-form-no-groups.html',
     "<!-- no form groups -->\n" +
-    "<dynamic-form-fieldset class=\"dynamic-form-fieldset\"\n" +
-    "                       ng-if=\"!has_groups\"\n" +
+    "<dynamic-form-fieldset ng-if=\"!has_groups\"\n" +
     "                       ng-repeat=\"field in fields_array\"\n" +
     "                       field=\"field\"\n" +
     "                       model=\"model\"\n" +
@@ -127,11 +124,11 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                ng-click=\"ctrl.onSubmit()\">{{form_config.submit_button_label}}</button>\n" +
     "\n" +
     "        <button ng-show=\"form_config.show_cancel_button\" type=\"button\"\n" +
-    "                class=\"{{form_style_config.submit_cancel_class}}\"\n" +
+    "                class=\"{{form_style_config.cancel_button_class}}\"\n" +
     "                ng-click=\"ctrl.onCancel()\">{{form_config.cancel_button_label}}</button>\n" +
     "\n" +
     "        <button ng-show=\"form_config.show_clear_button\" type=\"button\"\n" +
-    "                class=\"{{form_style_config.submit_clear_class}}\"\n" +
+    "                class=\"{{form_style_config.clear_button_class}}\"\n" +
     "                ng-click=\"ctrl.onClear()\">{{form_config.clear_button_label}}</button>\n" +
     "    </div>\n" +
     "</form><!-- /form -->"
@@ -142,7 +139,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<!-- checkbox -->\n" +
     "<input type=\"checkbox\"\n" +
     "       ng-model=\"model[field.name]\"\n" +
-    "       ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\">\n"
+    "       ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\">\n" +
+    "\n" +
+    "<label ng-if=\"field.right_label !== '' && config.show_right_labels\" for=\"{{field.name}}\"\n" +
+    "       class=\"{{style_config.right_label_class}}\">{{field.right_label}}</label>"
   );
 
 
@@ -528,9 +528,9 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             },
             controller: 'DynamicFormCtrl as ctrl',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
-            link: function(scope, element) {
+            link: function(scope) {//, element) {
 
-                element.addClass('dynamic-form');
+                //element.addClass('dynamic-form');
 
                 // set form template
                 if (!_.isUndefined(scope.groups_config)) {
@@ -1027,6 +1027,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             has_messages:                 true,
             has_groups:                   true,
             show_labels:                  true,
+            show_right_labels:            true,
             has_validation_feedback:      true,
             has_required_indicator:       true
         };
@@ -1034,6 +1035,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         var _form_style_config = {
             fieldset_class:               '',
             label_class:                  '',
+            right_label_class:            '',
             input_box_class:              '',
             input_class:                  '',
             validation_feedback_class:    '',
@@ -1044,6 +1046,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             cancel_button_class:          '',
             clear_button_class:           '',
             message_error_class:          '',
+            field_message_error_class:    '',
             message_success_class:        ''
         };
 
@@ -1350,10 +1353,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             },
             controller: 'DynamicFormFieldsetCtrl as ctrl',
             replace: true,
-            link: function(scope, element) {
+            link: function(scope) {//}, element) {
 
                 // add class
-                element.addClass('dynamic-form-fieldset');
+                //element.addClass('dynamic-form-fieldset');
 
                 // set input view template
                 scope.input_view_template = 'angular-dynamic-form/views/inputs/' + scope.field.type + '.html';

@@ -16,10 +16,10 @@
             },
             controller: 'DynamicFormFieldsetCtrl as ctrl',
             replace: true,
-            link: function(scope, element) {
+            link: function(scope) {//}, element) {
 
                 // add class
-                element.addClass('dynamic-form-fieldset');
+                //element.addClass('dynamic-form-fieldset');
 
                 // set input view template
                 scope.input_view_template = 'angular-dynamic-form/views/inputs/' + scope.field.type + '.html';
