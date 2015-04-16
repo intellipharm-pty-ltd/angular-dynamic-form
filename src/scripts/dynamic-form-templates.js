@@ -144,6 +144,13 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   );
 
 
+  $templateCache.put('angular-dynamic-form/views/inputs/number.html',
+    "<!-- text -->\n" +
+    "<input type=\"number\" id=\"{{field.name}}\" class=\"{{style_config.input_class}}\" placeholder=\"{{field.label}}\"\n" +
+    "       ng-model=\"model[field.name]\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
+  );
+
+
   $templateCache.put('angular-dynamic-form/views/inputs/password.html',
     "<!-- password -->\n" +
     "<input type=\"password\" id=\"{{field.name}}\" class=\"form-control\" placeholder=\"{{field.label}}\"\n" +
