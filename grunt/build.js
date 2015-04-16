@@ -7,6 +7,7 @@ module.exports = function(grunt) {
         'jscs:lib',
         'jscs:tests',
         'jscs:grunt',
+        'karma:build',
         'clean:dist',
         'ngtemplates:dist',
         'concat:dist',
