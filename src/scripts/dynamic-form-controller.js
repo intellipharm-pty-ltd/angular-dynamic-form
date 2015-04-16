@@ -228,9 +228,18 @@
         var unWatchModel = $scope.$watch('model', function(model) {
             if (!_.isUndefined(model)) {
                 self.init();
+
+                $scope.$watch('fields', function(fields) {
+                    if (!_.isUndefined(fields)) {
+                        self.init();
+                    }
+                }, true);
+
                 unWatchModel();
             }
         }, true);
+
+
 
         /////////////////////////////////////////////////////
         //
