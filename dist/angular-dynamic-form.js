@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.4
+ * angular-dynamic-form v0.1.5
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-15 14:48:04
+ * 2015-04-16 10:20:51
  *
  */
 (function() {
@@ -281,6 +281,13 @@
         var unWatchModel = $scope.$watch('model', function(model) {
             if (!_.isUndefined(model)) {
                 self.init();
+
+                $scope.$watch('fields', function(fields) {
+                    if (!_.isUndefined(fields)) {
+                        self.init();
+                    }
+                }, true);
+
                 unWatchModel();
             }
         }, true);
