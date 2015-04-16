@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.5
+ * angular-dynamic-form v0.1.6
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-16 10:20:51
+ * 2015-04-16 10:35:10
  *
  */
 (function() {
@@ -162,6 +162,13 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        ng-model=\"model[field.name]\" multiple size=\"{{field.type.size}}\" ng-options=\"option.value as option.label for option in field.options\"\n" +
     "        ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +
     "</select>"
+  );
+
+
+  $templateCache.put('angular-dynamic-form/views/inputs/number.html',
+    "<!-- text -->\n" +
+    "<input type=\"number\" id=\"{{field.name}}\" class=\"{{style_config.input_class}}\" placeholder=\"{{field.label}}\"\n" +
+    "       ng-model=\"model[field.name]\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
   );
 
 
