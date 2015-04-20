@@ -33,7 +33,7 @@ module.exports = {
         ]
     },
     tests: {
-        src: '<%= config.tests %>/scripts/**/*.js'
+        src: '<%= config.tests %>/**/*.js'
     },
     grunt: {
         src: [

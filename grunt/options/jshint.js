@@ -22,7 +22,7 @@ module.exports = {
         '!<%= config.src %>/scripts/dynamic-form-templates.js'
     ],
     tests: [
-        '<%= config.tests %>/scripts/**/*.js'
+        '<%= config.tests %>/**/*.js'
     ],
     grunt: [
         'Gruntfile.js',

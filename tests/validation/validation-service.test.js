@@ -39,7 +39,7 @@ describe("validation.ValidationService", function() {
         it("should call ExternalCallService.callExternalMethod with model.validate", function () {
 
             var model = {
-                validate: function(fields) {}
+                validate: function() {}
             };
             var config = {};
 

@@ -1,7 +1,7 @@
 describe("helpers.SubmitService", function() {
 
-	var Service;
-	var $q, $rootScope;
+    var Service;
+    var $q, $rootScope;
     var MESSAGE_EXTERNAL_METHOD_ERROR,
         MESSAGE_EXTERNAL_METHOD_INVALID_RETURN,
         MESSAGE_INVALID_STEP,
@@ -10,7 +10,7 @@ describe("helpers.SubmitService", function() {
     var ExternalCallServiceMock;
 
     // load module
-	beforeEach(function() {
+    beforeEach(function() {
         module('AngularDynamicForm');
     });
 
@@ -24,20 +24,20 @@ describe("helpers.SubmitService", function() {
         });
     });
 
-	// inject services (that we want to test)
-	beforeEach(inject(function($injector) {
+    // inject services (that we want to test)
+    beforeEach(inject(function($injector) {
 
-		Service = $injector.get('AngularDynamicForm.helpers.SubmitService');
+        Service = $injector.get('AngularDynamicForm.helpers.SubmitService');
 
-		$q = $injector.get('$q');
-		$rootScope = $injector.get('$rootScope');
+        $q = $injector.get('$q');
+        $rootScope = $injector.get('$rootScope');
 
         MESSAGE_EXTERNAL_METHOD_ERROR           = $injector.get('MESSAGE_EXTERNAL_METHOD_ERROR');
         MESSAGE_EXTERNAL_METHOD_INVALID_RETURN  = $injector.get('MESSAGE_EXTERNAL_METHOD_INVALID_RETURN');
         MESSAGE_INVALID_STEP                    = $injector.get('MESSAGE_INVALID_STEP');
         MESSAGE_UNRECOGNISED_STEP_NAME          = $injector.get('MESSAGE_UNRECOGNISED_STEP_NAME');
         MESSAGE_INVALID_CONFIG                  = $injector.get('MESSAGE_INVALID_CONFIG');
-	}));
+    }));
 
     //--------------------------------------------
     // handleSubmitSteps
@@ -71,7 +71,6 @@ describe("helpers.SubmitService", function() {
     //        expect(Service.handleSubmitStep.calls.count()).toEqual(2);
     //    });
     //});
-
 
     //--------------------------------------------
     // handleSubmitStep

@@ -1,26 +1,26 @@
 describe("helpers.ExternalCallService", function() {
 
-	var Service;
-	var $q, $rootScope;
+    var Service;
+    var $q, $rootScope;
     var MESSAGE_EXTERNAL_METHOD_ERROR,
         MESSAGE_EXTERNAL_METHOD_INVALID_RETURN;
 
     // load module
-	beforeEach(function() {
+    beforeEach(function() {
         module('AngularDynamicForm');
     });
 
-	// inject services (that we want to test)
-	beforeEach(inject(function($injector) {
+    // inject services (that we want to test)
+    beforeEach(inject(function($injector) {
 
-		Service = $injector.get('AngularDynamicForm.helpers.ExternalCallService');
+        Service = $injector.get('AngularDynamicForm.helpers.ExternalCallService');
 
-		$q = $injector.get('$q');
-		$rootScope = $injector.get('$rootScope');
+        $q = $injector.get('$q');
+        $rootScope = $injector.get('$rootScope');
 
         MESSAGE_EXTERNAL_METHOD_ERROR             = $injector.get('MESSAGE_EXTERNAL_METHOD_ERROR');
         MESSAGE_EXTERNAL_METHOD_INVALID_RETURN    = $injector.get('MESSAGE_EXTERNAL_METHOD_INVALID_RETURN');
-	}));
+    }));
 
     //--------------------------------------------
     // callExternalMethod
@@ -31,12 +31,12 @@ describe("helpers.ExternalCallService", function() {
         it("should call method", function() {
 
             var MockClass = {
-                'mockMethod': function() {}
+                mockMethod: function() {}
             };
 
             spyOn(MockClass, 'mockMethod').and.returnValue(true);
 
-			Service.callExternalMethod(MockClass.mockMethod);
+            Service.callExternalMethod(MockClass.mockMethod);
 
             expect(MockClass.mockMethod).toHaveBeenCalled();
         });
@@ -44,12 +44,12 @@ describe("helpers.ExternalCallService", function() {
         it("should call method with provided args", function() {
 
             var MockClass = {
-                'mockMethod': function() {}
+                mockMethod: function() {}
             };
 
             spyOn(MockClass, 'mockMethod').and.returnValue(true);
 
-			Service.callExternalMethod(MockClass.mockMethod, ["A"]);
+            Service.callExternalMethod(MockClass.mockMethod, ["A"]);
 
             expect(MockClass.mockMethod).toHaveBeenCalledWith(["A"]);
         });
@@ -57,7 +57,7 @@ describe("helpers.ExternalCallService", function() {
         it("should throw an Error if method throws an error", function() {
 
             var MockClass = {
-                'mockMethod': function() {}
+                mockMethod: function() {}
             };
 
             spyOn(MockClass, 'mockMethod').and.throwError("");
@@ -68,7 +68,7 @@ describe("helpers.ExternalCallService", function() {
         it("should throw an Error if method does not return", function() {
 
             var MockClass = {
-                'mockMethod': function() {}
+                mockMethod: function() {}
             };
 
             spyOn(MockClass, 'mockMethod');
@@ -79,7 +79,7 @@ describe("helpers.ExternalCallService", function() {
         it("should throw an Error if method returns neither boolean nor promise", function() {
 
             var MockClass = {
-                'mockMethod': function() {}
+                mockMethod: function() {}
             };
 
             spyOn(MockClass, 'mockMethod').and.returnValue("adsadsa");
@@ -90,11 +90,11 @@ describe("helpers.ExternalCallService", function() {
         it("should resolve if successful", function() {
 
             var MockClass = {
-                'mockMethod': function() {}
+                mockMethod: function() {}
             };
 
             spyOn(MockClass, 'mockMethod').and.returnValue({
-                then: function(resolve, reject) {
+                then: function(resolve) {
                     resolve("my response");
                 }
             });
@@ -114,7 +114,7 @@ describe("helpers.ExternalCallService", function() {
         it("should reject on failure", function() {
 
             var MockClass = {
-                'mockMethod': function() {}
+                mockMethod: function() {}
             };
 
             spyOn(MockClass, 'mockMethod').and.returnValue({
@@ -137,7 +137,7 @@ describe("helpers.ExternalCallService", function() {
         it("should resolve if method returns true", function() {
 
             var MockClass = {
-                'mockMethod': function() {}
+                mockMethod: function() {}
             };
 
             spyOn(MockClass, 'mockMethod').and.returnValue(true);
@@ -156,7 +156,7 @@ describe("helpers.ExternalCallService", function() {
         it("should reject if method returns false", function() {
 
             var MockClass = {
-                'mockMethod': function() {}
+                mockMethod: function() {}
             };
 
             spyOn(MockClass, 'mockMethod').and.returnValue(false);
