@@ -149,8 +149,8 @@
             // set message to form config message or response message
             args.message = !_.isNull(form_config[form_config_message_key]) ? form_config[form_config_message_key] : response.message;
 
-            // errors
-            args.errors = _.has(response, 'data') ? response.data : {};
+            // data
+            args.data = _.has(response, 'data') ? response.data : {};
 
             // send update
             if (!_.isNull(handlers.submit_update)) {

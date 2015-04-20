@@ -120,7 +120,7 @@
                 function(response) {
 
                     // set errors
-                    $scope.errors = response.errors;
+                    $scope.errors = response.data;
 
                     // show message
                     self.showMessage(response.message_state, response.message);
@@ -130,15 +130,15 @@
 
                         case 'validate':
                             if (response.message_state === 'success') {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.valid);
+                                $scope.$emit(DYNAMIC_FORM_EVENTS.valid, response);
                             } else {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.invalid);
+                                $scope.$emit(DYNAMIC_FORM_EVENTS.invalid, response);
                             }
                             break;
 
                         case 'save':
                             if (response.message_state === 'success') {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveSucccess);
+                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveSucccess, response);
                             } else {
                                 $scope.$emit(DYNAMIC_FORM_EVENTS.saveError, response);
                             }
