@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.6
+ * angular-dynamic-form v0.1.7
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-17 09:24:23
+ * 2015-04-20 16:08:26
  *
  */
 (function() {
@@ -358,7 +358,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 function(response) {
 
                     // set errors
-                    $scope.errors = response.errors;
+                    $scope.errors = response.data;
 
                     // show message
                     self.showMessage(response.message_state, response.message);
@@ -368,15 +368,15 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
                         case 'validate':
                             if (response.message_state === 'success') {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.valid);
+                                $scope.$emit(DYNAMIC_FORM_EVENTS.valid, response);
                             } else {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.invalid);
+                                $scope.$emit(DYNAMIC_FORM_EVENTS.invalid, response);
                             }
                             break;
 
                         case 'save':
                             if (response.message_state === 'success') {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveSucccess);
+                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveSucccess, response);
                             } else {
                                 $scope.$emit(DYNAMIC_FORM_EVENTS.saveError, response);
                             }
@@ -716,8 +716,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             // set message to form config message or response message
             args.message = !_.isNull(form_config[form_config_message_key]) ? form_config[form_config_message_key] : response.message;
 
-            // errors
-            args.errors = _.has(response, 'data') ? response.data : {};
+            // data
+            args.data = _.has(response, 'data') ? response.data : {};
 
             // send update
             if (!_.isNull(handlers.submit_update)) {
