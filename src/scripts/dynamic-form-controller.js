@@ -235,6 +235,12 @@
                     }
                 }, true);
 
+                $scope.$watch('groups_config', function(groups_config) {
+                    if (!_.isUndefined(groups_config)) {
+                        self.init();
+                    }
+                }, true);
+
                 unWatchModel();
             }
         }, true);
