@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.8
+ * angular-dynamic-form v0.1.9
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-04-27 14:00:17
+ * 2015-05-04 09:03:32
  *
  */
 (function() {
@@ -231,6 +231,7 @@
 
             // auto submit
             if ($scope.form_config.auto_submit) {
+                $scope.form_config.auto_submit = false;
                 this.onSubmit();
             }
 
