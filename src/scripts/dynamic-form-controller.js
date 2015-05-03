@@ -178,6 +178,7 @@
 
             // auto submit
             if ($scope.form_config.auto_submit) {
+                $scope.form_config.auto_submit = false;
                 this.onSubmit();
             }
 
