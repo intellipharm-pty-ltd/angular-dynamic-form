@@ -100,17 +100,23 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <div class=\"{{form_style_config.button_box_class}}\" ng-show=\"show_buttons\">\n" +
     "        <button ng-show=\"form_config.show_submit_button\" type=\"submit\"\n" +
     "                class=\"{{form_style_config.submit_button_class}}\"\n" +
-    "                ng-click=\"ctrl.onSubmit()\">{{form_config.submit_button_label}}</button>\n" +
+    "                ng-click=\"ctrl.onSubmit()\"\n" +
+    "                ng-disabled=\"is_submitting\">\n" +
+    "                {{form_config.submit_button_label}}\n" +
+    "                <i class=\"{{form_style_config.is_submitting_icon}}\" ng-show=\"is_submitting && form_style_config.is_submitting_icon\"></i>\n" +
+    "        </button>\n" +
     "\n" +
     "        <button ng-show=\"form_config.show_cancel_button\" type=\"button\"\n" +
     "                class=\"{{form_style_config.cancel_button_class}}\"\n" +
-    "                ng-click=\"ctrl.onCancel()\">{{form_config.cancel_button_label}}</button>\n" +
+    "                ng-click=\"ctrl.onCancel()\"\n" +
+    "                ng-disabled=\"is_submitting\">{{form_config.cancel_button_label}}</button>\n" +
     "\n" +
     "        <button ng-show=\"form_config.show_clear_button\" type=\"button\"\n" +
     "                class=\"{{form_style_config.clear_button_class}}\"\n" +
-    "                ng-click=\"ctrl.onClear()\">{{form_config.clear_button_label}}</button>\n" +
+    "                ng-click=\"ctrl.onClear()\"\n" +
+    "                ng-disabled=\"is_submitting\">{{form_config.clear_button_label}}</button>\n" +
     "    </div>\n" +
-    "</form><!-- /form -->"
+    "</form><!-- /form -->\n"
   );
 
 

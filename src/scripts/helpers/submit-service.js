@@ -64,10 +64,7 @@
             // step is out of range
             if (step >= steps.length) {
 
-                // call complete handler
-                if (!_.isNull(handlers.submit_complete)) {
-                    handlers.submit_complete(response);
-                }
+                sendComplete(handlers, response);
                 return;
             }
 
@@ -110,8 +107,17 @@
 
                     // send update
                     sendUpdate('error', response, step, steps, form_config, handlers);
+
+                    sendComplete(handlers, response);
                 }
             );
+        };
+
+        var sendComplete = function(handlers, response) {
+            // call complete handler
+            if (!_.isNull(handlers.submit_complete)) {
+                handlers.submit_complete(response);
+            }
         };
 
         /**
