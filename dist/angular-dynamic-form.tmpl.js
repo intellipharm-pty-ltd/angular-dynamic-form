@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.9
+ * angular-dynamic-form v0.1.10
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-05-04 09:03:32
+ * 2015-05-04 14:42:43
  *
  */
 (function() {
@@ -121,17 +121,23 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <div class=\"{{form_style_config.button_box_class}}\" ng-show=\"show_buttons\">\n" +
     "        <button ng-show=\"form_config.show_submit_button\" type=\"submit\"\n" +
     "                class=\"{{form_style_config.submit_button_class}}\"\n" +
-    "                ng-click=\"ctrl.onSubmit()\">{{form_config.submit_button_label}}</button>\n" +
+    "                ng-click=\"ctrl.onSubmit()\"\n" +
+    "                ng-disabled=\"is_submitting\">\n" +
+    "                {{form_config.submit_button_label}}\n" +
+    "                <i class=\"{{form_style_config.is_submitting_icon}}\" ng-show=\"is_submitting && form_style_config.is_submitting_icon\"></i>\n" +
+    "        </button>\n" +
     "\n" +
     "        <button ng-show=\"form_config.show_cancel_button\" type=\"button\"\n" +
     "                class=\"{{form_style_config.cancel_button_class}}\"\n" +
-    "                ng-click=\"ctrl.onCancel()\">{{form_config.cancel_button_label}}</button>\n" +
+    "                ng-click=\"ctrl.onCancel()\"\n" +
+    "                ng-disabled=\"is_submitting\">{{form_config.cancel_button_label}}</button>\n" +
     "\n" +
     "        <button ng-show=\"form_config.show_clear_button\" type=\"button\"\n" +
     "                class=\"{{form_style_config.clear_button_class}}\"\n" +
-    "                ng-click=\"ctrl.onClear()\">{{form_config.clear_button_label}}</button>\n" +
+    "                ng-click=\"ctrl.onClear()\"\n" +
+    "                ng-disabled=\"is_submitting\">{{form_config.clear_button_label}}</button>\n" +
     "    </div>\n" +
-    "</form><!-- /form -->"
+    "</form><!-- /form -->\n"
   );
 
 
@@ -248,8 +254,9 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         var self = this;
 
         // control
+        $scope.is_submitting = $scope.form_config.auto_submit;
         $scope.submit_step = null;
-        $scope.show_buttons = false;
+        $scope.show_buttons = $scope.is_submitting;
 
         var dont_clear_fields = ['model'];
 
@@ -333,6 +340,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             // get submit steps
             var submit_steps = !_.isUndefined($scope.submit_steps) ? $scope.submit_steps : this.default_submit_steps;
 
+            $scope.is_submitting = true;
+
             // call submit service
             SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
 
@@ -343,6 +352,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                     if (!_.isUndefined($scope.onSubmitComplete)) {
                         $scope.onSubmitComplete(response);
                     }
+                    $scope.is_submitting = false;
                 },
 
                 // error
@@ -361,7 +371,9 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                     $scope.errors = response.data;
 
                     // show message
-                    self.showMessage(response.message_state, response.message);
+                    if (!_.isUndefined(response.message)) {
+                        self.showMessage(response.message_state, response.message);
+                    }
 
                     // emit event (if recognised step)
                     switch (response.step) {
@@ -638,10 +650,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             // step is out of range
             if (step >= steps.length) {
 
-                // call complete handler
-                if (!_.isNull(handlers.submit_complete)) {
-                    handlers.submit_complete(response);
-                }
+                sendComplete(handlers, response);
                 return;
             }
 
@@ -684,8 +693,17 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
                     // send update
                     sendUpdate('error', response, step, steps, form_config, handlers);
+
+                    sendComplete(handlers, response);
                 }
             );
+        };
+
+        var sendComplete = function(handlers, response) {
+            // call complete handler
+            if (!_.isNull(handlers.submit_complete)) {
+                handlers.submit_complete(response);
+            }
         };
 
         /**

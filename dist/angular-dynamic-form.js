@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.9
+ * angular-dynamic-form v0.1.10
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-05-04 09:03:32
+ * 2015-05-04 14:42:43
  *
  */
 (function() {
@@ -63,8 +63,9 @@
         var self = this;
 
         // control
+        $scope.is_submitting = $scope.form_config.auto_submit;
         $scope.submit_step = null;
-        $scope.show_buttons = false;
+        $scope.show_buttons = $scope.is_submitting;
 
         var dont_clear_fields = ['model'];
 
@@ -148,6 +149,8 @@
             // get submit steps
             var submit_steps = !_.isUndefined($scope.submit_steps) ? $scope.submit_steps : this.default_submit_steps;
 
+            $scope.is_submitting = true;
+
             // call submit service
             SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
 
@@ -158,6 +161,7 @@
                     if (!_.isUndefined($scope.onSubmitComplete)) {
                         $scope.onSubmitComplete(response);
                     }
+                    $scope.is_submitting = false;
                 },
 
                 // error
@@ -176,7 +180,9 @@
                     $scope.errors = response.data;
 
                     // show message
-                    self.showMessage(response.message_state, response.message);
+                    if (!_.isUndefined(response.message)) {
+                        self.showMessage(response.message_state, response.message);
+                    }
 
                     // emit event (if recognised step)
                     switch (response.step) {
@@ -453,10 +459,7 @@
             // step is out of range
             if (step >= steps.length) {
 
-                // call complete handler
-                if (!_.isNull(handlers.submit_complete)) {
-                    handlers.submit_complete(response);
-                }
+                sendComplete(handlers, response);
                 return;
             }
 
@@ -499,8 +502,17 @@
 
                     // send update
                     sendUpdate('error', response, step, steps, form_config, handlers);
+
+                    sendComplete(handlers, response);
                 }
             );
+        };
+
+        var sendComplete = function(handlers, response) {
+            // call complete handler
+            if (!_.isNull(handlers.submit_complete)) {
+                handlers.submit_complete(response);
+            }
         };
 
         /**
