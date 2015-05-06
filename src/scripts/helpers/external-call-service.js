@@ -37,6 +37,7 @@
                     // TODO: end
 
                 } catch (error) {
+                    console.log(error);
                     throw new Error(MESSAGE_EXTERNAL_METHOD_ERROR);
                 }
 
@@ -68,6 +69,7 @@
 
                         // unknown error
                         else {
+                            console.log(error);
                             throw new Error(MESSAGE_EXTERNAL_METHOD_ERROR);
                         }
                     }
