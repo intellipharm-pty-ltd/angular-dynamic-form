@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.10
+ * angular-dynamic-form v0.1.11
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-05-04 14:42:43
+ * 2015-05-06 15:40:54
  *
  */
 (function() {
@@ -716,6 +716,7 @@
                     // TODO: end
 
                 } catch (error) {
+                    console.log(error);
                     throw new Error(MESSAGE_EXTERNAL_METHOD_ERROR);
                 }
 
@@ -747,6 +748,7 @@
 
                         // unknown error
                         else {
+                            console.log(error);
                             throw new Error(MESSAGE_EXTERNAL_METHOD_ERROR);
                         }
                     }
