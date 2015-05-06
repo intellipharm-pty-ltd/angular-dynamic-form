@@ -15,6 +15,7 @@
                 dist: 'dist',
                 src: 'src',
                 tests: 'tests',
+                coverage: 'coverage',
                 grunt: 'grunt',
                 pkg: grunt.file.readJSON('package.json')
             }};
@@ -23,7 +24,6 @@
             grunt.loadTasks('grunt');
 
             // loads task options in the 'grunt/options' folder
-            //console.log(grunt.util._.extend(gruntConfig, gruntLoadConfig('./grunt/options/', grunt)));
             grunt.initConfig(grunt.util._.extend(gruntConfig, gruntLoadConfig('./grunt/options/', grunt)));
         }
     };

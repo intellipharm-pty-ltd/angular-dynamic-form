@@ -1,4 +1,4 @@
-describe("helpers.ExternalCallService", function() {
+describe('helpers.ExternalCallService', function() {
 
     var Service;
     var $q, $rootScope;
@@ -26,9 +26,9 @@ describe("helpers.ExternalCallService", function() {
     // callExternalMethod
     //--------------------------------------------
 
-    describe("callExternalMethod", function() {
+    describe('callExternalMethod', function() {
 
-        it("should call method", function() {
+        it('should call method', function() {
 
             var MockClass = {
                 mockMethod: function() {}
@@ -41,7 +41,7 @@ describe("helpers.ExternalCallService", function() {
             expect(MockClass.mockMethod).toHaveBeenCalled();
         });
 
-        it("should call method with provided args", function() {
+        it('should call method with provided args', function() {
 
             var MockClass = {
                 mockMethod: function() {}
@@ -49,23 +49,23 @@ describe("helpers.ExternalCallService", function() {
 
             spyOn(MockClass, 'mockMethod').and.returnValue(true);
 
-            Service.callExternalMethod(MockClass.mockMethod, ["A"]);
+            Service.callExternalMethod(MockClass.mockMethod, ['A']);
 
-            expect(MockClass.mockMethod).toHaveBeenCalledWith(["A"]);
+            expect(MockClass.mockMethod).toHaveBeenCalledWith(['A']);
         });
 
-        it("should throw an Error if method throws an error", function() {
+        it('should throw an Error if method throws an error', function() {
 
             var MockClass = {
                 mockMethod: function() {}
             };
 
-            spyOn(MockClass, 'mockMethod').and.throwError("");
+            spyOn(MockClass, 'mockMethod').and.throwError('');
 
             expect(function() { Service.callExternalMethod(MockClass.mockMethod); }).toThrowError(MESSAGE_EXTERNAL_METHOD_ERROR);
         });
 
-        it("should throw an Error if method does not return", function() {
+        it('should throw an Error if method does not return', function() {
 
             var MockClass = {
                 mockMethod: function() {}
@@ -76,18 +76,18 @@ describe("helpers.ExternalCallService", function() {
             expect(function() { Service.callExternalMethod(MockClass.mockMethod); }).toThrowError(MESSAGE_EXTERNAL_METHOD_INVALID_RETURN);
         });
 
-        it("should throw an Error if method returns neither boolean nor promise", function() {
+        it('should throw an Error if method returns neither boolean nor promise', function() {
 
             var MockClass = {
                 mockMethod: function() {}
             };
 
-            spyOn(MockClass, 'mockMethod').and.returnValue("adsadsa");
+            spyOn(MockClass, 'mockMethod').and.returnValue('adsadsa');
 
             expect(function() { Service.callExternalMethod(MockClass.mockMethod); }).toThrowError(MESSAGE_EXTERNAL_METHOD_INVALID_RETURN);
         });
 
-        it("should resolve if successful", function() {
+        it('should resolve if successful', function() {
 
             var MockClass = {
                 mockMethod: function() {}
@@ -95,7 +95,7 @@ describe("helpers.ExternalCallService", function() {
 
             spyOn(MockClass, 'mockMethod').and.returnValue({
                 then: function(resolve) {
-                    resolve("my response");
+                    resolve('my response');
                 }
             });
 
@@ -107,11 +107,11 @@ describe("helpers.ExternalCallService", function() {
 
             $rootScope.$apply();
 
-            expect(result).toBe("my response");
+            expect(result).toBe('my response');
 
         });
 
-        it("should reject on failure", function() {
+        it('should reject on failure', function() {
 
             var MockClass = {
                 mockMethod: function() {}
@@ -119,7 +119,7 @@ describe("helpers.ExternalCallService", function() {
 
             spyOn(MockClass, 'mockMethod').and.returnValue({
                 then: function(resolve, reject) {
-                    reject("my response");
+                    reject('my response');
                 }
             });
 
@@ -131,10 +131,10 @@ describe("helpers.ExternalCallService", function() {
 
             $rootScope.$apply();
 
-            expect(result).toBe("my response");
+            expect(result).toBe('my response');
         });
 
-        it("should resolve if method returns true", function() {
+        it('should resolve if method returns true', function() {
 
             var MockClass = {
                 mockMethod: function() {}
@@ -153,7 +153,7 @@ describe("helpers.ExternalCallService", function() {
             expect(result).toBe(null);
         });
 
-        it("should reject if method returns false", function() {
+        it('should reject if method returns false', function() {
 
             var MockClass = {
                 mockMethod: function() {}

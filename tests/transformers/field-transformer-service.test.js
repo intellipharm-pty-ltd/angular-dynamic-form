@@ -1,4 +1,4 @@
-describe("transformers.FieldTransformer", function() {
+describe('transformers.FieldTransformer', function() {
 
     var Service;
     var $q, $rootScope;
@@ -30,24 +30,24 @@ describe("transformers.FieldTransformer", function() {
     // transformFields
     //--------------------------------------------
 
-    describe("transformGroupFields", function() {
+    describe('transformGroupFields', function() {
 
-        it("should return an array", function () {
+        it('should return an array', function () {
 
             var data = [
                 {
-                    name: "name",
-                    label: "Name",
-                    type: "text"
+                    name: 'name',
+                    label: 'Name',
+                    type: 'text'
                 }
             ];
             var config = {
                 group1: {
                     order: 1,
-                    label: "Group One",
+                    label: 'Group One',
                     fields: [
-                        "name",
-                        "number"
+                        'name',
+                        'number'
                     ]
                 }
             };
@@ -57,77 +57,77 @@ describe("transformers.FieldTransformer", function() {
             expect(_.isArray(result)).toBeTruthy();
         });
 
-        it("should add group_label, group_order & order to each item", function () {
+        it('should add group_label, group_order & order to each item', function () {
 
             var data = [
                 {
-                    name: "name",
-                    label: "Name",
-                    type: "text"
+                    name: 'name',
+                    label: 'Name',
+                    type: 'text'
                 }, {
-                    name: "number",
-                    label: "Number",
-                    type: "text"
+                    name: 'number',
+                    label: 'Number',
+                    type: 'text'
                 }
             ];
             var config = {
                 group1: {
                     order: 1,
-                    label: "Group One",
+                    label: 'Group One',
                     fields: [
-                        "name",
-                        "number"
+                        'name',
+                        'number'
                     ]
                 }
             };
 
             var result = Service.transformGroupFields(data, config);
 
-            expect(result[0].group_label).toBe("Group One");
+            expect(result[0].group_label).toBe('Group One');
             expect(result[0].group_order).toBe(1);
             expect(result[0].order).toBe(0);
             expect(result[1].order).toBe(1);
         });
 
-        it("should sort groups by group's order", function () {
+        it('should sort groups by group\'s order', function () {
 
             var data = [
                 {
-                    name: "number",
-                    label: "Number",
-                    type: "text"
+                    name: 'number',
+                    label: 'Number',
+                    type: 'text'
                 }, {
-                    name: "name",
-                    label: "Name",
-                    type: "text"
+                    name: 'name',
+                    label: 'Name',
+                    type: 'text'
                 }, {
-                    name: "date",
-                    label: "Date",
-                    type: "text"
+                    name: 'date',
+                    label: 'Date',
+                    type: 'text'
                 }
             ];
             var config = {
                 group1: {
                     order: 2,
-                    label: "Group One",
+                    label: 'Group One',
                     fields: [
-                        "name",
-                        "number"
+                        'name',
+                        'number'
                     ]
                 },
                 group2: {
                     order: 1,
-                    label: "Group Two",
+                    label: 'Group Two',
                     fields: [
-                        "date"
+                        'date'
                     ]
                 }
             };
 
             var result = Service.transformGroupFields(data, config);
 
-            expect(result[0].group_label).toBe("Group Two");
-            expect(result[1].group_label).toBe("Group One");
+            expect(result[0].group_label).toBe('Group Two');
+            expect(result[1].group_label).toBe('Group One');
         });
     });
 
@@ -135,13 +135,13 @@ describe("transformers.FieldTransformer", function() {
     // transformFields
     //--------------------------------------------
 
-    describe("transformFields", function() {
+    describe('transformFields', function() {
 
-        it("should return an array", function () {
+        it('should return an array', function () {
 
             var data = {
                 name: {
-                    type: "text"
+                    type: 'text'
                 }
             };
             var config = {
@@ -154,11 +154,11 @@ describe("transformers.FieldTransformer", function() {
             expect(_.isArray(result)).toBeTruthy();
         });
 
-        it("should throw an Error if label_camelcase is missing from config", function () {
+        it('should throw an Error if label_camelcase is missing from config', function () {
 
             var data = {
                 name: {
-                    type: "text"
+                    type: 'text'
                 }
             };
             var config = {
@@ -171,11 +171,11 @@ describe("transformers.FieldTransformer", function() {
             }).toThrowError(MESSAGE_INVALID_CONFIG);
         });
 
-        it("should throw an Error if label_replace_underscores is missing from config", function () {
+        it('should throw an Error if label_replace_underscores is missing from config', function () {
 
             var data = {
                 name: {
-                    type: "text"
+                    type: 'text'
                 }
             };
             var config = {
@@ -188,11 +188,11 @@ describe("transformers.FieldTransformer", function() {
             }).toThrowError(MESSAGE_INVALID_CONFIG);
         });
 
-        it("should add label, name, model & validate to each item", function () {
+        it('should add label, name, model & validate to each item', function () {
 
             var data = {
                 first_name: {
-                    type: "text"
+                    type: 'text'
                 }
             };
             var config = {
@@ -200,19 +200,19 @@ describe("transformers.FieldTransformer", function() {
                 label_replace_underscores: true
             };
 
-            var result = Service.transformFields(data, config, {first_name: "AAAA"});
+            var result = Service.transformFields(data, config, {first_name: 'AAAA'});
 
             expect(result[0].name).toBe('first_name');
             expect(result[0].label).toBe('First Name');
             expect(result[0].validate).toBe(false);
-            // expect(result[0].model).toBe("AAAA"); // TODO - why doesn't this work?
+            // expect(result[0].model).toBe('AAAA'); // TODO - why doesn't this work?
         });
 
-        it("should throw an Error if fields item does not contain type", function () {
+        it('should throw an Error if fields item does not contain type', function () {
 
             var data = {
                 name: {
-                    //type: "text"
+                    //type: 'text'
                 }
             };
             var config = {
@@ -225,11 +225,11 @@ describe("transformers.FieldTransformer", function() {
             }).toThrowError(MESSAGE_INVALID_FIELDS_OBJECT);
         });
 
-        it("should allow custom field types so long as they contain a type", function () {
+        it('should allow custom field types so long as they contain a type', function () {
 
             var data = {
                 name: {
-                    type: "unknown"
+                    type: 'unknown'
                 }
             };
             var config = {
@@ -242,12 +242,12 @@ describe("transformers.FieldTransformer", function() {
             expect(result.length).toBe(1);
         });
 
-        it("should include custom field's povided properites", function () {
+        it('should include custom field\'s povided properites', function () {
 
             var data = {
                 name: {
-                    type: "unknown",
-                    special: "I AM SPECIAL"
+                    type: 'unknown',
+                    special: 'I AM SPECIAL'
                 }
             };
             var config = {
@@ -260,11 +260,11 @@ describe("transformers.FieldTransformer", function() {
             expect(_.has(result[0], 'special')).toBeTruthy();
         });
 
-        it("should add default field properties for recognised field types", function () {
+        it('should add default field properties for recognised field types', function () {
 
             var data = {
                 name: {
-                    type: "select"
+                    type: 'select'
                 }
             };
             var config = {
@@ -279,14 +279,14 @@ describe("transformers.FieldTransformer", function() {
             expect(result[0].required).toBeFalsy();
         });
 
-        it("should overwrite default field properties with provided values", function () {
+        it('should overwrite default field properties with provided values', function () {
 
             var data = {
                 name: {
-                    type: "select",
+                    type: 'select',
                     required: true,
                     options: [
-                        {label: "a", value: "A"}
+                        {label: 'a', value: 'A'}
                     ]
                 }
             };
@@ -302,12 +302,12 @@ describe("transformers.FieldTransformer", function() {
             expect(result[0].required).toBeTruthy();
         });
 
-        it("should throw an Error if options property is not an array", function () {
+        it('should throw an Error if options property is not an array', function () {
 
             var data = {
                 name: {
-                    type: "select",
-                    options: "my options",
+                    type: 'select',
+                    options: 'my options',
                 }
             };
             var config = {
@@ -320,15 +320,15 @@ describe("transformers.FieldTransformer", function() {
             }).toThrowError(MESSAGE_INVALID_OPTIONS_ARRAY);
         });
 
-        it("should throw an Error if an option property does not contain a label property", function () {
+        it('should throw an Error if an option property does not contain a label property', function () {
 
             var data = {
                 name: {
-                    type: "select",
+                    type: 'select',
                     options: [
                         {
-                            //label: "a",
-                            value: "A"
+                            //label: 'a',
+                            value: 'A'
                         }
                     ]
                 }
@@ -343,15 +343,15 @@ describe("transformers.FieldTransformer", function() {
             }).toThrowError(MESSAGE_INVALID_OPTIONS_OBJECT);
         });
 
-        it("should throw an Error if an option property does not contain a value property", function () {
+        it('should throw an Error if an option property does not contain a value property', function () {
 
             var data = {
                 name: {
-                    type: "select",
+                    type: 'select',
                     options: [
                         {
-                            label: "a"
-                            //value: "A"
+                            label: 'a'
+                            //value: 'A'
                         }
                     ]
                 }

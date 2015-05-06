@@ -1,4 +1,4 @@
-describe("transformers.ConfigTransformer", function() {
+describe('transformers.ConfigTransformer', function() {
 
     var Service;
     var $q, $rootScope;
@@ -24,9 +24,9 @@ describe("transformers.ConfigTransformer", function() {
     // transformConfig
     //--------------------------------------------
 
-    describe("transformConfig", function() {
+    describe('transformConfig', function() {
 
-        it("should throw an Error if config name is not recognised", function () {
+        it('should throw an Error if config name is not recognised', function () {
 
             var config = {};
 
@@ -35,7 +35,7 @@ describe("transformers.ConfigTransformer", function() {
             }).toThrowError(MESSAGE_UNRECOGNISED_CONFIG_NAME);
         });
 
-        it("should add default field properties for recognised config (form)", function () {
+        it('should add default field properties for recognised config (form)', function () {
 
             var config = {
                 label_camelcase: true
@@ -47,7 +47,7 @@ describe("transformers.ConfigTransformer", function() {
             expect(!_.isUndefined(result.label_replace_underscores)).toBeTruthy();
         });
 
-        it("should add default field properties for recognised config (form_field)", function () {
+        it('should add default field properties for recognised config (form_field)', function () {
 
             var config = {
                 has_messages: true
@@ -59,10 +59,10 @@ describe("transformers.ConfigTransformer", function() {
             expect(!_.isUndefined(result.has_groups)).toBeTruthy();
         });
 
-        it("should add default field properties for recognised config (form_style)", function () {
+        it('should add default field properties for recognised config (form_style)', function () {
 
             var config = {
-                fieldset_class: "ASASASA"
+                fieldset_class: 'ASASASA'
             };
 
             var result = Service.transformConfig('form_style', config);

@@ -1,4 +1,4 @@
-describe("helpers.SubmitService", function() {
+describe('helpers.SubmitService', function() {
 
     var Service;
     var $q, $rootScope;
@@ -43,9 +43,9 @@ describe("helpers.SubmitService", function() {
     // handleSubmitSteps
     //--------------------------------------------
 
-    //describe("handleSubmitSteps", function() {
+    //describe('handleSubmitSteps', function() {
     //
-    //    it("should call Service.handleSubmitStep for each step in array", function () {
+    //    it('should call Service.handleSubmitStep for each step in array', function () {
     //
     //        var MockClass = {
     //            'mockMethod': function() {},
@@ -76,23 +76,23 @@ describe("helpers.SubmitService", function() {
     // handleSubmitStep
     //--------------------------------------------
 
-    describe("handleSubmitStep", function() {
+    describe('handleSubmitStep', function() {
 
-        it("should throw an Error if step is neither function nor string (number)", function () {
+        it('should throw an Error if step is neither function nor string (number)', function () {
 
             expect(function () {
                 Service.handleSubmitStep(0, 123);
             }).toThrowError(MESSAGE_INVALID_STEP);
         });
 
-        it("should throw an Error if step is neither function nor string (boolean)", function () {
+        it('should throw an Error if step is neither function nor string (boolean)', function () {
 
             expect(function () {
                 Service.handleSubmitStep(0, true);
             }).toThrowError(MESSAGE_INVALID_STEP);
         });
 
-        it("should call ExternalCallService.callExternalMethod with step if step is function", function () {
+        it('should call ExternalCallService.callExternalMethod with step if step is function', function () {
 
             var steps = [
                 function() {}
@@ -105,10 +105,10 @@ describe("helpers.SubmitService", function() {
             expect(ExternalCallServiceMock.callExternalMethod).toHaveBeenCalledWith(steps[0], undefined);
         });
 
-        it("should call Service.handleSubmitStepInternalMethod if step is string", function () {
+        it('should call Service.handleSubmitStepInternalMethod if step is string', function () {
 
             var steps = [
-                "internal_method"
+                'internal_method'
             ];
 
             spyOn(Service, 'handleSubmitStepInternalMethod').and.returnValue({then: function() {}});
@@ -123,9 +123,9 @@ describe("helpers.SubmitService", function() {
     // handleSubmitStepInternalMethod
     //--------------------------------------------
 
-    describe("handleSubmitStepInternalMethod", function() {
+    describe('handleSubmitStepInternalMethod', function() {
 
-        it("should throw an Error if step name is not recognised", function() {
+        it('should throw an Error if step name is not recognised', function() {
 
             var steps = [
                 'unknown'
@@ -134,7 +134,7 @@ describe("helpers.SubmitService", function() {
             expect(function() { Service.handleSubmitStepInternalMethod(0, steps); }).toThrowError(MESSAGE_UNRECOGNISED_STEP_NAME);
         });
 
-        it("should call Service.internal_methods.validate", function() {
+        it('should call Service.internal_methods.validate', function() {
 
             var steps = [
                 'validate'
@@ -149,7 +149,7 @@ describe("helpers.SubmitService", function() {
             expect(Service.internal_methods.validate).toHaveBeenCalled();
         });
 
-        //it("should call custom step method", function() {
+        //it('should call custom step method', function() {
         //
         //    var MockClass = {
         //        'mockMethod': function() {}

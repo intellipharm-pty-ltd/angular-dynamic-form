@@ -1,4 +1,4 @@
-describe("validation.ValidationService", function() {
+describe('validation.ValidationService', function() {
 
     var Service;
     var $q, $rootScope;
@@ -34,9 +34,9 @@ describe("validation.ValidationService", function() {
     // validate
     //--------------------------------------------
 
-    describe("validate", function() {
+    describe('validate', function() {
 
-        it("should call ExternalCallService.callExternalMethod with model.validate", function () {
+        it('should call ExternalCallService.callExternalMethod with model.validate', function () {
 
             var model = {
                 validate: function() {}
