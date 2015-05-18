@@ -25,10 +25,6 @@
                 if (_.isUndefined($templateCache.get($scope.input_view_template))) {
                     $scope.input_view_template = AngularDynamicFormCustomInputViewUrl + $scope.field.type + '.html';
                 }
-
-                $scope.$watch('value', function() {
-                    console.log($scope.value);
-                });
             },
             templateUrl: 'angular-dynamic-form/views/dynamic-form-fieldset.html'
         };
