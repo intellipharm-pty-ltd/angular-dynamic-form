@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.11
+ * angular-dynamic-form v0.2.0
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-05-06 15:40:54
+ * 2015-05-18 13:27:42
  *
  */
 (function() {
@@ -144,11 +144,11 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/inputs/checkbox.html',
     "<!-- checkbox -->\n" +
     "<input type=\"checkbox\"\n" +
-    "       ng-model=\"model[field.name]\"\n" +
+    "       ng-model=\"$parent.value\"\n" +
     "       ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\">\n" +
     "\n" +
     "<label ng-if=\"field.right_label !== '' && config.show_right_labels\" for=\"{{field.name}}\"\n" +
-    "       class=\"{{style_config.right_label_class}}\">{{field.right_label}}</label>"
+    "       class=\"{{style_config.right_label_class}}\">{{field.right_label}}</label>\n"
   );
 
 
@@ -157,55 +157,55 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<div class=\"input-group\">\n" +
     "    <div class=\"input-group-addon\">{{field.symbol}}</div>\n" +
     "    <input type=\"text\" id=\"{{field.name}}\" class=\"form-control\" placeholder=\"{{field.label}}\"\n" +
-    "           ng-model=\"model[field.name]\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +
-    "</div>"
+    "           ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +
+    "</div>\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/multi_select.html',
     "<!-- multi_select -->\n" +
     "<select class=\"form-control\"\n" +
-    "        ng-model=\"model[field.name]\" multiple size=\"{{field.type.size}}\" ng-options=\"option.value as option.label for option in field.options\"\n" +
+    "        ng-model=\"$parent.value\" multiple size=\"{{field.type.size}}\" ng-options=\"option.value as option.label for option in field.options\"\n" +
     "        ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +
-    "</select>"
+    "</select>\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/number.html',
     "<!-- text -->\n" +
     "<input type=\"number\" id=\"{{field.name}}\" class=\"{{style_config.input_class}}\" placeholder=\"{{field.label}}\"\n" +
-    "       ng-model=\"model[field.name]\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
+    "       ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/password.html',
     "<!-- password -->\n" +
     "<input type=\"password\" id=\"{{field.name}}\" class=\"form-control\" placeholder=\"{{field.label}}\"\n" +
-    "           ng-model=\"model[field.name]\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
+    "           ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/select.html',
     "<!-- select -->\n" +
     "<select class=\"form-control\"\n" +
-    "        ng-model=\"model[field.name]\" ng-options=\"option.value as option.label for option in field.options\"\n" +
+    "        ng-model=\"$parent.value\" ng-options=\"option.value as option.label for option in field.options\"\n" +
     "        ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +
     "    <option value=\"\" disabled>Please select</option>\n" +
-    "</select>"
+    "</select>\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/text.html',
     "<!-- text -->\n" +
     "<input type=\"text\" id=\"{{field.name}}\" class=\"{{style_config.input_class}}\" placeholder=\"{{field.label}}\"\n" +
-    "       ng-model=\"model[field.name]\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
+    "       ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/textarea.html',
     "<!-- textarea -->\n" +
     "<textarea id=\"{{field.name}}\" class=\"form-control\" placeholder=\"{{field.label}}\"\n" +
-    "          ng-model=\"model[field.name]\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\"></textarea>\n"
+    "          ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\"></textarea>\n"
   );
 
 }]);
@@ -1369,6 +1369,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             if (!_.isUndefined($scope.onChange)) {
                 $scope.onChange();
             }
+
+            _.set($scope.model, $scope.field.name, $scope.value);
         };
     };
 
@@ -1395,17 +1397,19 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             },
             controller: 'DynamicFormFieldsetCtrl as ctrl',
             replace: true,
-            link: function(scope) {//}, element) {
-
-                // add class
-                //element.addClass('dynamic-form-fieldset');
+            link: function($scope) {
+                $scope.value = _.pluck([$scope.model], $scope.field.name)[0];
 
                 // set input view template
-                scope.input_view_template = 'angular-dynamic-form/views/inputs/' + scope.field.type + '.html';
+                $scope.input_view_template = 'angular-dynamic-form/views/inputs/' + $scope.field.type + '.html';
 
-                if (_.isUndefined($templateCache.get(scope.input_view_template))) {
-                    scope.input_view_template = AngularDynamicFormCustomInputViewUrl + scope.field.type + '.html';
+                if (_.isUndefined($templateCache.get($scope.input_view_template))) {
+                    $scope.input_view_template = AngularDynamicFormCustomInputViewUrl + $scope.field.type + '.html';
                 }
+
+                $scope.$watch('value', function() {
+                    console.log($scope.value);
+                });
             },
             templateUrl: 'angular-dynamic-form/views/dynamic-form-fieldset.html'
         };

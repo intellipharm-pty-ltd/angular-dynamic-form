@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.1.11
+ * angular-dynamic-form v0.2.0
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-05-06 15:40:54
+ * 2015-05-18 13:27:42
  *
  */
 (function() {
@@ -1178,6 +1178,8 @@
             if (!_.isUndefined($scope.onChange)) {
                 $scope.onChange();
             }
+
+            _.set($scope.model, $scope.field.name, $scope.value);
         };
     };
 
@@ -1204,17 +1206,19 @@
             },
             controller: 'DynamicFormFieldsetCtrl as ctrl',
             replace: true,
-            link: function(scope) {//}, element) {
-
-                // add class
-                //element.addClass('dynamic-form-fieldset');
+            link: function($scope) {
+                $scope.value = _.pluck([$scope.model], $scope.field.name)[0];
 
                 // set input view template
-                scope.input_view_template = 'angular-dynamic-form/views/inputs/' + scope.field.type + '.html';
+                $scope.input_view_template = 'angular-dynamic-form/views/inputs/' + $scope.field.type + '.html';
 
-                if (_.isUndefined($templateCache.get(scope.input_view_template))) {
-                    scope.input_view_template = AngularDynamicFormCustomInputViewUrl + scope.field.type + '.html';
+                if (_.isUndefined($templateCache.get($scope.input_view_template))) {
+                    $scope.input_view_template = AngularDynamicFormCustomInputViewUrl + $scope.field.type + '.html';
                 }
+
+                $scope.$watch('value', function() {
+                    console.log($scope.value);
+                });
             },
             templateUrl: 'angular-dynamic-form/views/dynamic-form-fieldset.html'
         };
