@@ -23,6 +23,8 @@
             if (!_.isUndefined($scope.onChange)) {
                 $scope.onChange();
             }
+
+            _.set($scope.model, $scope.field.name, $scope.value);
         };
     };
 
