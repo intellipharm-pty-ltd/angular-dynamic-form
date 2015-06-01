@@ -79,7 +79,7 @@
 
             // custom change handler
             if (!_.isUndefined($scope.onChange)) {
-                $scope.onChange();
+                $scope.onChange({model: $scope.model});
             }
 
             // show button on change
