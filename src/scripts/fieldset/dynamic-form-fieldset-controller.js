@@ -24,8 +24,29 @@
                 $scope.onChange();
             }
 
+            if ($scope.field.format === 'map' && $scope.field.type === 'multi_select') {
+                _.forEach($scope.field.options, function(option) {
+                    _.set($scope.model, option.value, _.indexOf($scope.value, option.value) >= 0);
+                });
+            }
+
             _.set($scope.model, $scope.field.name, $scope.value);
         };
+
+        //----------------------------------
+        // init
+        //----------------------------------
+        if ($scope.field.format === 'map' && $scope.field.type === 'multi_select') {
+            $scope.value = [];
+
+            _.forEach($scope.field.options, function(option) {
+                if ($scope.model[option.value]) {
+                    $scope.value.push(option.value);
+                }
+            });
+
+            _.set($scope.model, $scope.field.name, $scope.value);
+        }
     };
 
     DynamicFormFieldsetCtrl.$inject = ['$scope'];
