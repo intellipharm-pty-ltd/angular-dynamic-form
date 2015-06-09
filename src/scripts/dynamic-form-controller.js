@@ -232,23 +232,27 @@
         // model
         //-----------------------------------
 
-        var unWatchModel = $scope.$watch('model', function(model) {
+        var watchFields = null;
+        var watchGroupsConfig = null;
+        var watchModel = $scope.$watch('model', function(model) {
             if (!_.isUndefined(model)) {
                 self.init();
 
-                $scope.$watch('fields', function(fields) {
-                    if (!_.isUndefined(fields)) {
-                        self.init();
-                    }
-                }, true);
+                if (_.isNull(watchFields)) {
+                    watchFields = $scope.$watch('fields', function(fields) {
+                        if (!_.isUndefined(fields)) {
+                            self.init();
+                        }
+                    }, true);
+                }
 
-                $scope.$watch('groups_config', function(groups_config) {
-                    if (!_.isUndefined(groups_config)) {
-                        self.init();
-                    }
-                }, true);
-
-                unWatchModel();
+                if (_.isNull(watchGroupsConfig)) {
+                    watchGroupsConfig = $scope.$watch('groups_config', function(groups_config) {
+                        if (!_.isUndefined(groups_config)) {
+                            self.init();
+                        }
+                    }, true);
+                }
             }
         }, true);
 
