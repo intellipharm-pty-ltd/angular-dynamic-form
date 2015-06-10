@@ -234,7 +234,7 @@
 
         var watchFields = null;
         var watchGroupsConfig = null;
-        var watchModel = $scope.$watch('model', function(model) {
+        $scope.$watch('model', function(model) {
             if (!_.isUndefined(model)) {
                 self.init();
 

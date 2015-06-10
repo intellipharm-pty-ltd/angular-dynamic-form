@@ -55,7 +55,8 @@
             clear_button_class:             '',
             message_error_class:            '',
             field_message_error_class:      '',
-            message_success_class:          ''
+            message_success_class:          '',
+            is_submitting_icon:             ''
         };
 
         this.config  = {

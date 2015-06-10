@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-06-01 15:40:07
+ * 2015-06-11 08:14:04
  *
  */
 (function() {
@@ -285,23 +285,27 @@
         // model
         //-----------------------------------
 
-        var unWatchModel = $scope.$watch('model', function(model) {
+        var watchFields = null;
+        var watchGroupsConfig = null;
+        $scope.$watch('model', function(model) {
             if (!_.isUndefined(model)) {
                 self.init();
 
-                $scope.$watch('fields', function(fields) {
-                    if (!_.isUndefined(fields)) {
-                        self.init();
-                    }
-                }, true);
+                if (_.isNull(watchFields)) {
+                    watchFields = $scope.$watch('fields', function(fields) {
+                        if (!_.isUndefined(fields)) {
+                            self.init();
+                        }
+                    }, true);
+                }
 
-                $scope.$watch('groups_config', function(groups_config) {
-                    if (!_.isUndefined(groups_config)) {
-                        self.init();
-                    }
-                }, true);
-
-                unWatchModel();
+                if (_.isNull(watchGroupsConfig)) {
+                    watchGroupsConfig = $scope.$watch('groups_config', function(groups_config) {
+                        if (!_.isUndefined(groups_config)) {
+                            self.init();
+                        }
+                    }, true);
+                }
             }
         }, true);
 
@@ -898,7 +902,8 @@
             clear_button_class:             '',
             message_error_class:            '',
             field_message_error_class:      '',
-            message_success_class:          ''
+            message_success_class:          '',
+            is_submitting_icon:             ''
         };
 
         this.config  = {
