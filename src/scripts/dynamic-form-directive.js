@@ -18,7 +18,8 @@
                 onClear:            '&',
                 onError:            '&',
                 onChange:           '&',
-                onBlur:             '&'
+                onBlur:             '&',
+                init:               '='
             },
             controller: 'DynamicFormCtrl as ctrl',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',

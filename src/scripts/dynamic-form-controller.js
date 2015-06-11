@@ -15,7 +15,6 @@
         $scope.show_buttons = $scope.is_submitting;
 
         var dont_clear_fields = ['model'];
-        var initialized = false;
 
         // defaults
         this.default_submit_steps = [
@@ -193,30 +192,6 @@
             if (!$scope.form_config.show_buttons_on_change) {
                 $scope.show_buttons = true;
             }
-
-            initialized = true;
-        };
-
-        /**
-         * update
-         * called when model is updated
-         */
-        this.update = function() {
-
-            // transform configs
-            $scope.form_config          = ConfigTransformer.transformConfig('form', $scope.form_config);
-            $scope.form_style_config    = ConfigTransformer.transformConfig('form_style', $scope.form_style_config);
-            $scope.form_field_config    = ConfigTransformer.transformConfig('form_field', $scope.form_field_config);
-
-            // transform fields
-            //$scope.fields_array         = FieldTransformer.transformFields2($scope.fields, $scope.form_config, $scope.model);
-
-            // if groups
-            //if ($scope.has_groups) {
-            //
-            //    // transform group fields
-            //    $scope.grouped_fields_array = FieldTransformer.transformGroupFields($scope.fields_array, $scope.groups_config);
-            //}
         };
 
         /////////////////////////////////////////////////////
@@ -247,6 +222,7 @@
             $scope.message_state[type] = true;
         };
 
+        var watch_for_init;
         /////////////////////////////////////////////////////
         //
         // watchers
@@ -254,32 +230,42 @@
         /////////////////////////////////////////////////////
 
         //-----------------------------------
-        // model
+        // init
         //-----------------------------------
 
-        $scope.$watch('model', function(model) {
-            if (!_.isUndefined(model)) {
+        // we will either use the init or model property trigger initialization
+        var watch_for_init = !_.isUndefined($scope.init) ? 'init' : 'model';
 
-                if (initialized) {
-                    self.update();
-                    return;
-                }
-
+        var initialized = $scope.$watch(watch_for_init, function(val) {
+            if (!_.isUndefined(val) && val) {
                 self.init();
-
-                $scope.$watch('fields', function(fields) {
-                    if (!_.isUndefined(fields)) {
-                        //self.update();
-                    }
-                }, true);
-
-                $scope.$watch('groups_config', function(groups_config) {
-                    if (!_.isUndefined(groups_config)) {
-                        //self.update();
-                    }
-                }, true);
+                initialized(); // destroy watcher
             }
-        }, true);
+        });
+
+        //$scope.$watch('model', function(model) {
+        //    if (!_.isUndefined(model)) {
+        //
+        //        if (initialized) {
+        //            self.update();
+        //            return;
+        //        }
+        //
+        //        self.init();
+        //
+        //        $scope.$watch('fields', function(fields) {
+        //            if (!_.isUndefined(fields)) {
+        //                self.update();
+        //            }
+        //        }, true);
+        //
+        //        $scope.$watch('groups_config', function(groups_config) {
+        //            if (!_.isUndefined(groups_config)) {
+        //                self.update();
+        //            }
+        //        }, true);
+        //    }
+        //}, true);
 
         /////////////////////////////////////////////////////
         //

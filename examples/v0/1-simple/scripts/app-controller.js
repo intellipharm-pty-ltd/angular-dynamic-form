@@ -6,11 +6,14 @@
     // App Controller
     //-------------------------
 
-    var AppController = function ($scope, $q) {
+    var AppController = function ($scope, $timeout, $q) {
 
         var self = this;
 
+        //--------------------------------------------------------
         // model
+        //--------------------------------------------------------
+
         function Person(data) {
 
             this.first_name      = data.first_name;
@@ -40,6 +43,10 @@
             };
         }
 
+        //--------------------------------------------------------
+        // data
+        //--------------------------------------------------------
+
         this.person = new Person({
             'first_name':   "Richard",
             'last_name':    "Branson",
@@ -49,6 +56,13 @@
             'colours':      ['blue']
         });
 
+        //--------------------------------------------------------
+        // config
+        //--------------------------------------------------------
+
+        // this is used to delay form initialization
+        this.form1_init = false;
+
         // submit_steps
         this.submit_steps = [
             function() {
@@ -56,11 +70,6 @@
                 return true;
             }
         ];
-
-        //--------------------------------------------------------
-        // config
-        //--------------------------------------------------------
-
         // form style config
         this.form_style_config = {
             'fieldset_class':               "form-group",
@@ -70,7 +79,7 @@
             'validation_feedback_class':    "form-control-feedback",
             'required_indicator_class':     "col-sm-2",
             'message_box_class':            "col-sm-7 col-sm-push-3 text-left",
-            'submit_button_class':          "btn btn-submit btn-block",
+            'submit_button_clasi':          "btn btn-submit btn-block",
             'cancel_button_class':          "btn btn-default btn-block",
             'clear_button_class':           "btn btn-warning btn-block",
             'message_error_class':          "alert alert-danger",
@@ -147,10 +156,7 @@
             },
             salutation: {
                 type: 'select',
-                options: [
-                    {label: 'Mrs.', value: 'mrs'},
-                    {label: 'Mister', value: 'MR'}
-                ]
+                options: []
             },
             waiver: {
                 label: 'Waiver',
@@ -193,9 +199,24 @@
         this.changeFirstName = function() {
             self.person.first_name = "Jimmy";
         };
+
+        //--------------------------------------------------------
+        // init
+        //--------------------------------------------------------
+
+        // example delayed form initialization (usefull for populating select options with http response)
+        $timeout(function() {
+            self.form_fields.salutation.options = [
+                {label: 'Mrs.', value: 'mrs'},
+                {label: 'Mister', value: 'MR'}
+            ];
+            self.form1_init = true;
+
+        }, 1000);
+
     };
 
-    AppController.$inject = ['$scope', '$q'];
+    AppController.$inject = ['$scope', '$timeout', '$q'];
 
     angular.module('App').controller('AppController', AppController);
 
