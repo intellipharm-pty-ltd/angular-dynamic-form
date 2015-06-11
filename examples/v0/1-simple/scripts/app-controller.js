@@ -8,11 +8,13 @@
 
     var AppController = function ($scope, $q) {
 
+        var self = this;
+
         // model
         function Person(data) {
 
-            this.firstname      = data.firstname;
-            this.lastname       = data.lastname;
+            this.first_name      = data.first_name;
+            this.last_name       = data.last_name;
             this.email          = data.email;
             this.phone          = data.phone;
             this.gender         = data.gender;
@@ -27,7 +29,7 @@
                     console.log(fields);
                     resolve({});
                 });
-            }
+            };
 
             this.save = function() {
 
@@ -35,11 +37,12 @@
                     console.log("Model Save");
                     resolve({});
                 });
-            }
+            };
         }
 
         this.person = new Person({
-            'firstname':    "Richard Branson",
+            'first_name':   "Richard",
+            'last_name':    "Branson",
             'gender':       "F",
             'salutation':   "mrs",
             'waiver':       true,
@@ -53,7 +56,6 @@
                 return true;
             }
         ];
-
 
         //--------------------------------------------------------
         // config
@@ -95,8 +97,8 @@
         this.form_groups_config = {
             group1: {
                 order: 2, label: "Group One", fields: [
-                    "firstname",
-                    "lastname"
+                    "first_name",
+                    "last_name"
                 ]
             },
             group2: {
@@ -116,7 +118,7 @@
             last_name: {
                 type: 'textarea'
             },
-            firstname: {
+            first_name: {
                 type: 'text',
                 required: true,
                 label: 'First Name'
@@ -184,6 +186,13 @@
             console.log("error handler");
         };
 
+        //--------------------------------------------------------
+        // methods
+        //--------------------------------------------------------
+
+        this.changeFirstName = function() {
+            self.person.first_name = "Jimmy";
+        };
     };
 
     AppController.$inject = ['$scope', '$q'];

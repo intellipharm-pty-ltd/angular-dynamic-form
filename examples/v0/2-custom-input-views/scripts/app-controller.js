@@ -8,11 +8,13 @@
 
     var AppController = function ($scope, $q) {
 
+        var self = this;
+
         // model
         function Person(data) {
 
-            this.firstname  = data.firstname;
-            this.lastname   = data.lastname;
+            this.first_name  = data.first_name;
+            this.last_name   = data.last_name;
             this.email      = data.email;
             this.phone      = data.phone;
             this.custom      = data.custom;
@@ -26,7 +28,8 @@
         }
 
         this.person = new Person({
-            'firstname': "Richard Branson",
+            'first_name': "Richard",
+            'last_name': "Branson",
             'custom': "Custom Value"
         });
 
@@ -70,7 +73,7 @@
 
         // form field config
         this.form_fields = {
-            firstname: {
+            first_name: {
                 type: 'text',
                 required: true,
                 label: 'First Name'
@@ -132,6 +135,17 @@
                     "phone"
                 ]
             }
+        };
+
+        //--------------------------------------------------------
+        // methods
+        //--------------------------------------------------------
+
+        this.changeFirstName = function() {
+            self.person.first_name = "Jimmy";
+        };
+        this.changeCustom = function() {
+            self.person.custom = "Hello";
         };
 
     };

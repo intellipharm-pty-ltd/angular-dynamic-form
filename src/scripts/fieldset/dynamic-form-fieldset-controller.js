@@ -36,6 +36,7 @@
         //----------------------------------
         // init
         //----------------------------------
+
         if ($scope.field.format === 'map' && $scope.field.type === 'multi_select') {
             $scope.value = [];
 

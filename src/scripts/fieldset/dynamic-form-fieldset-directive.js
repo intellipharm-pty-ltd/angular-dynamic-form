@@ -16,15 +16,22 @@
             },
             controller: 'DynamicFormFieldsetCtrl as ctrl',
             replace: true,
-            link: function($scope) {
-                $scope.value = _.pluck([$scope.model], $scope.field.name)[0];
+            link: function(scope) {
 
                 // set input view template
-                $scope.input_view_template = 'angular-dynamic-form/views/inputs/' + $scope.field.type + '.html';
+                scope.input_view_template = 'angular-dynamic-form/views/inputs/' + scope.field.type + '.html';
 
-                if (_.isUndefined($templateCache.get($scope.input_view_template))) {
-                    $scope.input_view_template = AngularDynamicFormCustomInputViewUrl + $scope.field.type + '.html';
+                if (_.isUndefined($templateCache.get(scope.input_view_template))) {
+                    scope.input_view_template = AngularDynamicFormCustomInputViewUrl + scope.field.type + '.html';
                 }
+
+                // watchers
+                scope.$watchCollection('model', function(val) {
+                    if (!_.isUndefined(val)) {
+                        // extract fist item from model as value
+                        scope.value = _.pluck([scope.model], scope.field.name)[0];
+                    }
+                });
             },
             templateUrl: 'angular-dynamic-form/views/dynamic-form-fieldset.html'
         };
