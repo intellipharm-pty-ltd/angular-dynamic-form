@@ -239,7 +239,6 @@
             $scope.message_state[type] = true;
         };
 
-        var watch_for_init;
         /////////////////////////////////////////////////////
         //
         // watchers
