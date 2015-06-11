@@ -26,11 +26,6 @@
                 }
 
                 // watchers
-                scope.$watchCollection('field', function(val) {
-                    console.log(val);
-                });
-
-                // watchers
                 scope.$watchCollection('model', function(val) {
                     if (!_.isUndefined(val)) {
                         // extract fist item from model as value

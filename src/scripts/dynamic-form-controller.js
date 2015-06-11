@@ -163,7 +163,7 @@
 
         /**
          * init
-         * called when model is ready
+         * called when model is ready or when init is true
          */
         this.init = function() {
 
@@ -191,6 +191,23 @@
             // show button on change
             if (!$scope.form_config.show_buttons_on_change) {
                 $scope.show_buttons = true;
+            }
+        };
+
+        /**
+         * update
+         * called when fields property changes
+         */
+        this.update = function() {
+
+            // transform fields
+            $scope.fields_array         = FieldTransformer.transformFields($scope.fields, $scope.form_config, $scope.model);
+
+            // if groups
+            if ($scope.has_groups) {
+
+                // transform group fields
+                $scope.grouped_fields_array = FieldTransformer.transformGroupFields($scope.fields_array, $scope.groups_config);
             }
         };
 
@@ -240,6 +257,26 @@
             if (!_.isUndefined(val) && val) {
                 self.init();
                 initialized(); // destroy watcher
+            }
+        });
+
+        //-----------------------------------
+        // fields
+        //-----------------------------------
+
+        $scope.$watchCollection('fields', function(val) {
+            if (!_.isUndefined(val)) {
+                self.update();
+            }
+        });
+
+        //-----------------------------------
+        // groups
+        //-----------------------------------
+
+        $scope.$watchCollection('groups_config', function(val) {
+            if (!_.isUndefined(val)) {
+                self.update();
             }
         });
 
