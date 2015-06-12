@@ -75,7 +75,12 @@
         /**
          * onFieldChange
          */
-        this.onFieldChange = function() {
+        this.onFieldChange = function(a) {
+            console.log("form onChange");
+            console.log($scope.model);
+            console.log($scope.fields);
+            console.log(a);
+            //_.set($scope.model, $scope.field.name, $scope.value);
 
             // custom change handler
             if (!_.isUndefined($scope.onChange)) {
@@ -256,6 +261,12 @@
             if (!_.isUndefined(val) && val) {
                 self.init();
                 initialized(); // destroy watcher
+            }
+        });
+
+        $scope.$watch('model', function(val) {
+            if (!_.isUndefined(val)) {
+                console.log(val);
             }
         });
 
