@@ -15,6 +15,7 @@
         $scope.show_buttons = $scope.is_submitting;
 
         var dont_clear_fields = ['model'];
+        var is_initialized = false;
 
         // defaults
         this.default_submit_steps = [
@@ -76,11 +77,6 @@
          * onFieldChange
          */
         this.onFieldChange = function(a) {
-            console.log("form onChange");
-            console.log($scope.model);
-            console.log($scope.fields);
-            console.log(a);
-            //_.set($scope.model, $scope.field.name, $scope.value);
 
             // custom change handler
             if (!_.isUndefined($scope.onChange)) {
@@ -197,6 +193,8 @@
             if (!$scope.form_config.show_buttons_on_change) {
                 $scope.show_buttons = true;
             }
+
+            is_initialized = true;
         };
 
         /**
@@ -264,18 +262,12 @@
             }
         });
 
-        $scope.$watch('model', function(val) {
-            if (!_.isUndefined(val)) {
-                console.log(val);
-            }
-        });
-
         //-----------------------------------
         // fields
         //-----------------------------------
 
         $scope.$watchCollection('fields', function(val) {
-            if (!_.isUndefined(val)) {
+            if (!_.isUndefined(val) && is_initialized) {
                 self.update();
             }
         });
@@ -285,34 +277,10 @@
         //-----------------------------------
 
         $scope.$watchCollection('groups_config', function(val) {
-            if (!_.isUndefined(val)) {
+            if (!_.isUndefined(val) && is_initialized) {
                 self.update();
             }
         });
-
-        //$scope.$watch('model', function(model) {
-        //    if (!_.isUndefined(model)) {
-        //
-        //        if (initialized) {
-        //            self.update();
-        //            return;
-        //        }
-        //
-        //        self.init();
-        //
-        //        $scope.$watch('fields', function(fields) {
-        //            if (!_.isUndefined(fields)) {
-        //                self.update();
-        //            }
-        //        }, true);
-        //
-        //        $scope.$watch('groups_config', function(groups_config) {
-        //            if (!_.isUndefined(groups_config)) {
-        //                self.update();
-        //            }
-        //        }, true);
-        //    }
-        //}, true);
 
         /////////////////////////////////////////////////////
         //

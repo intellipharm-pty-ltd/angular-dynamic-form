@@ -45,6 +45,7 @@
             label_class:                    '',
             right_label_class:              '',
             input_box_class:                '',
+            input_box_no_label_class:       '',
             input_class:                    '',
             validation_feedback_class:      '',
             required_indicator_class:       '',

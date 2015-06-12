@@ -9,7 +9,7 @@
 
     <!-- edit state -->
 
-    <div class="{{style_config.input_box_class}}">
+    <div ng-class="{(field.label !== '' && config.show_labels): style_config.input_box_class, (field.label === '' || !config.show_labels}: style_config.input_box_no_label_class}">
 
         <div ng-include src="input_view_template"></div>
 
