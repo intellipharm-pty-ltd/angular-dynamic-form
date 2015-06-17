@@ -33,6 +33,14 @@
             _.set($scope.model, $scope.field.name, $scope.value);
         };
 
+        this.inputBoxClass = function() {
+            if ($scope.field.label === '' || !$scope.config.show_labels) {
+                return $scope.style_config.input_box_no_label_class;
+            }
+
+            return $scope.style_config.input_box_class;
+        };
+
         //----------------------------------
         // init
         //----------------------------------

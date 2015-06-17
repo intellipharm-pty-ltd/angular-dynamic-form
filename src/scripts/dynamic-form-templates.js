@@ -13,7 +13,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "    <!-- edit state -->\n" +
     "\n" +
-    "    <div ng-class=\"{input_box_class: (field.label !== '' && config.show_labels), input_box_no_label_class: (field.label === '' || !config.show_labels)}\">\n" +
+    "    <div ng-class=\"ctrl.inputBoxClass()\">\n" +
     "\n" +
     "        <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
