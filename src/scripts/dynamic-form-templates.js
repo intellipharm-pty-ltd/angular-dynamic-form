@@ -4,8 +4,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
     "<div class=\"dynamic-form-fieldset {{style_config.fieldset_class}}\" ng-class=\"{\n" +
     "    'has-feedback': config.has_validation_feedback,\n" +
-    "    'has-success': errors.length === 0 && show_validation,\n" +
-    "    'has-error': errors.length > 0 && show_validation,\n" +
+    "    'has-success': errors.length === 0,\n" +
+    "    'has-error': errors.length > 0,\n" +
     "    'required': field.validate}\">\n" +
     "\n" +
     "    <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\"\n" +
@@ -21,8 +21,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        <span ng-show=\"config.has_validation_feedback\"\n" +
     "              class=\"{{style_config.validation_feedback_class}} glyphicon\"\n" +
     "              ng-class=\"{\n" +
-    "              'glyphicon-ok': errors.length === 0 && show_validation,\n" +
-    "              'glyphicon-remove': errors.length > 0 && show_validation\n" +
+    "              'glyphicon-ok': errors.length === 0,\n" +
+    "              'glyphicon-remove': errors.length > 0\n" +
     "              }\"></span>\n" +
     "\n" +
     "    </div>\n" +
@@ -32,7 +32,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        <span>*</span>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div ng-show=\"errors.length > 0 && show_validation\"\n" +
+    "    <div ng-show=\"errors.length > 0\"\n" +
     "         class=\"{{style_config.field_message_error_class}}\">{{errors[0]}}</div>\n" +
     "\n" +
     "</div>\n"
@@ -47,19 +47,18 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "    <div class=\"panel-heading\">{{group[0].group_label}}</div>\n" +
     "    <div class=\"panel-body\">\n" +
-    "\n" +
+    "{{errors}}\n" +
     "        <dynamic-form-fieldset ng-repeat=\"field in group\"\n" +
     "                               field=\"field\"\n" +
     "                               model=\"model\"\n" +
     "                               config=\"form_field_config\"\n" +
     "                               style-config=\"form_style_config\"\n" +
-    "                               errors=\"errors[field.name]\"\n" +
-    "                               show-validation=\"errors[field.name]\"\n" +
+    "                               all-errors=\"errors\"\n" +
     "                               on-change=\"ctrl.onFieldChange()\"\n" +
     "                               on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>\n" +
     "\n" +
     "    </div>\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
@@ -71,10 +70,9 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       model=\"model\"\n" +
     "                       config=\"form_field_config\"\n" +
     "                       style-config=\"form_style_config\"\n" +
-    "                       errors=\"errors[field.name]\"\n" +
-    "                       show-validation=\"errors[field.name]\"\n" +
+    "                       all-errors=\"errors\"\n" +
     "                       on-change=\"ctrl.onFieldChange()\"\n" +
-    "                       on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>"
+    "                       on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>\n"
   );
 
 

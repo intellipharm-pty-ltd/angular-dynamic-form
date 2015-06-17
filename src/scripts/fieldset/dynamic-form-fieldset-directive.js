@@ -7,8 +7,7 @@
             scope: {
                 field:              '=',
                 model:              '=',
-                errors:             '=',
-                show_validation:    '=showValidation',
+                allErrors:          '=',
                 config:             '=',
                 style_config:       '=styleConfig',
                 onChange:           '&',
@@ -25,11 +24,17 @@
                     scope.input_view_template = AngularDynamicFormCustomInputViewUrl + scope.field.type + '.html';
                 }
 
+
                 // watchers
                 scope.$watchCollection('model', function(val) {
                     if (!_.isUndefined(val)) {
-                        // extract fist item from model as value
-                        scope.value = _.pluck([scope.model], scope.field.name)[0];
+                        scope.value = _.get(scope.model, scope.field.name);
+                    }
+                });
+
+                scope.$watchCollection('allErrors', function() {
+                    if (!_.isUndefined(scope.allErrors)) {
+                        scope.errors = _.get(scope.allErrors, scope.field.name);
                     }
                 });
             },

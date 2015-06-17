@@ -1,7 +1,7 @@
 <div class="dynamic-form-fieldset {{style_config.fieldset_class}}" ng-class="{
     'has-feedback': config.has_validation_feedback,
-    'has-success': errors.length === 0 && show_validation,
-    'has-error': errors.length > 0 && show_validation,
+    'has-success': errors.length === 0,
+    'has-error': errors.length > 0,
     'required': field.validate}">
 
     <label ng-if="field.label !== '' && config.show_labels" for="{{field.name}}"
@@ -17,8 +17,8 @@
         <span ng-show="config.has_validation_feedback"
               class="{{style_config.validation_feedback_class}} glyphicon"
               ng-class="{
-              'glyphicon-ok': errors.length === 0 && show_validation,
-              'glyphicon-remove': errors.length > 0 && show_validation
+              'glyphicon-ok': errors.length === 0,
+              'glyphicon-remove': errors.length > 0
               }"></span>
 
     </div>
@@ -28,7 +28,7 @@
         <span>*</span>
     </div>
 
-    <div ng-show="errors.length > 0 && show_validation"
+    <div ng-show="errors.length > 0"
          class="{{style_config.field_message_error_class}}">{{errors[0]}}</div>
 
 </div>
