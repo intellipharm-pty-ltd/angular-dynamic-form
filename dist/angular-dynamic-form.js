@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.3.0
+ * angular-dynamic-form v0.4.0
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-06-11 08:14:04
+ * 2015-06-17 13:33:29
  *
  */
 (function() {
@@ -68,6 +68,7 @@
         $scope.show_buttons = $scope.is_submitting;
 
         var dont_clear_fields = ['model'];
+        var is_initialized = false;
 
         // defaults
         this.default_submit_steps = [
@@ -216,7 +217,7 @@
 
         /**
          * init
-         * called when model is ready
+         * called when model is ready or when init is true
          */
         this.init = function() {
 
@@ -244,6 +245,25 @@
             // show button on change
             if (!$scope.form_config.show_buttons_on_change) {
                 $scope.show_buttons = true;
+            }
+
+            is_initialized = true;
+        };
+
+        /**
+         * update
+         * called when fields property changes
+         */
+        this.update = function() {
+
+            // transform fields
+            $scope.fields_array = FieldTransformer.transformFields($scope.fields, $scope.form_config, $scope.model);
+
+            // if groups
+            if ($scope.has_groups) {
+
+                // transform group fields
+                $scope.grouped_fields_array = FieldTransformer.transformGroupFields($scope.fields_array, $scope.groups_config);
             }
         };
 
@@ -282,32 +302,38 @@
         /////////////////////////////////////////////////////
 
         //-----------------------------------
-        // model
+        // init
         //-----------------------------------
 
-        var watchFields = null;
-        var watchGroupsConfig = null;
-        $scope.$watch('model', function(model) {
-            if (!_.isUndefined(model)) {
+        // we will either use the init or model property trigger initialization
+        var watch_for_init = !_.isUndefined($scope.init) ? 'init' : 'model';
+
+        var initialized = $scope.$watch(watch_for_init, function(val) {
+            if (!_.isUndefined(val) && val) {
                 self.init();
+                initialized(); // destroy watcher
+            }
+        });
 
-                if (_.isNull(watchFields)) {
-                    watchFields = $scope.$watch('fields', function(fields) {
-                        if (!_.isUndefined(fields)) {
-                            self.init();
-                        }
-                    }, true);
-                }
+        //-----------------------------------
+        // fields
+        //-----------------------------------
 
-                if (_.isNull(watchGroupsConfig)) {
-                    watchGroupsConfig = $scope.$watch('groups_config', function(groups_config) {
-                        if (!_.isUndefined(groups_config)) {
-                            self.init();
-                        }
-                    }, true);
-                }
+        $scope.$watch('fields', function(val) {
+            if (!_.isUndefined(val) && is_initialized) {
+                self.update();
             }
         }, true);
+
+        //-----------------------------------
+        // groups
+        //-----------------------------------
+
+        $scope.$watchCollection('groups_config', function(val) {
+            if (!_.isUndefined(val) && is_initialized) {
+                self.update();
+            }
+        });
 
         /////////////////////////////////////////////////////
         //
@@ -370,7 +396,8 @@
                 onClear:            '&',
                 onError:            '&',
                 onChange:           '&',
-                onBlur:             '&'
+                onBlur:             '&',
+                init:               '='
             },
             controller: 'DynamicFormCtrl as ctrl',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
@@ -892,6 +919,7 @@
             label_class:                    '',
             right_label_class:              '',
             input_box_class:                '',
+            input_box_no_label_class:       '',
             input_class:                    '',
             validation_feedback_class:      '',
             required_indicator_class:       '',
@@ -1113,7 +1141,9 @@
             }
 
             // add extra field properties
-            if (!_.has(result, 'label')) {
+            if (result.hide_label) {
+                result.label = '';
+            } else if (!_.has(result, 'label')) {
                 result.label = transformLabel(key, config.label_camelcase, config.label_replace_underscores);
             }
             result.name = key;
@@ -1196,6 +1226,7 @@
         //----------------------------------
         // init
         //----------------------------------
+
         if ($scope.field.format === 'map' && $scope.field.type === 'multi_select') {
             $scope.value = [];
 
@@ -1232,15 +1263,22 @@
             },
             controller: 'DynamicFormFieldsetCtrl as ctrl',
             replace: true,
-            link: function($scope) {
-                $scope.value = _.pluck([$scope.model], $scope.field.name)[0];
+            link: function(scope) {
 
                 // set input view template
-                $scope.input_view_template = 'angular-dynamic-form/views/inputs/' + $scope.field.type + '.html';
+                scope.input_view_template = 'angular-dynamic-form/views/inputs/' + scope.field.type + '.html';
 
-                if (_.isUndefined($templateCache.get($scope.input_view_template))) {
-                    $scope.input_view_template = AngularDynamicFormCustomInputViewUrl + $scope.field.type + '.html';
+                if (_.isUndefined($templateCache.get(scope.input_view_template))) {
+                    scope.input_view_template = AngularDynamicFormCustomInputViewUrl + scope.field.type + '.html';
                 }
+
+                // watchers
+                scope.$watchCollection('model', function(val) {
+                    if (!_.isUndefined(val)) {
+                        // extract fist item from model as value
+                        scope.value = _.pluck([scope.model], scope.field.name)[0];
+                    }
+                });
             },
             templateUrl: 'angular-dynamic-form/views/dynamic-form-fieldset.html'
         };

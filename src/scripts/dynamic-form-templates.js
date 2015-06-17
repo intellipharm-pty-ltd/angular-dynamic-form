@@ -13,7 +13,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "    <!-- edit state -->\n" +
     "\n" +
-    "    <div class=\"{{style_config.input_box_class}}\">\n" +
+    "    <div ng-class=\"{(field.label !== '' && config.show_labels): style_config.input_box_class, (field.label === '' || !config.show_labels}: style_config.input_box_no_label_class}\">\n" +
     "\n" +
     "        <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
@@ -143,6 +143,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
   $templateCache.put('angular-dynamic-form/views/inputs/multi_select.html',
     "<!-- multi_select -->\n" +
+    "{{$parent.value}}\n" +
     "<select class=\"form-control\"\n" +
     "        ng-model=\"$parent.value\" multiple size=\"{{field.type.size}}\" ng-options=\"option.value as option.label for option in field.options\"\n" +
     "        ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +
@@ -177,7 +178,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/inputs/text.html',
     "<!-- text -->\n" +
     "<input type=\"text\" id=\"{{field.name}}\" class=\"{{style_config.input_class}}\" placeholder=\"{{field.label}}\"\n" +
-    "       ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
+    "       ng-model=\"model\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
   );
 
 
