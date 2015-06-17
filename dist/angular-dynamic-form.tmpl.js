@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.4.3
+ * angular-dynamic-form v0.4.4
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-06-18 08:38:35
+ * 2015-06-18 08:44:50
  *
  */
 (function() {
@@ -68,7 +68,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "    <div class=\"panel-heading\">{{group[0].group_label}}</div>\n" +
     "    <div class=\"panel-body\">\n" +
-    "{{errors}}\n" +
+    "\n" +
     "        <dynamic-form-fieldset ng-repeat=\"field in group\"\n" +
     "                               field=\"field\"\n" +
     "                               model=\"model\"\n" +

@@ -47,7 +47,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "    <div class=\"panel-heading\">{{group[0].group_label}}</div>\n" +
     "    <div class=\"panel-body\">\n" +
-    "{{errors}}\n" +
+    "\n" +
     "        <dynamic-form-fieldset ng-repeat=\"field in group\"\n" +
     "                               field=\"field\"\n" +
     "                               model=\"model\"\n" +
