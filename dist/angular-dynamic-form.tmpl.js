@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.4.1
+ * angular-dynamic-form v0.4.2
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-06-17 14:06:23
+ * 2015-06-17 15:26:32
  *
  */
 (function() {
@@ -34,7 +34,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "    <!-- edit state -->\n" +
     "\n" +
-    "    <div ng-class=\"{input_box_class: (field.label !== '' && config.show_labels), input_box_no_label_class: (field.label === '' || !config.show_labels)}\">\n" +
+    "    <div ng-class=\"ctrl.inputBoxClass()\">\n" +
     "\n" +
     "        <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
@@ -1415,6 +1415,14 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             _.set($scope.model, $scope.field.name, $scope.value);
         };
 
+        this.inputBoxClass = function() {
+            if ($scope.field.label === '' || !$scope.config.show_labels) {
+                return $scope.style_config.input_box_no_label_class;
+            }
+
+            return $scope.style_config.input_box_class;
+        };
+
         //----------------------------------
         // init
         //----------------------------------
@@ -1463,9 +1471,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 if (_.isUndefined($templateCache.get(scope.input_view_template))) {
                     scope.input_view_template = AngularDynamicFormCustomInputViewUrl + scope.field.type + '.html';
                 }
-
-                scope.input_box_class = scope.style_config.input_box_class;
-                scope.input_box_no_label_class = scope.style_config.input_box_no_label_class;
 
                 // watchers
                 scope.$watchCollection('model', function(val) {
