@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.4.0
+ * angular-dynamic-form v0.4.1
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-06-17 13:33:29
+ * 2015-06-17 14:06:23
  *
  */
 (function() {
@@ -1271,6 +1271,9 @@
                 if (_.isUndefined($templateCache.get(scope.input_view_template))) {
                     scope.input_view_template = AngularDynamicFormCustomInputViewUrl + scope.field.type + '.html';
                 }
+
+                scope.input_box_class = scope.style_config.input_box_class;
+                scope.input_box_no_label_class = scope.style_config.input_box_no_label_class;
 
                 // watchers
                 scope.$watchCollection('model', function(val) {
