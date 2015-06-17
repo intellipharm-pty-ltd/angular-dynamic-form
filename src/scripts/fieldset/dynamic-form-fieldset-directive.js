@@ -24,7 +24,6 @@
                     scope.input_view_template = AngularDynamicFormCustomInputViewUrl + scope.field.type + '.html';
                 }
 
-
                 // watchers
                 scope.$watchCollection('model', function(val) {
                     if (!_.isUndefined(val)) {
