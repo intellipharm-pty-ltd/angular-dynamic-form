@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.4.2
+ * angular-dynamic-form v0.4.3
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-06-17 15:26:32
+ * 2015-06-18 08:38:35
  *
  */
 (function() {
@@ -1262,8 +1262,7 @@
             scope: {
                 field:              '=',
                 model:              '=',
-                errors:             '=',
-                show_validation:    '=showValidation',
+                allErrors:          '=',
                 config:             '=',
                 style_config:       '=styleConfig',
                 onChange:           '&',
@@ -1283,8 +1282,13 @@
                 // watchers
                 scope.$watchCollection('model', function(val) {
                     if (!_.isUndefined(val)) {
-                        // extract fist item from model as value
-                        scope.value = _.pluck([scope.model], scope.field.name)[0];
+                        scope.value = _.get(scope.model, scope.field.name);
+                    }
+                });
+
+                scope.$watchCollection('allErrors', function() {
+                    if (!_.isUndefined(scope.allErrors)) {
+                        scope.errors = _.get(scope.allErrors, scope.field.name);
                     }
                 });
             },
