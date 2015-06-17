@@ -204,7 +204,7 @@
         this.update = function() {
 
             // transform fields
-            $scope.fields_array         = FieldTransformer.transformFields($scope.fields, $scope.form_config, $scope.model);
+            $scope.fields_array = FieldTransformer.transformFields($scope.fields, $scope.form_config, $scope.model);
 
             // if groups
             if ($scope.has_groups) {
@@ -266,11 +266,11 @@
         // fields
         //-----------------------------------
 
-        $scope.$watchCollection('fields', function(val) {
+        $scope.$watch('fields', function(val) {
             if (!_.isUndefined(val) && is_initialized) {
                 self.update();
             }
-        });
+        }, true);
 
         //-----------------------------------
         // groups
