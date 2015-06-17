@@ -76,7 +76,7 @@
         /**
          * onFieldChange
          */
-        this.onFieldChange = function(a) {
+        this.onFieldChange = function() {
 
             // custom change handler
             if (!_.isUndefined($scope.onChange)) {

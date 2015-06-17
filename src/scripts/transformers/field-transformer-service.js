@@ -176,7 +176,7 @@
 
             // add extra field properties
             if (result.hide_label) {
-                result.label = "";
+                result.label = '';
             } else if (!_.has(result, 'label')) {
                 result.label = transformLabel(key, config.label_camelcase, config.label_replace_underscores);
             }
