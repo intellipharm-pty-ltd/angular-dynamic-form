@@ -2,11 +2,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   'use strict';
 
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
-    "<div class=\"dynamic-form-fieldset {{style_config.fieldset_class}}\" ng-class=\"{\n" +
-    "    'has-feedback': config.has_validation_feedback,\n" +
-    "    'has-success': errors.length === 0,\n" +
-    "    'has-error': errors.length > 0,\n" +
-    "    'required': field.validate}\">\n" +
+    "<div class=\"dynamic-form-fieldset {{fieldset_class}}\">\n" +
     "\n" +
     "    <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\"\n" +
     "           class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
@@ -18,12 +14,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
     "        <!-- validation feedback -->\n" +
-    "        <span ng-show=\"config.has_validation_feedback\"\n" +
-    "              class=\"{{style_config.validation_feedback_class}} glyphicon\"\n" +
-    "              ng-class=\"{\n" +
-    "              'glyphicon-ok': errors.length === 0,\n" +
-    "              'glyphicon-remove': errors.length > 0\n" +
-    "              }\"></span>\n" +
+    "        <span ng-show=\"config.has_validation_feedback\" class=\"{{validation_feedback_class}}\"></span>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
@@ -32,9 +23,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        <span>*</span>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div ng-show=\"errors.length > 0\"\n" +
-    "         class=\"{{style_config.field_message_error_class}}\">{{errors[0]}}</div>\n" +
-    "\n" +
+    "    <div ng-show=\"errors.length > 0\" class=\"{{style_config.field_message_error_class}}\">{{errors[0]}}</div>\n" +
     "</div>\n"
   );
 

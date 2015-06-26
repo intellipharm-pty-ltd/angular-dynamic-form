@@ -1,11 +1,6 @@
-<div class="dynamic-form-fieldset {{style_config.fieldset_class}}" ng-class="{
-    'has-feedback': config.has_validation_feedback,
-    'has-success': errors.length === 0,
-    'has-error': errors.length > 0,
-    'required': field.validate}">
+<div class="dynamic-form-fieldset {{fieldset_class}}">
 
-    <label ng-if="field.label !== '' && config.show_labels" for="{{field.name}}"
-           class="{{style_config.label_class}}">{{field.label}}</label>
+    <label ng-if="field.label !== '' && config.show_labels" for="{{field.name}}" class="{{style_config.label_class}}">{{field.label}}</label>
 
     <!-- edit state -->
 
@@ -14,12 +9,7 @@
         <div ng-include src="input_view_template"></div>
 
         <!-- validation feedback -->
-        <span ng-show="config.has_validation_feedback"
-              class="{{style_config.validation_feedback_class}} glyphicon"
-              ng-class="{
-              'glyphicon-ok': errors.length === 0,
-              'glyphicon-remove': errors.length > 0
-              }"></span>
+        <span ng-show="config.has_validation_feedback" class="{{validation_feedback_class}}"></span>
 
     </div>
 
@@ -28,7 +18,5 @@
         <span>*</span>
     </div>
 
-    <div ng-show="errors.length > 0"
-         class="{{style_config.field_message_error_class}}">{{errors[0]}}</div>
-
+    <div ng-show="errors.length > 0" class="{{style_config.field_message_error_class}}">{{errors[0]}}</div>
 </div>
