@@ -72,7 +72,6 @@
                         classes.push(scope.style_config.fieldset_required_class);
                     }
 
-
                     scope.fieldset_class = classes.join(' ');
                 }
 

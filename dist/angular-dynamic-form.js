@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.4.5
+ * angular-dynamic-form v0.5.0
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-06-24 12:10:55
+ * 2015-06-26 10:27:51
  *
  */
 (function() {
@@ -1280,8 +1280,8 @@
                 }
 
                 // watchers
-                scope.$watchCollection('model', function(val) {
-                    if (!_.isUndefined(val)) {
+                scope.$watchCollection('model', function() {
+                    if (!_.isUndefined(scope.model)) {
                         scope.value = _.get(scope.model, scope.field.name);
                     }
                 });
@@ -1289,8 +1289,60 @@
                 scope.$watchCollection('allErrors', function() {
                     if (!_.isUndefined(scope.allErrors)) {
                         scope.errors = _.get(scope.allErrors, scope.field.name);
+                        updateFieldsetClass();
+                        updateValidationFeedbackClass();
                     }
                 });
+
+                scope.$watchCollection('config', function() {
+                    if (!_.isUndefined(scope.style_config)) {
+                        updateFieldsetClass();
+                        updateValidationFeedbackClass();
+                    }
+                });
+
+                scope.$watchCollection('style_config', function() {
+                    if (!_.isUndefined(scope.style_config)) {
+                        updateFieldsetClass();
+                        updateValidationFeedbackClass();
+                    }
+                });
+
+                function updateFieldsetClass() {
+                    var classes = [scope.style_config.fieldset_class];
+
+                    if (scope.config.has_validation_feedback) {
+                        if (scope.errors) {
+                            classes.push(scope.style_config.fieldset_feedback_class);
+
+                            if (scope.errors.length === 0) {
+                                classes.push(scope.style_config.fieldset_no_errors_class);
+                            } else {
+                                classes.push(scope.style_config.fieldset_errors_class);
+                            }
+                        }
+                    }
+
+                    if (scope.field.validate) {
+                        classes.push(scope.style_config.fieldset_required_class);
+                    }
+
+                    scope.fieldset_class = classes.join(' ');
+                }
+
+                function updateValidationFeedbackClass() {
+                    var classes = [scope.style_config.validation_feedback_class];
+
+                    if (scope.errors) {
+                        if (scope.errors.length === 0) {
+                            classes.push(scope.style_config.validation_no_errors_class);
+                        } else {
+                            classes.push(scope.style_config.validation_errors_class);
+                        }
+                    }
+
+                    scope.validation_feedback_class = classes.join(' ');
+                }
             },
             templateUrl: 'angular-dynamic-form/views/dynamic-form-fieldset.html'
         };

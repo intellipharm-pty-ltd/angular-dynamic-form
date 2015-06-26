@@ -4,8 +4,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
     "<div class=\"dynamic-form-fieldset {{fieldset_class}}\">\n" +
     "\n" +
-    "    <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\"\n" +
-    "           class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
+    "    <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\" class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
     "\n" +
     "    <!-- edit state -->\n" +
     "\n" +
