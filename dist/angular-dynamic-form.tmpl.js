@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.4.1
+ * angular-dynamic-form v0.5.0
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-07-08 12:27:34
+ * 2015-07-08 12:30:44
  *
  */
 (function() {
@@ -23,28 +23,18 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   'use strict';
 
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
-    "<div class=\"dynamic-form-fieldset {{style_config.fieldset_class}}\" ng-class=\"{\n" +
-    "    'has-feedback': config.has_validation_feedback,\n" +
-    "    'has-success': errors.length === 0 && show_validation,\n" +
-    "    'has-error': errors.length > 0 && show_validation,\n" +
-    "    'required': field.validate}\">\n" +
+    "<div class=\"dynamic-form-fieldset {{fieldset_class}}\">\n" +
     "\n" +
-    "    <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\"\n" +
-    "           class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
+    "    <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\" class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
     "\n" +
     "    <!-- edit state -->\n" +
     "\n" +
-    "    <div ng-class=\"{input_box_class: (field.label !== '' && config.show_labels), input_box_no_label_class: (field.label === '' || !config.show_labels)}\">\n" +
+    "    <div ng-class=\"ctrl.inputBoxClass()\">\n" +
     "\n" +
     "        <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
     "        <!-- validation feedback -->\n" +
-    "        <span ng-show=\"config.has_validation_feedback\"\n" +
-    "              class=\"{{style_config.validation_feedback_class}} glyphicon\"\n" +
-    "              ng-class=\"{\n" +
-    "              'glyphicon-ok': errors.length === 0 && show_validation,\n" +
-    "              'glyphicon-remove': errors.length > 0 && show_validation\n" +
-    "              }\"></span>\n" +
+    "        <span ng-show=\"config.has_validation_feedback\" class=\"{{validation_feedback_class}}\"></span>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
@@ -53,9 +43,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        <span>*</span>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div ng-show=\"errors.length > 0 && show_validation\"\n" +
-    "         class=\"{{style_config.field_message_error_class}}\">{{errors[0]}}</div>\n" +
-    "\n" +
+    "    <div ng-show=\"errors.length > 0\" class=\"{{style_config.field_message_error_class}}\">{{errors[0]}}</div>\n" +
     "</div>\n"
   );
 
@@ -521,11 +509,11 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         // groups
         //-----------------------------------
 
-        $scope.$watchCollection('groups_config', function(val) {
+        $scope.$watch('groups_config', function(val) {
             if (!_.isUndefined(val) && is_initialized) {
                 self.update();
             }
-        });
+        }, true);
 
         /////////////////////////////////////////////////////
         //
@@ -1424,6 +1412,14 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             }
         };
 
+        this.inputBoxClass = function() {
+            if ($scope.field.label === '' || !$scope.config.show_labels) {
+                return $scope.style_config.input_box_no_label_class;
+            }
+
+            return $scope.style_config.input_box_class;
+        };
+
         //----------------------------------
         // init
         //----------------------------------
@@ -1455,8 +1451,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             scope: {
                 field:              '=',
                 model:              '=',
-                errors:             '=',
-                show_validation:    '=showValidation',
+                allErrors:          '=',
                 config:             '=',
                 style_config:       '=styleConfig',
                 onChange:           '&',
@@ -1473,16 +1468,70 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                     scope.input_view_template = AngularDynamicFormCustomInputViewUrl + scope.field.type + '.html';
                 }
 
-                scope.input_box_class = scope.style_config.input_box_class;
-                scope.input_box_no_label_class = scope.style_config.input_box_no_label_class;
-
                 // watchers
-                scope.$watchCollection('model', function(val) {
-                    if (!_.isUndefined(val)) {
-                        // extract fist item from model as value
-                        scope.value = _.pluck([scope.model], scope.field.name)[0];
+                scope.$watchCollection('model', function() {
+                    if (!_.isUndefined(scope.model)) {
+                        scope.value = _.get(scope.model, scope.field.name);
                     }
                 });
+
+                scope.$watchCollection('allErrors', function() {
+                    if (!_.isUndefined(scope.allErrors)) {
+                        scope.errors = _.get(scope.allErrors, scope.field.name);
+                        updateFieldsetClass();
+                        updateValidationFeedbackClass();
+                    }
+                });
+
+                scope.$watchCollection('config', function() {
+                    if (!_.isUndefined(scope.style_config)) {
+                        updateFieldsetClass();
+                        updateValidationFeedbackClass();
+                    }
+                });
+
+                scope.$watchCollection('style_config', function() {
+                    if (!_.isUndefined(scope.style_config)) {
+                        updateFieldsetClass();
+                        updateValidationFeedbackClass();
+                    }
+                });
+
+                function updateFieldsetClass() {
+                    var classes = [scope.style_config.fieldset_class];
+
+                    if (scope.config.has_validation_feedback) {
+                        if (scope.errors) {
+                            classes.push(scope.style_config.fieldset_feedback_class);
+
+                            if (scope.errors.length === 0) {
+                                classes.push(scope.style_config.fieldset_no_errors_class);
+                            } else {
+                                classes.push(scope.style_config.fieldset_errors_class);
+                            }
+                        }
+                    }
+
+                    if (scope.field.validate) {
+                        classes.push(scope.style_config.fieldset_required_class);
+                    }
+
+                    scope.fieldset_class = classes.join(' ');
+                }
+
+                function updateValidationFeedbackClass() {
+                    var classes = [scope.style_config.validation_feedback_class];
+
+                    if (scope.errors) {
+                        if (scope.errors.length === 0) {
+                            classes.push(scope.style_config.validation_no_errors_class);
+                        } else {
+                            classes.push(scope.style_config.validation_errors_class);
+                        }
+                    }
+
+                    scope.validation_feedback_class = classes.join(' ');
+                }
             },
             templateUrl: 'angular-dynamic-form/views/dynamic-form-fieldset.html'
         };

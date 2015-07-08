@@ -276,11 +276,11 @@
         // groups
         //-----------------------------------
 
-        $scope.$watchCollection('groups_config', function(val) {
+        $scope.$watch('groups_config', function(val) {
             if (!_.isUndefined(val) && is_initialized) {
                 self.update();
             }
-        });
+        }, true);
 
         /////////////////////////////////////////////////////
         //
