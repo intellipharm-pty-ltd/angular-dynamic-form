@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-06-17 14:06:23
+ * 2015-07-08 12:27:34
  *
  */
 (function() {
@@ -76,11 +76,11 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                               style-config=\"form_style_config\"\n" +
     "                               errors=\"errors[field.name]\"\n" +
     "                               show-validation=\"errors[field.name]\"\n" +
-    "                               on-change=\"ctrl.onFieldChange()\"\n" +
-    "                               on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>\n" +
+    "                               on-change=\"ctrl.onFieldChange(field)\"\n" +
+    "                               on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n" +
     "\n" +
     "    </div>\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
@@ -94,8 +94,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       style-config=\"form_style_config\"\n" +
     "                       errors=\"errors[field.name]\"\n" +
     "                       show-validation=\"errors[field.name]\"\n" +
-    "                       on-change=\"ctrl.onFieldChange()\"\n" +
-    "                       on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>"
+    "                       on-change=\"ctrl.onFieldChange(field)\"\n" +
+    "                       on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n"
   );
 
 
@@ -310,22 +310,22 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         /**
          * onFieldBlur
          */
-        this.onFieldBlur = function() {
+        this.onFieldBlur = function(field) {
 
             // custom blur handler
             if (!_.isUndefined($scope.onBlur)) {
-                $scope.onBlur();
+                $scope.onBlur({model: $scope.model, field: field});
             }
         };
 
         /**
          * onFieldChange
          */
-        this.onFieldChange = function() {
+        this.onFieldChange = function(field) {
 
             // custom change handler
             if (!_.isUndefined($scope.onChange)) {
-                $scope.onChange({model: $scope.model});
+                $scope.onChange({model: $scope.model, field: field});
             }
 
             // show button on change
@@ -1393,8 +1393,13 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          * onBlur
          */
         this.onBlur = function() {
+
+            // update model
+            _.set($scope.model, $scope.field.name, $scope.value);
+
+            // external handler
             if (!_.isUndefined($scope.onBlur)) {
-                $scope.onBlur();
+                $scope.onBlur({field: $scope.field});
             }
         };
 
@@ -1402,17 +1407,21 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          * onChange
          */
         this.onChange = function() {
-            if (!_.isUndefined($scope.onChange)) {
-                $scope.onChange();
-            }
 
+            // update model (map & multi-select)
             if ($scope.field.format === 'map' && $scope.field.type === 'multi_select') {
                 _.forEach($scope.field.options, function(option) {
                     _.set($scope.model, option.value, _.indexOf($scope.value, option.value) >= 0);
                 });
             }
 
+            // update model
             _.set($scope.model, $scope.field.name, $scope.value);
+
+            // external handler
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange({field: $scope.field});
+            }
         };
 
         //----------------------------------

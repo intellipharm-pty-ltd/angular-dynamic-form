@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-06-17 14:06:23
+ * 2015-07-08 12:27:34
  *
  */
 (function() {
@@ -118,22 +118,22 @@
         /**
          * onFieldBlur
          */
-        this.onFieldBlur = function() {
+        this.onFieldBlur = function(field) {
 
             // custom blur handler
             if (!_.isUndefined($scope.onBlur)) {
-                $scope.onBlur();
+                $scope.onBlur({model: $scope.model, field: field});
             }
         };
 
         /**
          * onFieldChange
          */
-        this.onFieldChange = function() {
+        this.onFieldChange = function(field) {
 
             // custom change handler
             if (!_.isUndefined($scope.onChange)) {
-                $scope.onChange({model: $scope.model});
+                $scope.onChange({model: $scope.model, field: field});
             }
 
             // show button on change
@@ -1201,8 +1201,13 @@
          * onBlur
          */
         this.onBlur = function() {
+
+            // update model
+            _.set($scope.model, $scope.field.name, $scope.value);
+
+            // external handler
             if (!_.isUndefined($scope.onBlur)) {
-                $scope.onBlur();
+                $scope.onBlur({field: $scope.field});
             }
         };
 
@@ -1210,17 +1215,21 @@
          * onChange
          */
         this.onChange = function() {
-            if (!_.isUndefined($scope.onChange)) {
-                $scope.onChange();
-            }
 
+            // update model (map & multi-select)
             if ($scope.field.format === 'map' && $scope.field.type === 'multi_select') {
                 _.forEach($scope.field.options, function(option) {
                     _.set($scope.model, option.value, _.indexOf($scope.value, option.value) >= 0);
                 });
             }
 
+            // update model
             _.set($scope.model, $scope.field.name, $scope.value);
+
+            // external handler
+            if (!_.isUndefined($scope.onChange)) {
+                $scope.onChange({field: $scope.field});
+            }
         };
 
         //----------------------------------

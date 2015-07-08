@@ -55,11 +55,11 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                               style-config=\"form_style_config\"\n" +
     "                               errors=\"errors[field.name]\"\n" +
     "                               show-validation=\"errors[field.name]\"\n" +
-    "                               on-change=\"ctrl.onFieldChange()\"\n" +
-    "                               on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>\n" +
+    "                               on-change=\"ctrl.onFieldChange(field)\"\n" +
+    "                               on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n" +
     "\n" +
     "    </div>\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
@@ -73,8 +73,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       style-config=\"form_style_config\"\n" +
     "                       errors=\"errors[field.name]\"\n" +
     "                       show-validation=\"errors[field.name]\"\n" +
-    "                       on-change=\"ctrl.onFieldChange()\"\n" +
-    "                       on-blur=\"ctrl.onFieldBlur()\"></dynamic-form-fieldset>"
+    "                       on-change=\"ctrl.onFieldChange(field)\"\n" +
+    "                       on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n"
   );
 
 

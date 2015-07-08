@@ -65,22 +65,22 @@
         /**
          * onFieldBlur
          */
-        this.onFieldBlur = function() {
+        this.onFieldBlur = function(field) {
 
             // custom blur handler
             if (!_.isUndefined($scope.onBlur)) {
-                $scope.onBlur();
+                $scope.onBlur({model: $scope.model, field: field});
             }
         };
 
         /**
          * onFieldChange
          */
-        this.onFieldChange = function() {
+        this.onFieldChange = function(field) {
 
             // custom change handler
             if (!_.isUndefined($scope.onChange)) {
-                $scope.onChange({model: $scope.model});
+                $scope.onChange({model: $scope.model, field: field});
             }
 
             // show button on change
