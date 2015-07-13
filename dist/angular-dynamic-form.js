@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.5.0
+ * angular-dynamic-form v0.5.1
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-06-26 10:27:51
+ * 2015-07-13 14:16:48
  *
  */
 (function() {
@@ -759,9 +759,9 @@
                 if (response === false || response === true) {
 
                     if (response) {
-                        resolve(null);
+                        resolve();
                     } else {
-                        reject(null);
+                        reject();
                     }
                 }
 

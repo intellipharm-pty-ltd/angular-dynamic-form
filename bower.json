@@ -1,6 +1,6 @@
 {
     "name": "angular-dynamic-form",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "homepage": "https://github.com/Intellipharm/angular-dynamic-form",
     "authors": [
         "Intellipharm <damian@intellipharm.com.au>",
@@ -30,11 +30,11 @@
         "!dist/*"
     ],
     "dependencies": {
-        "angular": "~1.4.x",
-        "lodash": "~3.x",
-        "angular-filter": "~0.5.x"
+        "angular": "~1.4.0",
+        "lodash": "^3.10.0",
+        "angular-filter": "~0.5.0"
     },
     "devDependencies": {
-        "angular-mocks": "~1.4.x"
+        "angular-mocks": "~1.4.0"
     }
 }

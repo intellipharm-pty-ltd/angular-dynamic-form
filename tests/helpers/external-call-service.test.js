@@ -150,7 +150,7 @@ describe('helpers.ExternalCallService', function() {
 
             $rootScope.$apply();
 
-            expect(result).toBe(null);
+            expect(result).toBe(undefined);
         });
 
         it('should reject if method returns false', function() {
@@ -169,7 +169,7 @@ describe('helpers.ExternalCallService', function() {
 
             $rootScope.$apply();
 
-            expect(result).toBe(null);
+            expect(result).toBe(undefined);
         });
     });
 });
