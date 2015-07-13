@@ -107,71 +107,129 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/checkbox.html',
-    "<!-- checkbox -->\n" +
-    "<input type=\"checkbox\"\n" +
-    "       ng-model=\"$parent.value\"\n" +
-    "       ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\">\n" +
+    "<input\n" +
+    "    type=\"checkbox\"\n" +
     "\n" +
-    "<label ng-if=\"field.right_label !== '' && config.show_right_labels\" for=\"{{field.name}}\"\n" +
-    "       class=\"{{style_config.right_label_class}}\">{{field.right_label}}</label>\n"
+    "    ng-model=\"$parent.value\"\n" +
+    "    ng-change=\"ctrl.onChange()\"\n" +
+    "    ng-disabled=\"field.disabled\"\n" +
+    ">\n" +
+    "\n" +
+    "<label for=\"{{field.name}}\" class=\"{{style_config.right_label_class}}\" ng-if=\"field.right_label !== '' && config.show_right_labels\">\n" +
+    "    {{field.right_label}}\n" +
+    "</label>\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/currency.html',
-    "<!-- currency -->\n" +
     "<div class=\"input-group\">\n" +
     "    <div class=\"input-group-addon\">{{field.symbol}}</div>\n" +
-    "    <input type=\"text\" id=\"{{field.name}}\" class=\"form-control\" placeholder=\"{{field.label}}\"\n" +
-    "           ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +
+    "    <input\n" +
+    "        type=\"text\"\n" +
+    "        id=\"{{field.name}}\"\n" +
+    "        class=\"form-control\"\n" +
+    "        placeholder=\"{{field.label}}\"\n" +
+    "\n" +
+    "        ng-model=\"$parent.value\"\n" +
+    "        ng-change=\"ctrl.onChange()\"\n" +
+    "        ng-blur=\"ctrl.onBlur()\"\n" +
+    "        ng-disabled=\"field.disabled\"\n" +
+    "        ng-autofocus=\"field.autofocus\"\n" +
+    "    >\n" +
     "</div>\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/multi_select.html',
-    "<!-- multi_select -->\n" +
-    "{{$parent.value}}\n" +
-    "<select class=\"form-control\"\n" +
-    "        ng-model=\"$parent.value\" multiple size=\"{{field.type.size}}\" ng-options=\"option.value as option.label for option in field.options\"\n" +
-    "        ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +
+    "<select\n" +
+    "    class=\"form-control\"\n" +
+    "    ng-model=\"$parent.value\"\n" +
+    "    multiple\n" +
+    "    size=\"{{field.type.size}}\"\n" +
+    "\n" +
+    "    ng-options=\"option.value as option.label for option in field.options\"\n" +
+    "    ng-change=\"ctrl.onChange()\"\n" +
+    "    ng-disabled=\"field.disabled\" \n" +
+    "    ng-autofocus=\"field.autofocus\"\n" +
+    ">\n" +
     "</select>\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/number.html',
-    "<!-- text -->\n" +
-    "<input type=\"number\" id=\"{{field.name}}\" class=\"{{style_config.input_class}}\" placeholder=\"{{field.label}}\"\n" +
-    "       ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
+    "<input\n" +
+    "    type=\"number\"\n" +
+    "    id=\"{{field.name}}\"\n" +
+    "    class=\"{{style_config.input_class}}\"\n" +
+    "    placeholder=\"{{field.label}}\"\n" +
+    "\n" +
+    "    ng-model=\"$parent.value\"\n" +
+    "    ng-change=\"ctrl.onChange()\"\n" +
+    "    ng-blur=\"ctrl.onBlur()\"\n" +
+    "    ng-disabled=\"field.disabled\" \n" +
+    "    ng-autofocus=\"field.autofocus\"\n" +
+    ">\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/password.html',
-    "<!-- password -->\n" +
-    "<input type=\"password\" id=\"{{field.name}}\" class=\"form-control\" placeholder=\"{{field.label}}\"\n" +
-    "           ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
+    "<input\n" +
+    "    type=\"password\"\n" +
+    "    id=\"{{field.name}}\"\n" +
+    "    class=\"form-control\"\n" +
+    "    placeholder=\"{{field.label}}\"\n" +
+    "\n" +
+    "    ng-model=\"$parent.value\"\n" +
+    "    ng-change=\"ctrl.onChange()\"\n" +
+    "    ng-blur=\"ctrl.onBlur()\"\n" +
+    "    ng-disabled=\"field.disabled\"\n" +
+    "    ng-autofocus=\"field.autofocus\"\n" +
+    ">\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/select.html',
-    "<!-- select -->\n" +
-    "<select class=\"form-control\"\n" +
-    "        ng-model=\"$parent.value\" ng-options=\"option.value as option.label for option in field.options\"\n" +
-    "        ng-change=\"ctrl.onChange()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n" +
+    "<select\n" +
+    "    class=\"form-control\"\n" +
+    "\n" +
+    "    ng-model=\"$parent.value\" ng-options=\"option.value as option.label for option in field.options\"\n" +
+    "    ng-change=\"ctrl.onChange()\"\n" +
+    "    ng-disabled=\"field.disabled\"\n" +
+    "    ng-autofocus=\"field.autofocus\"\n" +
+    ">\n" +
     "    <option value=\"\" disabled>Please select</option>\n" +
     "</select>\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/text.html',
-    "<!-- text -->\n" +
-    "<input type=\"text\" id=\"{{field.name}}\" class=\"{{style_config.input_class}}\" placeholder=\"{{field.label}}\"\n" +
-    "       ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\">\n"
+    "<input\n" +
+    "    type=\"text\"\n" +
+    "    id=\"{{field.name}}\"\n" +
+    "    class=\"{{style_config.input_class}}\"\n" +
+    "    placeholder=\"{{field.label}}\"\n" +
+    "\n" +
+    "    ng-model=\"$parent.value\"\n" +
+    "    ng-change=\"ctrl.onChange()\"\n" +
+    "    ng-blur=\"ctrl.onBlur()\"\n" +
+    "    ng-disabled=\"field.disabled\" \n" +
+    "    ng-autofocus=\"field.autofocus\"\n" +
+    ">\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/textarea.html',
-    "<!-- textarea -->\n" +
-    "<textarea id=\"{{field.name}}\" class=\"form-control\" placeholder=\"{{field.label}}\"\n" +
-    "          ng-model=\"$parent.value\" ng-change=\"ctrl.onChange()\" ng-blur=\"ctrl.onBlur()\" ng-disabled=\"model.form_field_config[field.name].disabled\" ng-autofocus=\"field.autofocus\"></textarea>\n"
+    "<textarea\n" +
+    "    id=\"{{field.name}}\"\n" +
+    "    class=\"form-control\"\n" +
+    "    placeholder=\"{{field.label}}\".\n" +
+    "\n" +
+    "    ng-model=\"$parent.value\"\n" +
+    "    ng-change=\"ctrl.onChange()\"\n" +
+    "    ng-blur=\"ctrl.onBlur()\"\n" +
+    "    ng-disabled=\"field.disabled\"\n" +
+    "    ng-autofocus=\"field.autofocus\"\n" +
+    "></textarea>\n"
   );
 
 }]);

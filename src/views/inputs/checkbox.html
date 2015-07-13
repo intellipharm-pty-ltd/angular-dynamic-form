@@ -1,7 +1,11 @@
-<!-- checkbox -->
-<input type="checkbox"
-       ng-model="$parent.value"
-       ng-change="ctrl.onChange()" ng-disabled="model.form_field_config[field.name].disabled">
+<input
+    type="checkbox"
 
-<label ng-if="field.right_label !== '' && config.show_right_labels" for="{{field.name}}"
-       class="{{style_config.right_label_class}}">{{field.right_label}}</label>
+    ng-model="$parent.value"
+    ng-change="ctrl.onChange()"
+    ng-disabled="field.disabled"
+>
+
+<label for="{{field.name}}" class="{{style_config.right_label_class}}" ng-if="field.right_label !== '' && config.show_right_labels">
+    {{field.right_label}}
+</label>
