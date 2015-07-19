@@ -49,9 +49,9 @@
                 if (response === false || response === true) {
 
                     if (response) {
-                        resolve(null);
+                        resolve();
                     } else {
-                        reject(null);
+                        reject();
                     }
                 }
 

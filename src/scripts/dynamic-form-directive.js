@@ -6,6 +6,8 @@
         return {
             restrict: 'E',
             scope: {
+                api:                '=',
+                auto_init:          '=autoInit',
                 model:              '=',
                 fields:             '=',
                 form_config:        '=config',
@@ -18,8 +20,7 @@
                 onClear:            '&',
                 onError:            '&',
                 onChange:           '&',
-                onBlur:             '&',
-                init:               '='
+                onBlur:             '&'
             },
             controller: 'DynamicFormCtrl as ctrl',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',

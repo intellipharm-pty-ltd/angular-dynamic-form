@@ -8,6 +8,7 @@
     var DynamicFormCtrl = function($rootScope, $scope, $q, DYNAMIC_FORM_EVENTS, FieldTransformer, ConfigTransformer, SubmitService) {
 
         var self = this;
+        var api = $scope.api || {};
 
         // control
         $scope.is_submitting = $scope.form_config.auto_submit;
@@ -164,7 +165,7 @@
 
         /**
          * init
-         * called when model is ready or when init is true
+         * called when model is ready (if $s.auto_init is not set to false)
          */
         this.init = function() {
 
@@ -202,6 +203,10 @@
          * called when fields property changes
          */
         this.update = function() {
+
+            if (_.isNull($scope.model)) {
+                return true;
+            }
 
             // transform fields
             $scope.fields_array = FieldTransformer.transformFields($scope.fields, $scope.form_config, $scope.model);
@@ -249,14 +254,12 @@
         /////////////////////////////////////////////////////
 
         //-----------------------------------
-        // init
+        // model
         //-----------------------------------
 
-        // we will either use the init or model property trigger initialization
-        var watch_for_init = !_.isUndefined($scope.init) ? 'init' : 'model';
+        var initialized = $scope.$watch('model', function(val) {
 
-        var initialized = $scope.$watch(watch_for_init, function(val) {
-            if (!_.isUndefined(val) && val) {
+            if (!_.isUndefined(val) && val && $scope.auto_init !== false) {
                 self.init();
                 initialized(); // destroy watcher
             }
@@ -288,8 +291,13 @@
         //
         /////////////////////////////////////////////////////
 
+        //--------------------------------------------------------
+        // events
+        //--------------------------------------------------------
+
         //-----------------------------------
         // submit (force submit)
+        // TODO: remove when removed from Loyalty project
         //-----------------------------------
 
         $scope.$on(DYNAMIC_FORM_EVENTS.submit, function(evt, params) {
@@ -299,14 +307,28 @@
             }
 
             self.onSubmit();
-
-            //if ($scope.is_active == true) {
-            //    $scope.submitted = true;
-            //    self.onSubmit();
-            //} else {
-            //    $scope.submitted = false;
-            //}
         });
+
+        /////////////////////////////////////////////////////
+        //
+        // public API
+        //
+        /////////////////////////////////////////////////////
+
+        /**
+         * init
+         */
+        api.init =  function() {
+            self.init();
+            initialized(); // destroy watcher
+        };
+
+        /**
+         * submit
+         */
+        api.submit =  function() {
+            self.onSubmit();
+        };
     };
 
     DynamicFormCtrl.$inject = [

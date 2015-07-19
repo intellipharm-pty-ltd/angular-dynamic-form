@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.5.0
+ * angular-dynamic-form v0.5.1
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-07-08 12:30:44
+ * 2015-07-16 13:38:58
  *
  */
 (function() {
@@ -61,6 +61,9 @@
     var DynamicFormCtrl = function($rootScope, $scope, $q, DYNAMIC_FORM_EVENTS, FieldTransformer, ConfigTransformer, SubmitService) {
 
         var self = this;
+        var api = $scope.api || {};
+
+        console.log($scope.api);
 
         // control
         $scope.is_submitting = $scope.form_config.auto_submit;
@@ -217,7 +220,7 @@
 
         /**
          * init
-         * called when model is ready or when init is true
+         * called when model is ready (if $s.auto_init is not set to false)
          */
         this.init = function() {
 
@@ -302,14 +305,11 @@
         /////////////////////////////////////////////////////
 
         //-----------------------------------
-        // init
+        // model
         //-----------------------------------
 
-        // we will either use the init or model property trigger initialization
-        var watch_for_init = !_.isUndefined($scope.init) ? 'init' : 'model';
-
-        var initialized = $scope.$watch(watch_for_init, function(val) {
-            if (!_.isUndefined(val) && val) {
+        var initialized = $scope.$watch('model', function(val) {
+            if (!_.isUndefined(val) && val && $scope.auto_init !== false) {
                 self.init();
                 initialized(); // destroy watcher
             }
@@ -341,8 +341,13 @@
         //
         /////////////////////////////////////////////////////
 
+        //--------------------------------------------------------
+        // events
+        //--------------------------------------------------------
+
         //-----------------------------------
         // submit (force submit)
+        // TODO: remove when removed from Loyalty project
         //-----------------------------------
 
         $scope.$on(DYNAMIC_FORM_EVENTS.submit, function(evt, params) {
@@ -352,14 +357,28 @@
             }
 
             self.onSubmit();
-
-            //if ($scope.is_active == true) {
-            //    $scope.submitted = true;
-            //    self.onSubmit();
-            //} else {
-            //    $scope.submitted = false;
-            //}
         });
+
+        /////////////////////////////////////////////////////
+        //
+        // public API
+        //
+        /////////////////////////////////////////////////////
+
+        /**
+         * init
+         */
+        api.init =  function() {
+            self.init();
+            initialized(); // destroy watcher
+        };
+
+        /**
+         * submit
+         */
+        api.submit =  function() {
+            self.onSubmit();
+        };
     };
 
     DynamicFormCtrl.$inject = [
@@ -384,6 +403,8 @@
         return {
             restrict: 'E',
             scope: {
+                api:                '=',
+                auto_init:          '=autoInit',
                 model:              '=',
                 fields:             '=',
                 form_config:        '=config',
@@ -396,8 +417,7 @@
                 onClear:            '&',
                 onError:            '&',
                 onChange:           '&',
-                onBlur:             '&',
-                init:               '='
+                onBlur:             '&'
             },
             controller: 'DynamicFormCtrl as ctrl',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
@@ -759,9 +779,9 @@
                 if (response === false || response === true) {
 
                     if (response) {
-                        resolve(null);
+                        resolve();
                     } else {
-                        reject(null);
+                        reject();
                     }
                 }
 

@@ -1,6 +1,12 @@
-<!-- multi_select -->
-{{$parent.value}}
-<select class="form-control"
-        ng-model="$parent.value" multiple size="{{field.type.size}}" ng-options="option.value as option.label for option in field.options"
-        ng-change="ctrl.onChange()" ng-disabled="model.form_field_config[field.name].disabled" ng-autofocus="field.autofocus">
+<select
+    class="form-control"
+    ng-model="$parent.value"
+    multiple
+    size="{{field.type.size}}"
+
+    ng-options="option.value as option.label for option in field.options"
+    ng-change="ctrl.onChange()"
+    ng-disabled="field.disabled" 
+    ng-autofocus="field.autofocus"
+>
 </select>
