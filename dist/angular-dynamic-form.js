@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.5.1
+ * angular-dynamic-form v0.5.2
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-07-13 14:16:48
+ * 2015-07-30 10:09:54
  *
  */
 (function() {
@@ -58,7 +58,7 @@
     // Dynamic Form Controller
     //----------------------------------
 
-    var DynamicFormCtrl = function($rootScope, $scope, $q, DYNAMIC_FORM_EVENTS, FieldTransformer, ConfigTransformer, SubmitService) {
+    var DynamicFormCtrl = function($rootScope, $scope, $q, $location, DYNAMIC_FORM_EVENTS, FieldTransformer, ConfigTransformer, SubmitService) {
 
         var self = this;
 
@@ -236,6 +236,16 @@
                 $scope.grouped_fields_array = FieldTransformer.transformGroupFields($scope.fields_array, $scope.groups_config);
             }
 
+            if ($scope.form_config.populate_model_from_url_parameters) {
+                var query_parameters = $location.search();
+
+                _.forEach($scope.fields_array, function(field) {
+                    if (_.has(query_parameters, field.name)) {
+                        _.set($scope.model, field.name, query_parameters[field.name]);
+                    }
+                });
+            }
+
             // auto submit
             if ($scope.form_config.auto_submit) {
                 $scope.form_config.auto_submit = false;
@@ -366,6 +376,7 @@
         '$rootScope',
         '$scope',
         '$q',
+        '$location',
         'DYNAMIC_FORM_EVENTS',
         'AngularDynamicForm.transformers.FieldTransformer',
         'AngularDynamicForm.transformers.ConfigTransformer',
@@ -882,26 +893,27 @@
     var Service = function(MESSAGE_UNRECOGNISED_CONFIG_NAME) {
 
         var _form_config = {
-            auto_submit:                    false, // use when you need to auto submit form (eg. after redirect)
-            label_camelcase:                true,
-            label_replace_underscores:      true,
-            show_buttons_on_change:         false,
-            show_error_messages:            true,
-            show_success_messages:          true,
-            show_submit_button:             true,
-            show_cancel_button:             false,
-            show_clear_button:              false,
-            submit_button_label:            'SUBMIT',
-            cancel_button_label:            'CANCEL',
-            clear_button_label:             'CLEAR',
-            validate_fields:                null,
-            validate_fields_exclude:        null,
-            validation_error_message:       null,
-            validation_success_message:     null,
-            save_error_message:             null,
-            save_success_message:           null,
-            custom_error_message:           null,
-            custom_success_message:         null
+            auto_submit:                        false, // use when you need to auto submit form (eg. after redirect)
+            label_camelcase:                    true,
+            label_replace_underscores:          true,
+            show_buttons_on_change:             false,
+            show_error_messages:                true,
+            show_success_messages:              true,
+            show_submit_button:                 true,
+            show_cancel_button:                 false,
+            show_clear_button:                  false,
+            submit_button_label:                'SUBMIT',
+            cancel_button_label:                'CANCEL',
+            clear_button_label:                 'CLEAR',
+            validate_fields:                    null,
+            validate_fields_exclude:            null,
+            validation_error_message:           null,
+            validation_success_message:         null,
+            save_error_message:                 null,
+            save_success_message:               null,
+            custom_error_message:               null,
+            custom_success_message:             null,
+            populate_model_from_url_parameters: false,
         };
 
         var _form_field_config = {
