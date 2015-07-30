@@ -5,7 +5,7 @@
     // Dynamic Form Controller
     //----------------------------------
 
-    var DynamicFormCtrl = function($rootScope, $scope, $q, DYNAMIC_FORM_EVENTS, FieldTransformer, ConfigTransformer, SubmitService) {
+    var DynamicFormCtrl = function($rootScope, $scope, $q, $location, DYNAMIC_FORM_EVENTS, FieldTransformer, ConfigTransformer, SubmitService) {
 
         var self = this;
 
@@ -183,6 +183,16 @@
                 $scope.grouped_fields_array = FieldTransformer.transformGroupFields($scope.fields_array, $scope.groups_config);
             }
 
+            if ($scope.form_config.populate_model_from_url_parameters) {
+                var query_parameters = $location.search();
+
+                _.forEach($scope.fields_array, function(field) {
+                    if (_.has(query_parameters, field.name)) {
+                        _.set($scope.model, field.name, query_parameters[field.name]);
+                    }
+                });
+            }
+
             // auto submit
             if ($scope.form_config.auto_submit) {
                 $scope.form_config.auto_submit = false;
@@ -313,6 +323,7 @@
         '$rootScope',
         '$scope',
         '$q',
+        '$location',
         'DYNAMIC_FORM_EVENTS',
         'AngularDynamicForm.transformers.FieldTransformer',
         'AngularDynamicForm.transformers.ConfigTransformer',
