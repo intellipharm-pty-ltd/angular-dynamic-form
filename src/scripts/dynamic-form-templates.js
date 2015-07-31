@@ -41,7 +41,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                               model=\"model\"\n" +
     "                               config=\"form_field_config\"\n" +
     "                               style-config=\"form_style_config\"\n" +
-    "                               errors=\"errors[field.name]\"\n" +
+    "                               all-errors=\"errors\"\n" +
     "                               show-validation=\"errors[field.name]\"\n" +
     "                               on-change=\"ctrl.onFieldChange(field)\"\n" +
     "                               on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n" +
@@ -59,7 +59,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       model=\"model\"\n" +
     "                       config=\"form_field_config\"\n" +
     "                       style-config=\"form_style_config\"\n" +
-    "                       errors=\"errors[field.name]\"\n" +
+    "                       all-errors=\"errors\"\n" +
     "                       show-validation=\"errors[field.name]\"\n" +
     "                       on-change=\"ctrl.onFieldChange(field)\"\n" +
     "                       on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n"
@@ -111,7 +111,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/inputs/checkbox.html',
     "<input\n" +
     "    type=\"checkbox\"\n" +
-    "\n" +
     "    ng-model=\"$parent.value\"\n" +
     "    ng-change=\"ctrl.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +

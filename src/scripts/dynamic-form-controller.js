@@ -260,6 +260,7 @@
         var initialized = $scope.$watch('model', function(val) {
 
             if (!_.isUndefined(val) && val && $scope.auto_init !== false) {
+
                 self.init();
                 initialized(); // destroy watcher
             }

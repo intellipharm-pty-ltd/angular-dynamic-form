@@ -11,11 +11,14 @@
                 config:             '=',
                 style_config:       '=styleConfig',
                 onChange:           '&',
-                onBlur:             '&'
+                onBlur:             '&',
+                show_validation:    '=showValidation'
             },
             controller: 'DynamicFormFieldsetCtrl as ctrl',
             replace: true,
             link: function(scope) {
+
+                scope.errors = [];
 
                 // set input view template
                 scope.input_view_template = 'angular-dynamic-form/views/inputs/' + scope.field.type + '.html';
@@ -32,7 +35,8 @@
                 });
 
                 scope.$watchCollection('allErrors', function() {
-                    if (!_.isUndefined(scope.allErrors)) {
+                    if (!_.isUndefined(scope.allErrors) && _.has(scope.allErrors, scope.field.name)) {
+
                         scope.errors = _.get(scope.allErrors, scope.field.name);
                         updateFieldsetClass();
                         updateValidationFeedbackClass();

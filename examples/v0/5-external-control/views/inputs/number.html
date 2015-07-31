@@ -1,0 +1,12 @@
+<input
+    type="number"
+    id="{{field.name}}"
+    class="{{style_config.input_class}}"
+    placeholder="{{field.label}}"
+
+    ng-model="$parent.value"
+    ng-change="ctrl.onChange()"
+    ng-blur="ctrl.onBlur()"
+    ng-disabled="field.disabled" 
+    ng-autofocus="field.autofocus"
+>

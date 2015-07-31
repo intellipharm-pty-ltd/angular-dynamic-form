@@ -1,0 +1,10 @@
+<select
+    class="form-control"
+
+    ng-model="$parent.value" ng-options="option.value as option.label for option in field.options"
+    ng-change="ctrl.onChange()"
+    ng-disabled="field.disabled"
+    ng-autofocus="field.autofocus"
+>
+    <option value="" disabled>Please select</option>
+</select>

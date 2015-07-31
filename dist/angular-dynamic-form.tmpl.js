@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-07-16 13:38:58
+ * 2015-07-20 15:30:41
  *
  */
 (function() {
@@ -62,7 +62,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                               model=\"model\"\n" +
     "                               config=\"form_field_config\"\n" +
     "                               style-config=\"form_style_config\"\n" +
-    "                               errors=\"errors[field.name]\"\n" +
+    "                               all-errors=\"errors\"\n" +
     "                               show-validation=\"errors[field.name]\"\n" +
     "                               on-change=\"ctrl.onFieldChange(field)\"\n" +
     "                               on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n" +
@@ -80,7 +80,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       model=\"model\"\n" +
     "                       config=\"form_field_config\"\n" +
     "                       style-config=\"form_style_config\"\n" +
-    "                       errors=\"errors[field.name]\"\n" +
+    "                       all-errors=\"errors\"\n" +
     "                       show-validation=\"errors[field.name]\"\n" +
     "                       on-change=\"ctrl.onFieldChange(field)\"\n" +
     "                       on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n"
@@ -132,7 +132,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/inputs/checkbox.html',
     "<input\n" +
     "    type=\"checkbox\"\n" +
-    "\n" +
     "    ng-model=\"$parent.value\"\n" +
     "    ng-change=\"ctrl.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
@@ -300,8 +299,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
         var self = this;
         var api = $scope.api || {};
-
-        console.log($scope.api);
 
         // control
         $scope.is_submitting = $scope.form_config.auto_submit;
@@ -497,6 +494,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          */
         this.update = function() {
 
+            if (_.isNull($scope.model)) {
+                return true;
+            }
+
             // transform fields
             $scope.fields_array = FieldTransformer.transformFields($scope.fields, $scope.form_config, $scope.model);
 
@@ -547,7 +548,9 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         //-----------------------------------
 
         var initialized = $scope.$watch('model', function(val) {
+
             if (!_.isUndefined(val) && val && $scope.auto_init !== false) {
+
                 self.init();
                 initialized(); // destroy watcher
             }
@@ -644,6 +647,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 api:                '=',
                 auto_init:          '=autoInit',
                 model:              '=',
+                errors:             '=',
                 fields:             '=',
                 form_config:        '=config',
                 form_field_config:  '=fieldConfig',
@@ -1533,11 +1537,14 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 config:             '=',
                 style_config:       '=styleConfig',
                 onChange:           '&',
-                onBlur:             '&'
+                onBlur:             '&',
+                show_validation:    '=showValidation'
             },
             controller: 'DynamicFormFieldsetCtrl as ctrl',
             replace: true,
             link: function(scope) {
+
+                scope.errors = [];
 
                 // set input view template
                 scope.input_view_template = 'angular-dynamic-form/views/inputs/' + scope.field.type + '.html';
@@ -1554,7 +1561,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 });
 
                 scope.$watchCollection('allErrors', function() {
-                    if (!_.isUndefined(scope.allErrors)) {
+                    if (!_.isUndefined(scope.allErrors) && _.has(scope.allErrors, scope.field.name)) {
+
                         scope.errors = _.get(scope.allErrors, scope.field.name);
                         updateFieldsetClass();
                         updateValidationFeedbackClass();

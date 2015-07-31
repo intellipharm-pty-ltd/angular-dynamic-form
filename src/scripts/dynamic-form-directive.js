@@ -9,6 +9,7 @@
                 api:                '=',
                 auto_init:          '=autoInit',
                 model:              '=',
+                errors:             '=',
                 fields:             '=',
                 form_config:        '=config',
                 form_field_config:  '=fieldConfig',
