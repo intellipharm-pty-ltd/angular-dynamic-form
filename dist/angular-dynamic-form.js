@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.5.2
+ * angular-dynamic-form v0.5.3
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-07-31 15:39:58
+ * 2015-08-11 15:13:38
  *
  */
 (function() {
@@ -190,6 +190,13 @@
                     switch (response.step) {
 
                         case 'validate':
+
+                            // custom after validate handler
+                            if (!_.isUndefined($scope.onAfterValidate)) {
+                                $scope.onAfterValidate({response: response});
+                            }
+
+                            // broadcast events
                             if (response.message_state === 'success') {
                                 $scope.$emit(DYNAMIC_FORM_EVENTS.valid, response);
                             } else {
@@ -198,6 +205,13 @@
                             break;
 
                         case 'save':
+
+                            // custom after save handler
+                            if (!_.isUndefined($scope.onAfterSave)) {
+                                $scope.onAfterSave({response: response});
+                            }
+
+                            // broadcast events
                             if (response.message_state === 'success') {
                                 $scope.$emit(DYNAMIC_FORM_EVENTS.saveSucccess, response);
                             } else {
@@ -256,6 +270,11 @@
             // show button on change
             if (!$scope.form_config.show_buttons_on_change) {
                 $scope.show_buttons = true;
+            }
+
+            // external handler
+            if (!_.isUndefined($scope.onInit)) {
+                $scope.onInit();
             }
 
             is_initialized = true;
@@ -431,9 +450,12 @@
                 onSubmitComplete:   '&',
                 onCancel:           '&',
                 onClear:            '&',
+                onAfterSave:        '&',
+                onAfterValidate :    '&',
                 onError:            '&',
                 onChange:           '&',
-                onBlur:             '&'
+                onBlur:             '&',
+                onInit:             '&'
             },
             controller: 'DynamicFormCtrl as ctrl',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
