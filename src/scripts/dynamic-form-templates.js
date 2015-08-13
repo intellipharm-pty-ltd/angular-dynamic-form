@@ -118,6 +118,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-model=\"$parent.value\"\n" +
     "    ng-change=\"ctrl.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
     "\n" +
     "<label for=\"{{field.name}}\" class=\"{{style_config.right_label_class}}\" ng-if=\"field.right_label !== '' && config.show_right_labels\">\n" +
@@ -140,6 +144,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        ng-blur=\"ctrl.onBlur()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
     "        ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "        tooltip=\"{{field.tooltip.content}}\"\n" +
+    "        tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "        tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     "    >\n" +
     "</div>\n"
   );
@@ -154,8 +162,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "    ng-options=\"option.value as option.label for option in field.options\"\n" +
     "    ng-change=\"ctrl.onChange()\"\n" +
-    "    ng-disabled=\"field.disabled\" \n" +
+    "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
     "</select>\n"
   );
@@ -171,8 +183,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-model=\"$parent.value\"\n" +
     "    ng-change=\"ctrl.onChange()\"\n" +
     "    ng-blur=\"ctrl.onBlur()\"\n" +
-    "    ng-disabled=\"field.disabled\" \n" +
+    "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
   );
 
@@ -189,6 +205,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-blur=\"ctrl.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
   );
 
@@ -201,6 +221,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-change=\"ctrl.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
     "    <option value=\"\" disabled>Please select</option>\n" +
     "</select>\n"
@@ -217,8 +241,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-model=\"$parent.value\"\n" +
     "    ng-change=\"ctrl.onChange()\"\n" +
     "    ng-blur=\"ctrl.onBlur()\"\n" +
-    "    ng-disabled=\"field.disabled\" \n" +
+    "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
   );
 
@@ -234,6 +262,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-blur=\"ctrl.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     "></textarea>\n"
   );
 

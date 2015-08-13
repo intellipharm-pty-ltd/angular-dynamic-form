@@ -3,6 +3,10 @@
     ng-model="$parent.value"
     ng-change="ctrl.onChange()"
     ng-disabled="field.disabled"
+
+    tooltip="{{field.tooltip.content}}"
+    tooltip-trigger="{{field.tooltip.trigger}}"
+    tooltip-placement="{{field.tooltip.placement}}"
 >
 
 <label for="{{field.name}}" class="{{style_config.right_label_class}}" ng-if="field.right_label !== '' && config.show_right_labels">

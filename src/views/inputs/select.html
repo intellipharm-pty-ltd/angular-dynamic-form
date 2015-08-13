@@ -5,6 +5,10 @@
     ng-change="ctrl.onChange()"
     ng-disabled="field.disabled"
     ng-autofocus="field.autofocus"
+
+    tooltip="{{field.tooltip.content}}"
+    tooltip-trigger="{{field.tooltip.trigger}}"
+    tooltip-placement="{{field.tooltip.placement}}"
 >
     <option value="" disabled>Please select</option>
 </select>
