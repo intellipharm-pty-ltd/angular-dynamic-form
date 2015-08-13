@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.5.3
+ * angular-dynamic-form v0.6.0
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-08-11 15:13:38
+ * 2015-08-13 12:21:08
  *
  */
 (function() {
@@ -67,6 +67,7 @@
         $scope.is_submitting = $scope.form_config.auto_submit;
         $scope.submit_step = null;
         $scope.show_buttons = $scope.is_submitting;
+        $scope.has_submitted = false;
 
         var dont_clear_fields = ['model'];
         var is_initialized = false;
@@ -158,6 +159,7 @@
 
                 // complete
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // custom complete handler
                     if (!_.isUndefined($scope.onSubmitComplete)) {
@@ -168,6 +170,7 @@
 
                 // error
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // custom error handler
                     if (!_.isUndefined($scope.onError)) {
@@ -177,6 +180,7 @@
 
                 // updates (messaging)
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // set errors
                     $scope.errors = response.data;

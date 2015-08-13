@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v0.5.3
+ * angular-dynamic-form v0.6.0
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-08-11 15:13:38
+ * 2015-08-13 12:21:08
  *
  */
 (function() {
@@ -25,22 +25,26 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
     "<div class=\"dynamic-form-fieldset {{fieldset_class}}\">\n" +
     "\n" +
-    "    <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\" class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
+    "    <div>\n" +
+    "        <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\" class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
     "\n" +
-    "    <!-- edit state -->\n" +
+    "        <!-- edit state -->\n" +
     "\n" +
-    "    <div ng-class=\"ctrl.inputBoxClass()\">\n" +
+    "        <div ng-class=\"ctrl.inputBoxClass()\">\n" +
     "\n" +
-    "        <div ng-include src=\"input_view_template\"></div>\n" +
+    "            <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
-    "        <!-- validation feedback -->\n" +
-    "        <span ng-show=\"config.has_validation_feedback\" class=\"{{validation_feedback_class}}\"></span>\n" +
+    "            <!-- validation feedback -->\n" +
+    "            <span ng-show=\"config.has_validation_feedback && show_validation\" class=\"{{validation_feedback_class}}\"></span>\n" +
     "\n" +
-    "    </div>\n" +
+    "        </div>\n" +
     "\n" +
-    "    <!-- indicators -->\n" +
-    "    <div ng-show=\"field.required && config.has_required_indicator\" class=\"{{style_config.required_indicator_class}}\">\n" +
-    "        <span>*</span>\n" +
+    "        <!-- indicators -->\n" +
+    "        <div ng-show=\"field.required && config.has_required_indicator\" class=\"{{style_config.required_indicator_class}}\">\n" +
+    "            <span>*</span>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"clearfix\"></div>\n" +
     "    </div>\n" +
     "\n" +
     "    <div ng-show=\"errors.length > 0\" class=\"{{style_config.field_message_error_class}}\">{{errors[0]}}</div>\n" +
@@ -63,7 +67,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                               config=\"form_field_config\"\n" +
     "                               style-config=\"form_style_config\"\n" +
     "                               all-errors=\"errors\"\n" +
-    "                               show-validation=\"errors[field.name]\"\n" +
+    "                               show-validation=\"has_submitted\"\n" +
     "                               on-change=\"ctrl.onFieldChange(field)\"\n" +
     "                               on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n" +
     "\n" +
@@ -81,7 +85,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       config=\"form_field_config\"\n" +
     "                       style-config=\"form_style_config\"\n" +
     "                       all-errors=\"errors\"\n" +
-    "                       show-validation=\"errors[field.name]\"\n" +
+    "                       show-validation=\"has_submitted\"\n" +
     "                       on-change=\"ctrl.onFieldChange(field)\"\n" +
     "                       on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n"
   );
@@ -135,6 +139,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-model=\"$parent.value\"\n" +
     "    ng-change=\"ctrl.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
     "\n" +
     "<label for=\"{{field.name}}\" class=\"{{style_config.right_label_class}}\" ng-if=\"field.right_label !== '' && config.show_right_labels\">\n" +
@@ -157,6 +165,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        ng-blur=\"ctrl.onBlur()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
     "        ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "        tooltip=\"{{field.tooltip.content}}\"\n" +
+    "        tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "        tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     "    >\n" +
     "</div>\n"
   );
@@ -171,8 +183,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "    ng-options=\"option.value as option.label for option in field.options\"\n" +
     "    ng-change=\"ctrl.onChange()\"\n" +
-    "    ng-disabled=\"field.disabled\" \n" +
+    "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
     "</select>\n"
   );
@@ -188,8 +204,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-model=\"$parent.value\"\n" +
     "    ng-change=\"ctrl.onChange()\"\n" +
     "    ng-blur=\"ctrl.onBlur()\"\n" +
-    "    ng-disabled=\"field.disabled\" \n" +
+    "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
   );
 
@@ -206,6 +226,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-blur=\"ctrl.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
   );
 
@@ -218,6 +242,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-change=\"ctrl.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
     "    <option value=\"\" disabled>Please select</option>\n" +
     "</select>\n"
@@ -234,8 +262,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-model=\"$parent.value\"\n" +
     "    ng-change=\"ctrl.onChange()\"\n" +
     "    ng-blur=\"ctrl.onBlur()\"\n" +
-    "    ng-disabled=\"field.disabled\" \n" +
+    "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
   );
 
@@ -251,6 +283,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-blur=\"ctrl.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
+    "\n" +
+    "    tooltip=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
+    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
     "></textarea>\n"
   );
 
@@ -304,6 +340,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         $scope.is_submitting = $scope.form_config.auto_submit;
         $scope.submit_step = null;
         $scope.show_buttons = $scope.is_submitting;
+        $scope.has_submitted = false;
 
         var dont_clear_fields = ['model'];
         var is_initialized = false;
@@ -395,6 +432,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
                 // complete
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // custom complete handler
                     if (!_.isUndefined($scope.onSubmitComplete)) {
@@ -405,6 +443,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
                 // error
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // custom error handler
                     if (!_.isUndefined($scope.onError)) {
@@ -414,6 +453,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
                 // updates (messaging)
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // set errors
                     $scope.errors = response.data;
