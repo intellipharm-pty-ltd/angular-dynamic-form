@@ -14,6 +14,7 @@
         $scope.is_submitting = $scope.form_config.auto_submit;
         $scope.submit_step = null;
         $scope.show_buttons = $scope.is_submitting;
+        $scope.has_submitted = false;
 
         var dont_clear_fields = ['model'];
         var is_initialized = false;
@@ -105,6 +106,7 @@
 
                 // complete
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // custom complete handler
                     if (!_.isUndefined($scope.onSubmitComplete)) {
@@ -115,6 +117,7 @@
 
                 // error
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // custom error handler
                     if (!_.isUndefined($scope.onError)) {
@@ -124,6 +127,7 @@
 
                 // updates (messaging)
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // set errors
                     $scope.errors = response.data;

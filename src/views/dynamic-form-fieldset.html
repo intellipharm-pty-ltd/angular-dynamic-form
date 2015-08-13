@@ -1,21 +1,25 @@
 <div class="dynamic-form-fieldset {{fieldset_class}}">
 
-    <label ng-if="field.label !== '' && config.show_labels" for="{{field.name}}" class="{{style_config.label_class}}">{{field.label}}</label>
+    <div>
+        <label ng-if="field.label !== '' && config.show_labels" for="{{field.name}}" class="{{style_config.label_class}}">{{field.label}}</label>
 
-    <!-- edit state -->
+        <!-- edit state -->
 
-    <div ng-class="ctrl.inputBoxClass()">
+        <div ng-class="ctrl.inputBoxClass()">
 
-        <div ng-include src="input_view_template"></div>
+            <div ng-include src="input_view_template"></div>
 
-        <!-- validation feedback -->
-        <span ng-show="config.has_validation_feedback" class="{{validation_feedback_class}}"></span>
+            <!-- validation feedback -->
+            <span ng-show="config.has_validation_feedback && show_validation" class="{{validation_feedback_class}}"></span>
 
-    </div>
+        </div>
 
-    <!-- indicators -->
-    <div ng-show="field.required && config.has_required_indicator" class="{{style_config.required_indicator_class}}">
-        <span>*</span>
+        <!-- indicators -->
+        <div ng-show="field.required && config.has_required_indicator" class="{{style_config.required_indicator_class}}">
+            <span>*</span>
+        </div>
+
+        <div class="clearfix"></div>
     </div>
 
     <div ng-show="errors.length > 0" class="{{style_config.field_message_error_class}}">{{errors[0]}}</div>

@@ -4,22 +4,26 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
     "<div class=\"dynamic-form-fieldset {{fieldset_class}}\">\n" +
     "\n" +
-    "    <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\" class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
+    "    <div>\n" +
+    "        <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\" class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
     "\n" +
-    "    <!-- edit state -->\n" +
+    "        <!-- edit state -->\n" +
     "\n" +
-    "    <div ng-class=\"ctrl.inputBoxClass()\">\n" +
+    "        <div ng-class=\"ctrl.inputBoxClass()\">\n" +
     "\n" +
-    "        <div ng-include src=\"input_view_template\"></div>\n" +
+    "            <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
-    "        <!-- validation feedback -->\n" +
-    "        <span ng-show=\"config.has_validation_feedback\" class=\"{{validation_feedback_class}}\"></span>\n" +
+    "            <!-- validation feedback -->\n" +
+    "            <span ng-show=\"config.has_validation_feedback && show_validation\" class=\"{{validation_feedback_class}}\"></span>\n" +
     "\n" +
-    "    </div>\n" +
+    "        </div>\n" +
     "\n" +
-    "    <!-- indicators -->\n" +
-    "    <div ng-show=\"field.required && config.has_required_indicator\" class=\"{{style_config.required_indicator_class}}\">\n" +
-    "        <span>*</span>\n" +
+    "        <!-- indicators -->\n" +
+    "        <div ng-show=\"field.required && config.has_required_indicator\" class=\"{{style_config.required_indicator_class}}\">\n" +
+    "            <span>*</span>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"clearfix\"></div>\n" +
     "    </div>\n" +
     "\n" +
     "    <div ng-show=\"errors.length > 0\" class=\"{{style_config.field_message_error_class}}\">{{errors[0]}}</div>\n" +
@@ -42,7 +46,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                               config=\"form_field_config\"\n" +
     "                               style-config=\"form_style_config\"\n" +
     "                               all-errors=\"errors\"\n" +
-    "                               show-validation=\"errors[field.name]\"\n" +
+    "                               show-validation=\"has_submitted\"\n" +
     "                               on-change=\"ctrl.onFieldChange(field)\"\n" +
     "                               on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n" +
     "\n" +
@@ -60,7 +64,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       config=\"form_field_config\"\n" +
     "                       style-config=\"form_style_config\"\n" +
     "                       all-errors=\"errors\"\n" +
-    "                       show-validation=\"errors[field.name]\"\n" +
+    "                       show-validation=\"has_submitted\"\n" +
     "                       on-change=\"ctrl.onFieldChange(field)\"\n" +
     "                       on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n"
   );
