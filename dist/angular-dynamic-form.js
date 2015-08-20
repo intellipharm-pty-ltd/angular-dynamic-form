@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-08-11 15:13:38
+ * 2015-08-21 08:58:49
  *
  */
 (function() {
@@ -179,7 +179,15 @@
                 function(response) {
 
                     // set errors
-                    $scope.errors = response.data;
+                    if (response.message_state === 'error') {
+                        $scope.errors = response.data;
+                    }
+                    // reset errors
+                    else {
+                        _.forEach($scope.errors, function(error, key) {
+                            $scope.errors[key] = [];
+                        });
+                    }
 
                     // show message
                     if (!_.isUndefined(response.message)) {

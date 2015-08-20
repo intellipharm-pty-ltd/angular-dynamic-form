@@ -126,7 +126,15 @@
                 function(response) {
 
                     // set errors
-                    $scope.errors = response.data;
+                    if (response.message_state === 'error') {
+                        $scope.errors = response.data;
+                    }
+                    // reset errors
+                    else {
+                        _.forEach($scope.errors, function(error, key) {
+                            $scope.errors[key] = [];
+                        });
+                    }
 
                     // show message
                     if (!_.isUndefined(response.message)) {
