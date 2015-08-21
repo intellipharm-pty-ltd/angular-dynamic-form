@@ -14,6 +14,7 @@
         $scope.is_submitting = $scope.form_config.auto_submit;
         $scope.submit_step = null;
         $scope.show_buttons = $scope.is_submitting;
+        $scope.has_submitted = false;
 
         var dont_clear_fields = ['model'];
         var is_initialized = false;
@@ -68,6 +69,11 @@
          */
         this.onFieldBlur = function(field) {
 
+            // clear errors
+            if (_.has($scope.errors, field.name)) {
+                $scope.errors[field.name] = [];
+            }
+
             // custom blur handler
             if (!_.isUndefined($scope.onBlur)) {
                 $scope.onBlur({model: $scope.model, field: field});
@@ -78,6 +84,11 @@
          * onFieldChange
          */
         this.onFieldChange = function(field) {
+
+            // clear errors
+            if (_.has($scope.errors, field.name)) {
+                $scope.errors[field.name] = [];
+            }
 
             // custom change handler
             if (!_.isUndefined($scope.onChange)) {
@@ -105,6 +116,7 @@
 
                 // complete
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // custom complete handler
                     if (!_.isUndefined($scope.onSubmitComplete)) {
@@ -115,6 +127,7 @@
 
                 // error
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // custom error handler
                     if (!_.isUndefined($scope.onError)) {
@@ -124,6 +137,7 @@
 
                 // updates (messaging)
                 function(response) {
+                    $scope.has_submitted = true;
 
                     // set errors
                     if (response.message_state === 'error') {
