@@ -1,6 +1,7 @@
 {
   "name": "angular-dynamic-form",
   "version": "0.7.0",
+  "main": "dist/angular-dynamic-form.tmpl.min.js",
   "dependencies": {},
   "devDependencies": {
     "glob": "~5.0.3",
