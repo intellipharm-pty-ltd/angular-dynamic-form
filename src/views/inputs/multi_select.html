@@ -5,7 +5,7 @@
     size="{{field.type.size}}"
 
     ng-options="option.value as option.label for option in field.options"
-    ng-change="ctrl.onChange()"
+    ng-change="DynamicFormFieldset.onChange()"
     ng-disabled="field.disabled"
     ng-autofocus="field.autofocus"
 
