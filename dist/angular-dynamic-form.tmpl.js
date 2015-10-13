@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-10-13 16:03:42
+ * 2015-10-13 16:08:25
  *
  */
 (function() {
@@ -140,6 +140,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "\n" +
+    "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
     "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
@@ -165,6 +166,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        ng-disabled=\"field.disabled\"\n" +
     "        ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
+    "        tooltips\n" +
     "        tooltip-content=\"{{field.tooltip.content}}\"\n" +
     "        tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     "    >\n" +
@@ -184,6 +186,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
+    "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
     "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
@@ -204,6 +207,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
+    "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
     "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
@@ -223,6 +227,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
+    "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
     "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
@@ -238,6 +243,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
+    "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
     "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
@@ -259,6 +265,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
+    "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
     "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
@@ -277,6 +284,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
+    "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
     "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     "></textarea>\n"
