@@ -4,7 +4,7 @@
     ng-model="$parent.value" ng-options="option.value as option.label for option in field.options"
     ng-change="DynamicFormFieldset.onChange()"
     ng-disabled="field.disabled"
-    ng-autofocus="field.autofocus"
+    ng-autofocus="{{field.autofocus}}"
 
     tooltips
     tooltip-content="{{field.tooltip.content}}"

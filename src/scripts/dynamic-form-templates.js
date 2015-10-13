@@ -143,7 +143,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "        ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
-    "        ng-autofocus=\"field.autofocus\"\n" +
+    "        ng-autofocus=\"{{field.autofocus}}\"\n" +
     "\n" +
     "        tooltips\n" +
     "        tooltip-content=\"{{field.tooltip.content}}\"\n" +
@@ -163,7 +163,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-options=\"option.value as option.label for option in field.options\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
-    "    ng-autofocus=\"field.autofocus\"\n" +
+    "    ng-autofocus=\"{{field.autofocus}}\"\n" +
     "\n" +
     "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
@@ -184,7 +184,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
-    "    ng-autofocus=\"field.autofocus\"\n" +
+    "    ng-autofocus=\"{{field.autofocus}}\"\n" +
     "\n" +
     "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
@@ -204,7 +204,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
-    "    ng-autofocus=\"field.autofocus\"\n" +
+    "    ng-autofocus=\"{{field.autofocus}}\"\n" +
     "\n" +
     "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
@@ -220,7 +220,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-model=\"$parent.value\" ng-options=\"option.value as option.label for option in field.options\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
-    "    ng-autofocus=\"field.autofocus\"\n" +
+    "    ng-autofocus=\"{{field.autofocus}}\"\n" +
     "\n" +
     "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
@@ -242,7 +242,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
-    "    ng-autofocus=\"field.autofocus\"\n" +
+    "    ng-autofocus=\"{{field.autofocus}}\"\n" +
     "\n" +
     "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
@@ -261,7 +261,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
-    "    ng-autofocus=\"field.autofocus\"\n" +
+    "    ng-autofocus=\"{{field.autofocus}}\"\n" +
     "\n" +
     "    tooltips\n" +
     "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
