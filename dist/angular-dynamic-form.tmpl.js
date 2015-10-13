@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-10-08 12:50:44
+ * 2015-10-13 16:03:42
  *
  */
 (function() {
@@ -140,9 +140,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "\n" +
-    "    tooltip=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
-    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
+    "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
     "\n" +
     "<label for=\"{{field.name}}\" class=\"{{style_config.right_label_class}}\" ng-if=\"field.right_label !== '' && config.show_right_labels\">\n" +
@@ -166,9 +165,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        ng-disabled=\"field.disabled\"\n" +
     "        ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
-    "        tooltip=\"{{field.tooltip.content}}\"\n" +
-    "        tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
-    "        tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
+    "        tooltip-content=\"{{field.tooltip.content}}\"\n" +
+    "        tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     "    >\n" +
     "</div>\n"
   );
@@ -186,9 +184,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
-    "    tooltip=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
-    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
+    "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
     "</select>\n"
   );
@@ -207,9 +204,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
-    "    tooltip=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
-    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
+    "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
   );
 
@@ -227,9 +223,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
-    "    tooltip=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
-    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
+    "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
   );
 
@@ -243,9 +238,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
-    "    tooltip=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
-    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
+    "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n" +
     "    <option value=\"\" disabled>Please select</option>\n" +
     "</select>\n"
@@ -265,9 +259,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
-    "    tooltip=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
-    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
+    "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     ">\n"
   );
 
@@ -284,9 +277,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
-    "    tooltip=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-trigger=\"{{field.tooltip.trigger}}\"\n" +
-    "    tooltip-placement=\"{{field.tooltip.placement}}\"\n" +
+    "    tooltip-content=\"{{field.tooltip.content}}\"\n" +
+    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
     "></textarea>\n"
   );
 
