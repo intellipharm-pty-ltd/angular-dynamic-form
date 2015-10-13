@@ -19,7 +19,7 @@
     <div class="{{form_style_config.button_box_class}}" ng-show="show_buttons">
         <button ng-show="form_config.show_submit_button" type="submit"
                 class="{{form_style_config.submit_button_class}}"
-                ng-click="ctrl.onSubmit()"
+                ng-click="DynamicForm.onSubmit()"
                 ng-disabled="is_submitting">
                 {{form_config.submit_button_label}}
                 <i class="{{form_style_config.is_submitting_icon}}" ng-show="is_submitting && form_style_config.is_submitting_icon"></i>
@@ -27,12 +27,12 @@
 
         <button ng-show="form_config.show_cancel_button" type="button"
                 class="{{form_style_config.cancel_button_class}}"
-                ng-click="ctrl.onCancel()"
+                ng-click="DynamicForm.onCancel()"
                 ng-disabled="is_submitting">{{form_config.cancel_button_label}}</button>
 
         <button ng-show="form_config.show_clear_button" type="button"
                 class="{{form_style_config.clear_button_class}}"
-                ng-click="ctrl.onClear()"
+                ng-click="DynamicForm.onClear()"
                 ng-disabled="is_submitting">{{form_config.clear_button_label}}</button>
     </div>
 </form><!-- /form -->

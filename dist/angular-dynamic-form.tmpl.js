@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-08-24 12:29:47
+ * 2015-10-08 12:50:44
  *
  */
 (function() {
@@ -30,7 +30,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "        <!-- edit state -->\n" +
     "\n" +
-    "        <div ng-class=\"ctrl.inputBoxClass()\">\n" +
+    "        <div ng-class=\"DynamicFormFieldset.inputBoxClass()\">\n" +
     "\n" +
     "            <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
@@ -68,8 +68,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                               style-config=\"form_style_config\"\n" +
     "                               all-errors=\"errors\"\n" +
     "                               show-validation=\"has_submitted\"\n" +
-    "                               on-change=\"ctrl.onFieldChange(field)\"\n" +
-    "                               on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n" +
+    "                               on-change=\"DynamicForm.onFieldChange(field)\"\n" +
+    "                               on-blur=\"DynamicForm.onFieldBlur(field)\"></dynamic-form-fieldset>\n" +
     "\n" +
     "    </div>\n" +
     "</div>\n"
@@ -86,8 +86,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       style-config=\"form_style_config\"\n" +
     "                       all-errors=\"errors\"\n" +
     "                       show-validation=\"has_submitted\"\n" +
-    "                       on-change=\"ctrl.onFieldChange(field)\"\n" +
-    "                       on-blur=\"ctrl.onFieldBlur(field)\"></dynamic-form-fieldset>\n"
+    "                       on-change=\"DynamicForm.onFieldChange(field)\"\n" +
+    "                       on-blur=\"DynamicForm.onFieldBlur(field)\"></dynamic-form-fieldset>\n"
   );
 
 
@@ -113,7 +113,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <div class=\"{{form_style_config.button_box_class}}\" ng-show=\"show_buttons\">\n" +
     "        <button ng-show=\"form_config.show_submit_button\" type=\"submit\"\n" +
     "                class=\"{{form_style_config.submit_button_class}}\"\n" +
-    "                ng-click=\"ctrl.onSubmit()\"\n" +
+    "                ng-click=\"DynamicForm.onSubmit()\"\n" +
     "                ng-disabled=\"is_submitting\">\n" +
     "                {{form_config.submit_button_label}}\n" +
     "                <i class=\"{{form_style_config.is_submitting_icon}}\" ng-show=\"is_submitting && form_style_config.is_submitting_icon\"></i>\n" +
@@ -121,12 +121,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "        <button ng-show=\"form_config.show_cancel_button\" type=\"button\"\n" +
     "                class=\"{{form_style_config.cancel_button_class}}\"\n" +
-    "                ng-click=\"ctrl.onCancel()\"\n" +
+    "                ng-click=\"DynamicForm.onCancel()\"\n" +
     "                ng-disabled=\"is_submitting\">{{form_config.cancel_button_label}}</button>\n" +
     "\n" +
     "        <button ng-show=\"form_config.show_clear_button\" type=\"button\"\n" +
     "                class=\"{{form_style_config.clear_button_class}}\"\n" +
-    "                ng-click=\"ctrl.onClear()\"\n" +
+    "                ng-click=\"DynamicForm.onClear()\"\n" +
     "                ng-disabled=\"is_submitting\">{{form_config.clear_button_label}}</button>\n" +
     "    </div>\n" +
     "</form><!-- /form -->\n"
@@ -137,7 +137,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<input\n" +
     "    type=\"checkbox\"\n" +
     "    ng-model=\"$parent.value\"\n" +
-    "    ng-change=\"ctrl.onChange()\"\n" +
+    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "\n" +
     "    tooltip=\"{{field.tooltip.content}}\"\n" +
@@ -161,8 +161,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        placeholder=\"{{field.label}}\"\n" +
     "\n" +
     "        ng-model=\"$parent.value\"\n" +
-    "        ng-change=\"ctrl.onChange()\"\n" +
-    "        ng-blur=\"ctrl.onBlur()\"\n" +
+    "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "        ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
     "        ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
@@ -182,7 +182,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    size=\"{{field.type.size}}\"\n" +
     "\n" +
     "    ng-options=\"option.value as option.label for option in field.options\"\n" +
-    "    ng-change=\"ctrl.onChange()\"\n" +
+    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
@@ -202,8 +202,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    placeholder=\"{{field.label}}\"\n" +
     "\n" +
     "    ng-model=\"$parent.value\"\n" +
-    "    ng-change=\"ctrl.onChange()\"\n" +
-    "    ng-blur=\"ctrl.onBlur()\"\n" +
+    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
@@ -222,8 +222,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    placeholder=\"{{field.label}}\"\n" +
     "\n" +
     "    ng-model=\"$parent.value\"\n" +
-    "    ng-change=\"ctrl.onChange()\"\n" +
-    "    ng-blur=\"ctrl.onBlur()\"\n" +
+    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
@@ -239,7 +239,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    class=\"form-control\"\n" +
     "\n" +
     "    ng-model=\"$parent.value\" ng-options=\"option.value as option.label for option in field.options\"\n" +
-    "    ng-change=\"ctrl.onChange()\"\n" +
+    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
@@ -260,8 +260,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    placeholder=\"{{field.label}}\"\n" +
     "\n" +
     "    ng-model=\"$parent.value\"\n" +
-    "    ng-change=\"ctrl.onChange()\"\n" +
-    "    ng-blur=\"ctrl.onBlur()\"\n" +
+    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
@@ -279,8 +279,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    placeholder=\"{{field.label}}\".\n" +
     "\n" +
     "    ng-model=\"$parent.value\"\n" +
-    "    ng-change=\"ctrl.onChange()\"\n" +
-    "    ng-blur=\"ctrl.onBlur()\"\n" +
+    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    ng-autofocus=\"field.autofocus\"\n" +
     "\n" +
@@ -529,7 +529,11 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          * init
          * called when model is ready (if $s.auto_init is not set to false)
          */
-        this.init = function() {
+        this.init = function( refresh_scope ) {
+
+            if ( _.isUndefined( refresh_scope ) ) {
+                refresh_scope = false;
+            }
 
             // transform configs
             $scope.form_config          = ConfigTransformer.transformConfig('form', $scope.form_config);
@@ -573,6 +577,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             }
 
             is_initialized = true;
+
+            if ( refresh_scope ) {
+                $scope.$apply();
+            }
         };
 
         /**
@@ -697,7 +705,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          * init
          */
         api.init =  function() {
-            self.init();
+            self.init( true );
             initialized(); // destroy watcher
         };
 
@@ -752,7 +760,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 onBlur:             '&',
                 onInit:             '&'
             },
-            controller: 'DynamicFormCtrl as ctrl',
+            controller: 'DynamicFormCtrl as DynamicForm',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
             link: function(scope, element) {
 
@@ -1551,6 +1559,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
     var DynamicFormFieldsetCtrl = function($scope) {
 
+        var self = this;
+
         /**
          * onBlur
          */
@@ -1609,6 +1619,16 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
             _.set($scope.model, $scope.field.name, $scope.value);
         }
+
+        //----------------------------------
+        // watchers
+        //----------------------------------
+
+        $scope.$watch( 'value', function( val ) {
+            if ( !_.isUndefined( val ) ) {
+                self.value = val;
+            }
+        }, true );
     };
 
     DynamicFormFieldsetCtrl.$inject = ['$scope'];
@@ -1632,7 +1652,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 onBlur:             '&',
                 show_validation:    '=showValidation'
             },
-            controller: 'DynamicFormFieldsetCtrl as ctrl',
+            controller: 'DynamicFormFieldsetCtrl as DynamicFormFieldset',
             replace: true,
             link: function(scope) {
 

@@ -203,7 +203,11 @@
          * init
          * called when model is ready (if $s.auto_init is not set to false)
          */
-        this.init = function() {
+        this.init = function( refresh_scope ) {
+
+            if ( _.isUndefined( refresh_scope ) ) {
+                refresh_scope = false;
+            }
 
             // transform configs
             $scope.form_config          = ConfigTransformer.transformConfig('form', $scope.form_config);
@@ -247,6 +251,10 @@
             }
 
             is_initialized = true;
+
+            if ( refresh_scope ) {
+                $scope.$apply();
+            }
         };
 
         /**
@@ -371,7 +379,7 @@
          * init
          */
         api.init =  function() {
-            self.init();
+            self.init( true );
             initialized(); // destroy watcher
         };
 

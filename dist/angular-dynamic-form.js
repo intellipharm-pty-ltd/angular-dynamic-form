@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-08-24 12:29:47
+ * 2015-10-08 12:50:44
  *
  */
 (function() {
@@ -256,7 +256,11 @@
          * init
          * called when model is ready (if $s.auto_init is not set to false)
          */
-        this.init = function() {
+        this.init = function( refresh_scope ) {
+
+            if ( _.isUndefined( refresh_scope ) ) {
+                refresh_scope = false;
+            }
 
             // transform configs
             $scope.form_config          = ConfigTransformer.transformConfig('form', $scope.form_config);
@@ -300,6 +304,10 @@
             }
 
             is_initialized = true;
+
+            if ( refresh_scope ) {
+                $scope.$apply();
+            }
         };
 
         /**
@@ -424,7 +432,7 @@
          * init
          */
         api.init =  function() {
-            self.init();
+            self.init( true );
             initialized(); // destroy watcher
         };
 
@@ -479,7 +487,7 @@
                 onBlur:             '&',
                 onInit:             '&'
             },
-            controller: 'DynamicFormCtrl as ctrl',
+            controller: 'DynamicFormCtrl as DynamicForm',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
             link: function(scope, element) {
 
@@ -1278,6 +1286,8 @@
 
     var DynamicFormFieldsetCtrl = function($scope) {
 
+        var self = this;
+
         /**
          * onBlur
          */
@@ -1336,6 +1346,16 @@
 
             _.set($scope.model, $scope.field.name, $scope.value);
         }
+
+        //----------------------------------
+        // watchers
+        //----------------------------------
+
+        $scope.$watch( 'value', function( val ) {
+            if ( !_.isUndefined( val ) ) {
+                self.value = val;
+            }
+        }, true );
     };
 
     DynamicFormFieldsetCtrl.$inject = ['$scope'];
@@ -1359,7 +1379,7 @@
                 onBlur:             '&',
                 show_validation:    '=showValidation'
             },
-            controller: 'DynamicFormFieldsetCtrl as ctrl',
+            controller: 'DynamicFormFieldsetCtrl as DynamicFormFieldset',
             replace: true,
             link: function(scope) {
 

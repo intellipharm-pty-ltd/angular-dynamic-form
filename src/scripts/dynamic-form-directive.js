@@ -26,7 +26,7 @@
                 onBlur:             '&',
                 onInit:             '&'
             },
-            controller: 'DynamicFormCtrl as ctrl',
+            controller: 'DynamicFormCtrl as DynamicForm',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
             link: function(scope, element) {
 

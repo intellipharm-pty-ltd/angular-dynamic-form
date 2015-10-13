@@ -9,8 +9,8 @@
     ],
     "description": "An AngularJS dynamic form that generates HTML5 forms based on a Javascript data model and configuration.",
     "main": [
-        "dist/angular-dynamic-form.js",
-        "dist/angular-dynamic-form.min.js"
+        "dist/angular-dynamic-form.tmpl.js",
+        "dist/angular-dynamic-form.tmpl.min.js"
     ],
     "moduleType": [
         "globals"

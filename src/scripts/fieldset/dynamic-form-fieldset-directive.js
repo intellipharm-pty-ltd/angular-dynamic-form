@@ -14,7 +14,7 @@
                 onBlur:             '&',
                 show_validation:    '=showValidation'
             },
-            controller: 'DynamicFormFieldsetCtrl as ctrl',
+            controller: 'DynamicFormFieldsetCtrl as DynamicFormFieldset',
             replace: true,
             link: function(scope) {
 

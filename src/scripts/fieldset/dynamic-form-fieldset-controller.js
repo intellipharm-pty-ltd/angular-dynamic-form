@@ -7,6 +7,8 @@
 
     var DynamicFormFieldsetCtrl = function($scope) {
 
+        var self = this;
+
         /**
          * onBlur
          */
@@ -65,6 +67,16 @@
 
             _.set($scope.model, $scope.field.name, $scope.value);
         }
+
+        //----------------------------------
+        // watchers
+        //----------------------------------
+
+        $scope.$watch( 'value', function( val ) {
+            if ( !_.isUndefined( val ) ) {
+                self.value = val;
+            }
+        }, true );
     };
 
     DynamicFormFieldsetCtrl.$inject = ['$scope'];
