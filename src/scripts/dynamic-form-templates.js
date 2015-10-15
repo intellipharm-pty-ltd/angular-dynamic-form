@@ -2,31 +2,37 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   'use strict';
 
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
-    "<div class=\"dynamic-form-fieldset {{fieldset_class}}\">\n" +
+    "<div class=\"dynamic-form-fieldset\" ng-class=\"style_config.fieldset_class\">\n" +
     "\n" +
-    "    <div>\n" +
-    "        <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\" class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
+    "    <div ng-class=\"style_config.input_and_label_box_class\">\n" +
+    "\n" +
+    "        <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\"\n" +
+    "               ng-class=\"style_config.label_class\">{{field.label}}</label>\n" +
     "\n" +
     "        <!-- edit state -->\n" +
     "\n" +
-    "        <div ng-class=\"DynamicFormFieldset.inputBoxClass()\">\n" +
+    "        <!-- <div ng-class=\"DynamicFormFieldset.inputBoxClass()\"> -->\n" +
+    "        <div ng-class=\"dynamic_style_config.input_box_class\">\n" +
     "\n" +
     "            <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
     "            <!-- validation feedback -->\n" +
-    "            <span ng-show=\"config.has_validation_feedback && show_validation\" class=\"{{validation_feedback_class}}\"></span>\n" +
+    "            <span ng-if=\"config.has_validation_feedback && show_validation\"\n" +
+    "                  ng-class=\"style_config.validation_feedback_class\"></span>\n" +
     "\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- indicators -->\n" +
-    "        <div ng-show=\"field.required && config.has_required_indicator\" class=\"{{style_config.required_indicator_class}}\">\n" +
+    "        <div ng-if=\"field.required && config.has_required_indicator\"\n" +
+    "             ng-class=\"style_config.required_indicator_class\">\n" +
     "            <span>*</span>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"clearfix\"></div>\n" +
+    "        <!-- <div class=\"clearfix\"></div> -->\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"error-messages\" ng-show=\"errors.length > 0\" ng-class=\"style_config.field_message_error_class\">{{errors[0]}}</div>\n" +
+    "    <div ng-show=\"errors.length > 0\"\n" +
+    "         ng-class=\"dynamic_style_config.field_error_message_box_class\">{{errors[0]}}</div>\n" +
     "</div>\n"
   );
 

@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-10-13 16:11:59
+ * 2015-10-16 09:49:13
  *
  */
 (function() {
@@ -23,31 +23,37 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   'use strict';
 
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
-    "<div class=\"dynamic-form-fieldset {{fieldset_class}}\">\n" +
+    "<div class=\"dynamic-form-fieldset\" ng-class=\"style_config.fieldset_class\">\n" +
     "\n" +
-    "    <div>\n" +
-    "        <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\" class=\"{{style_config.label_class}}\">{{field.label}}</label>\n" +
+    "    <div ng-class=\"style_config.input_and_label_box_class\">\n" +
+    "\n" +
+    "        <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\"\n" +
+    "               ng-class=\"style_config.label_class\">{{field.label}}</label>\n" +
     "\n" +
     "        <!-- edit state -->\n" +
     "\n" +
-    "        <div ng-class=\"DynamicFormFieldset.inputBoxClass()\">\n" +
+    "        <!-- <div ng-class=\"DynamicFormFieldset.inputBoxClass()\"> -->\n" +
+    "        <div ng-class=\"dynamic_style_config.input_box_class\">\n" +
     "\n" +
     "            <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
     "            <!-- validation feedback -->\n" +
-    "            <span ng-show=\"config.has_validation_feedback && show_validation\" class=\"{{validation_feedback_class}}\"></span>\n" +
+    "            <span ng-if=\"config.has_validation_feedback && show_validation\"\n" +
+    "                  ng-class=\"style_config.validation_feedback_class\"></span>\n" +
     "\n" +
     "        </div>\n" +
     "\n" +
     "        <!-- indicators -->\n" +
-    "        <div ng-show=\"field.required && config.has_required_indicator\" class=\"{{style_config.required_indicator_class}}\">\n" +
+    "        <div ng-if=\"field.required && config.has_required_indicator\"\n" +
+    "             ng-class=\"style_config.required_indicator_class\">\n" +
     "            <span>*</span>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"clearfix\"></div>\n" +
+    "        <!-- <div class=\"clearfix\"></div> -->\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"error-messages\" ng-show=\"errors.length > 0\" ng-class=\"style_config.field_message_error_class\">{{errors[0]}}</div>\n" +
+    "    <div ng-show=\"errors.length > 0\"\n" +
+    "         ng-class=\"dynamic_style_config.field_error_message_box_class\">{{errors[0]}}</div>\n" +
     "</div>\n"
   );
 
@@ -1276,24 +1282,25 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         };
 
         var _form_style_config = {
-            form_class:                     '',
-            fieldset_class:                 '',
-            label_class:                    '',
-            right_label_class:              '',
-            input_box_class:                '',
-            input_box_no_label_class:       '',
-            input_class:                    '',
-            validation_feedback_class:      '',
-            required_indicator_class:       '',
-            message_box_class:              '',
             button_box_class:               '',
-            submit_button_class:            '',
             cancel_button_class:            '',
             clear_button_class:             '',
+            field_error_message_box_class:  '', // dynamic -> dynamic_style_config.field_error_message_box_class
+            field_error_message_box_no_label_class:  '', // dynamic -> dynamic_style_config.field_error_message_box_class
+            fieldset_class:                 '',
+            form_class:                     '',
+            input_box_class:                '', // dynamic -> dynamic_style_config.input_box_class
+            input_box_no_label_class:       '', // dynamic -> dynamic_style_config.input_box_class
+            input_class:                    '',
+            is_submitting_icon:             '',
+            label_class:                    '',
+            message_box_class:              '',
             message_error_class:            '',
-            field_message_error_class:      '',
             message_success_class:          '',
-            is_submitting_icon:             ''
+            required_indicator_class:       '',
+            // right_label_class:              '', // ???
+            submit_button_class:            '',
+            validation_feedback_class:      '',
         };
 
         this.config  = {
@@ -1561,6 +1568,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
         var self = this;
 
+        $scope.dynamic_style_config = {};
+
         /**
          * onBlur
          */
@@ -1596,14 +1605,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             }
         };
 
-        this.inputBoxClass = function() {
-            if ($scope.field.label === '' || !$scope.config.show_labels) {
-                return $scope.style_config.input_box_no_label_class;
-            }
-
-            return $scope.style_config.input_box_class;
-        };
-
         //----------------------------------
         // init
         //----------------------------------
@@ -1629,6 +1630,20 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
                 self.value = val;
             }
         }, true );
+
+        $scope.$watch( 'config.show_labels', function( val ) {
+            if ( !_.isUndefined( val ) ) {
+
+                if ( val ) {
+                    $scope.dynamic_style_config.input_box_class                  = $scope.style_config.input_box_class;
+                    $scope.dynamic_style_config.field_error_message_box_class    = $scope.style_config.field_error_message_box_class;
+                    return;
+                }
+
+                $scope.dynamic_style_config.input_box_class                 = $scope.style_config.input_box_no_label_class;
+                $scope.dynamic_style_config.field_error_message_box_class   = $scope.style_config.field_error_message_box_no_label_class;
+            }
+        } );
     };
 
     DynamicFormFieldsetCtrl.$inject = ['$scope'];

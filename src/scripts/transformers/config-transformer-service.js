@@ -41,24 +41,25 @@
         };
 
         var _form_style_config = {
-            form_class:                     '',
-            fieldset_class:                 '',
-            label_class:                    '',
-            right_label_class:              '',
-            input_box_class:                '',
-            input_box_no_label_class:       '',
-            input_class:                    '',
-            validation_feedback_class:      '',
-            required_indicator_class:       '',
-            message_box_class:              '',
             button_box_class:               '',
-            submit_button_class:            '',
             cancel_button_class:            '',
             clear_button_class:             '',
+            field_error_message_box_class:  '', // dynamic -> dynamic_style_config.field_error_message_box_class
+            field_error_message_box_no_label_class:  '', // dynamic -> dynamic_style_config.field_error_message_box_class
+            fieldset_class:                 '',
+            form_class:                     '',
+            input_box_class:                '', // dynamic -> dynamic_style_config.input_box_class
+            input_box_no_label_class:       '', // dynamic -> dynamic_style_config.input_box_class
+            input_class:                    '',
+            is_submitting_icon:             '',
+            label_class:                    '',
+            message_box_class:              '',
             message_error_class:            '',
-            field_message_error_class:      '',
             message_success_class:          '',
-            is_submitting_icon:             ''
+            required_indicator_class:       '',
+            // right_label_class:              '', // ???
+            submit_button_class:            '',
+            validation_feedback_class:      '',
         };
 
         this.config  = {

@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-10-13 16:11:59
+ * 2015-10-16 09:49:13
  *
  */
 (function() {
@@ -1003,24 +1003,25 @@
         };
 
         var _form_style_config = {
-            form_class:                     '',
-            fieldset_class:                 '',
-            label_class:                    '',
-            right_label_class:              '',
-            input_box_class:                '',
-            input_box_no_label_class:       '',
-            input_class:                    '',
-            validation_feedback_class:      '',
-            required_indicator_class:       '',
-            message_box_class:              '',
             button_box_class:               '',
-            submit_button_class:            '',
             cancel_button_class:            '',
             clear_button_class:             '',
+            field_error_message_box_class:  '', // dynamic -> dynamic_style_config.field_error_message_box_class
+            field_error_message_box_no_label_class:  '', // dynamic -> dynamic_style_config.field_error_message_box_class
+            fieldset_class:                 '',
+            form_class:                     '',
+            input_box_class:                '', // dynamic -> dynamic_style_config.input_box_class
+            input_box_no_label_class:       '', // dynamic -> dynamic_style_config.input_box_class
+            input_class:                    '',
+            is_submitting_icon:             '',
+            label_class:                    '',
+            message_box_class:              '',
             message_error_class:            '',
-            field_message_error_class:      '',
             message_success_class:          '',
-            is_submitting_icon:             ''
+            required_indicator_class:       '',
+            // right_label_class:              '', // ???
+            submit_button_class:            '',
+            validation_feedback_class:      '',
         };
 
         this.config  = {
@@ -1288,6 +1289,8 @@
 
         var self = this;
 
+        $scope.dynamic_style_config = {};
+
         /**
          * onBlur
          */
@@ -1323,14 +1326,6 @@
             }
         };
 
-        this.inputBoxClass = function() {
-            if ($scope.field.label === '' || !$scope.config.show_labels) {
-                return $scope.style_config.input_box_no_label_class;
-            }
-
-            return $scope.style_config.input_box_class;
-        };
-
         //----------------------------------
         // init
         //----------------------------------
@@ -1356,6 +1351,20 @@
                 self.value = val;
             }
         }, true );
+
+        $scope.$watch( 'config.show_labels', function( val ) {
+            if ( !_.isUndefined( val ) ) {
+
+                if ( val ) {
+                    $scope.dynamic_style_config.input_box_class                  = $scope.style_config.input_box_class;
+                    $scope.dynamic_style_config.field_error_message_box_class    = $scope.style_config.field_error_message_box_class;
+                    return;
+                }
+
+                $scope.dynamic_style_config.input_box_class                 = $scope.style_config.input_box_no_label_class;
+                $scope.dynamic_style_config.field_error_message_box_class   = $scope.style_config.field_error_message_box_no_label_class;
+            }
+        } );
     };
 
     DynamicFormFieldsetCtrl.$inject = ['$scope'];

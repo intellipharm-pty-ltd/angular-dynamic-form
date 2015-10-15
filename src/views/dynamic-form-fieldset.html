@@ -1,26 +1,32 @@
-<div class="dynamic-form-fieldset {{fieldset_class}}">
+<div class="dynamic-form-fieldset" ng-class="style_config.fieldset_class">
 
-    <div>
-        <label ng-if="field.label !== '' && config.show_labels" for="{{field.name}}" class="{{style_config.label_class}}">{{field.label}}</label>
+    <div ng-class="style_config.input_and_label_box_class">
+
+        <label ng-if="field.label !== '' && config.show_labels" for="{{field.name}}"
+               ng-class="style_config.label_class">{{field.label}}</label>
 
         <!-- edit state -->
 
-        <div ng-class="DynamicFormFieldset.inputBoxClass()">
+        <!-- <div ng-class="DynamicFormFieldset.inputBoxClass()"> -->
+        <div ng-class="dynamic_style_config.input_box_class">
 
             <div ng-include src="input_view_template"></div>
 
             <!-- validation feedback -->
-            <span ng-show="config.has_validation_feedback && show_validation" class="{{validation_feedback_class}}"></span>
+            <span ng-if="config.has_validation_feedback && show_validation"
+                  ng-class="style_config.validation_feedback_class"></span>
 
         </div>
 
         <!-- indicators -->
-        <div ng-show="field.required && config.has_required_indicator" class="{{style_config.required_indicator_class}}">
+        <div ng-if="field.required && config.has_required_indicator"
+             ng-class="style_config.required_indicator_class">
             <span>*</span>
         </div>
 
-        <div class="clearfix"></div>
+        <!-- <div class="clearfix"></div> -->
     </div>
 
-    <div class="error-messages" ng-show="errors.length > 0" ng-class="style_config.field_message_error_class">{{errors[0]}}</div>
+    <div ng-show="errors.length > 0"
+         ng-class="dynamic_style_config.field_error_message_box_class">{{errors[0]}}</div>
 </div>

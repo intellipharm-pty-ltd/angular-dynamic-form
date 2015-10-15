@@ -9,6 +9,8 @@
 
         var self = this;
 
+        $scope.dynamic_style_config = {};
+
         /**
          * onBlur
          */
@@ -44,14 +46,6 @@
             }
         };
 
-        this.inputBoxClass = function() {
-            if ($scope.field.label === '' || !$scope.config.show_labels) {
-                return $scope.style_config.input_box_no_label_class;
-            }
-
-            return $scope.style_config.input_box_class;
-        };
-
         //----------------------------------
         // init
         //----------------------------------
@@ -77,6 +71,20 @@
                 self.value = val;
             }
         }, true );
+
+        $scope.$watch( 'config.show_labels', function( val ) {
+            if ( !_.isUndefined( val ) ) {
+
+                if ( val ) {
+                    $scope.dynamic_style_config.input_box_class                  = $scope.style_config.input_box_class;
+                    $scope.dynamic_style_config.field_error_message_box_class    = $scope.style_config.field_error_message_box_class;
+                    return;
+                }
+
+                $scope.dynamic_style_config.input_box_class                 = $scope.style_config.input_box_no_label_class;
+                $scope.dynamic_style_config.field_error_message_box_class   = $scope.style_config.field_error_message_box_no_label_class;
+            }
+        } );
     };
 
     DynamicFormFieldsetCtrl.$inject = ['$scope'];
