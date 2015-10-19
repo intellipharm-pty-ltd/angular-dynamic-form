@@ -10,6 +10,7 @@
                 allErrors:          '=',
                 config:             '=',
                 style_config:       '=styleConfig',
+                onKeypress:         '&',
                 onChange:           '&',
                 onBlur:             '&',
                 show_validation:    '=showValidation'
