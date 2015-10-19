@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-10-19 10:03:17
+ * 2015-10-19 11:15:29
  *
  */
 (function() {
@@ -169,7 +169,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        placeholder=\"{{field.label}}\"\n" +
     "\n" +
     "        ng-model=\"$parent.value\"\n" +
-    "        ng-keypress=\"DynamicFormFieldset.onKeypress()\"\n" +
+    "        ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "        ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
@@ -211,7 +211,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    placeholder=\"{{field.label}}\"\n" +
     "\n" +
     "    ng-model=\"$parent.value\"\n" +
-    "    ng-keypress=\"DynamicFormFieldset.onKeypress()\"\n" +
+    "    ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
@@ -232,7 +232,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    placeholder=\"{{field.label}}\"\n" +
     "\n" +
     "    ng-model=\"$parent.value\"\n" +
-    "    ng-keypress=\"DynamicFormFieldset.onKeypress()\"\n" +
+    "    ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
@@ -271,7 +271,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    placeholder=\"{{field.label}}\"\n" +
     "\n" +
     "    ng-model=\"$parent.value\"\n" +
-    "    ng-keypress=\"DynamicFormFieldset.onKeypress()\"\n" +
+    "    ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
@@ -291,7 +291,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    placeholder=\"{{field.label}}\".\n" +
     "\n" +
     "    ng-model=\"$parent.value\"\n" +
-    "    ng-keypress=\"DynamicFormFieldset.onKeypress()\"\n" +
+    "    ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +

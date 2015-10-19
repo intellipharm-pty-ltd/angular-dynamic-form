@@ -5,7 +5,7 @@
     placeholder="{{field.label}}"
 
     ng-model="$parent.value"
-    ng-keypress="DynamicFormFieldset.onKeypress()"
+    ng-keypress="DynamicFormFieldset.onKeypress($event)"
     ng-change="DynamicFormFieldset.onChange()"
     ng-blur="DynamicFormFieldset.onBlur()"
     ng-disabled="field.disabled"
