@@ -26,6 +26,15 @@
         };
 
         /**
+         * onKeypress
+         */
+        this.onKeypress = function($event) {
+            if (!_.isUndefined($scope.onKeypress)) {
+                $scope.onKeypress({$event: $event, field: $scope.field});
+            }
+        };
+
+        /**
          * onChange
          */
         this.onChange = function() {

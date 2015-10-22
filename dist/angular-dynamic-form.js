@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-10-16 09:49:13
+ * 2015-10-19 11:15:29
  *
  */
 (function() {
@@ -130,6 +130,16 @@
             // custom blur handler
             if (!_.isUndefined($scope.onBlur)) {
                 $scope.onBlur({model: $scope.model, field: field});
+            }
+        };
+
+        /**
+         * onFieldKeypress
+         */
+        this.onFieldKeypress = function($event, field) {
+            // custom change handler
+            if (!_.isUndefined($scope.onKeypress)) {
+                $scope.onKeypress({$event: $event, field: field, model: $scope.model});
             }
         };
 
@@ -481,8 +491,9 @@
                 onCancel:           '&',
                 onClear:            '&',
                 onAfterSave:        '&',
-                onAfterValidate :    '&',
+                onAfterValidate :   '&',
                 onError:            '&',
+                onKeypress:         '&',
                 onChange:           '&',
                 onBlur:             '&',
                 onInit:             '&'
@@ -1306,6 +1317,15 @@
         };
 
         /**
+         * onKeypress
+         */
+        this.onKeypress = function($event) {
+            if (!_.isUndefined($scope.onKeypress)) {
+                $scope.onKeypress({$event: $event, field: $scope.field});
+            }
+        };
+
+        /**
          * onChange
          */
         this.onChange = function() {
@@ -1384,6 +1404,7 @@
                 allErrors:          '=',
                 config:             '=',
                 style_config:       '=styleConfig',
+                onKeypress:         '&',
                 onChange:           '&',
                 onBlur:             '&',
                 show_validation:    '=showValidation'

@@ -7,5 +7,6 @@
                        style-config="form_style_config"
                        all-errors="errors"
                        show-validation="has_submitted"
+                       on-keypress="DynamicForm.onFieldKeypress($event, field)"
                        on-change="DynamicForm.onFieldChange(field)"
                        on-blur="DynamicForm.onFieldBlur(field)"></dynamic-form-fieldset>

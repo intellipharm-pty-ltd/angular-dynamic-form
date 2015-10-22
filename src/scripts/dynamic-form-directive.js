@@ -20,8 +20,9 @@
                 onCancel:           '&',
                 onClear:            '&',
                 onAfterSave:        '&',
-                onAfterValidate :    '&',
+                onAfterValidate :   '&',
                 onError:            '&',
+                onKeypress:         '&',
                 onChange:           '&',
                 onBlur:             '&',
                 onInit:             '&'

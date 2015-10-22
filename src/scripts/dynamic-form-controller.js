@@ -81,6 +81,16 @@
         };
 
         /**
+         * onFieldKeypress
+         */
+        this.onFieldKeypress = function($event, field) {
+            // custom change handler
+            if (!_.isUndefined($scope.onKeypress)) {
+                $scope.onKeypress({$event: $event, field: field, model: $scope.model});
+            }
+        };
+
+        /**
          * onFieldChange
          */
         this.onFieldChange = function(field) {
