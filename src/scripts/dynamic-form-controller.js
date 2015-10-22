@@ -389,6 +389,13 @@
         api.submit =  function() {
             self.onSubmit();
         };
+
+        /**
+         * set_property
+         */
+        api.set_property =  function( property, value ) {
+            $scope[ property ] = value;
+        };
     };
 
     DynamicFormCtrl.$inject = [
