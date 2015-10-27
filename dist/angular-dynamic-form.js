@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-10-19 11:15:29
+ * 2015-10-27 13:11:04
  *
  */
 (function() {
@@ -451,6 +451,13 @@
          */
         api.submit =  function() {
             self.onSubmit();
+        };
+
+        /**
+         * set_property
+         */
+        api.set_property =  function( property, value ) {
+            $scope[ property ] = value;
         };
     };
 
