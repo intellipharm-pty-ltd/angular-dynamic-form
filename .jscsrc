@@ -20,7 +20,7 @@
     "requireSpaceBetweenArguments": true,
     "requireSpacesInForStatement": true,
     "safeContextKeyword": ["self"],
-    "validateLineBreaks": "LF",
+    //"validateLineBreaks": "LF",
     "validateParameterSeparator": ", ",
     "validateQuoteMarks": "'",
     "validateIndentation": 4

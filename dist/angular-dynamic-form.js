@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-10-27 13:11:04
+ * 2015-11-23 13:27:53
  *
  */
 (function() {
@@ -726,7 +726,9 @@
                         }
 
                         args = _last_response;
-                        args.type = _last_response_type;
+                        if (typeof args === 'object') {
+                            args.type = _last_response_type;
+                        }
                     }
 
                     // call external method with args;
