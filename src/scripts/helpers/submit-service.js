@@ -194,7 +194,9 @@
                         }
 
                         args = _last_response;
-                        args.type = _last_response_type;
+                        if (typeof args === 'object') {
+                            args.type = _last_response_type;
+                        }
                     }
 
                     // call external method with args;
