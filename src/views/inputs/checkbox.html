@@ -3,10 +3,7 @@
     ng-model="$parent.value"
     ng-change="DynamicFormFieldset.onChange()"
     ng-disabled="field.disabled"
-
-    tooltips
-    tooltip-template="{{field.tooltip.content}}"
-    tooltip-side="{{field.tooltip.placement}}"
+    ng-attr-title="{{field.title}}"
 >
 
 <label for="{{field.name}}" class="{{style_config.right_label_class}}" ng-if="field.right_label !== '' && config.show_right_labels">

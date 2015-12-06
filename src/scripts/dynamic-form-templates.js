@@ -126,10 +126,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-model=\"$parent.value\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
-    "\n" +
-    "    tooltips\n" +
-    "    tooltip-template=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
+    "    ng-attr-title=\"{{field.title}}\"\n" +
     ">\n" +
     "\n" +
     "<label for=\"{{field.name}}\" class=\"{{style_config.right_label_class}}\" ng-if=\"field.right_label !== '' && config.show_right_labels\">\n" +
@@ -153,10 +150,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
     "        autofocus=\"{{field.autofocus}}\"\n" +
-    "\n" +
-    "        tooltips\n" +
-    "        tooltip-template=\"{{field.tooltip.content}}\"\n" +
-    "        tooltip-side=\"{{field.tooltip.placement}}\"\n" +
+    "        ng-attr-title=\"{{field.title}}\"\n" +
     "    >\n" +
     "</div>\n"
   );
@@ -173,10 +167,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    autofocus=\"{{field.autofocus}}\"\n" +
-    "\n" +
-    "    tooltips\n" +
-    "    tooltip-template=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
+    "    ng-attr-title=\"{{field.title}}\"\n" +
     ">\n" +
     "</select>\n"
   );
@@ -195,10 +186,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    autofocus=\"{{field.autofocus}}\"\n" +
-    "\n" +
-    "    tooltips\n" +
-    "    tooltip-template=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
+    "    ng-attr-title=\"{{field.title}}\"\n" +
     ">\n"
   );
 
@@ -216,10 +204,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    autofocus=\"{{field.autofocus}}\"\n" +
-    "\n" +
-    "    tooltips\n" +
-    "    tooltip-template=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
+    "    ng-attr-title=\"{{field.title}}\"\n" +
     ">\n"
   );
 
@@ -232,10 +217,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    autofocus=\"{{field.autofocus}}\"\n" +
-    "\n" +
-    "    tooltips\n" +
-    "    tooltip-template=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
+    "    ng-attr-title=\"{{field.title}}\"\n" +
     ">\n" +
     "    <option value=\"\" disabled>Please select</option>\n" +
     "</select>\n"
@@ -255,10 +237,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    autofocus=\"{{field.autofocus}}\"\n" +
-    "\n" +
-    "    tooltips\n" +
-    "    tooltip-template=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
+    "    ng-attr-title=\"{{field.title}}\"\n" +
     ">\n"
   );
 
@@ -275,10 +254,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    autofocus=\"{{field.autofocus}}\"\n" +
-    "\n" +
-    "    tooltips\n" +
-    "    tooltip-template=\"{{field.tooltip.content}}\"\n" +
-    "    tooltip-side=\"{{field.tooltip.placement}}\"\n" +
+    "    ng-attr-title=\"{{field.title}}\"\n" +
     "></textarea>\n"
   );
 

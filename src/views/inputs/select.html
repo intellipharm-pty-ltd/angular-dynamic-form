@@ -5,10 +5,7 @@
     ng-change="DynamicFormFieldset.onChange()"
     ng-disabled="field.disabled"
     autofocus="{{field.autofocus}}"
-
-    tooltips
-    tooltip-template="{{field.tooltip.content}}"
-    tooltip-side="{{field.tooltip.placement}}"
+    ng-attr-title="{{field.title}}"
 >
     <option value="" disabled>Please select</option>
 </select>
