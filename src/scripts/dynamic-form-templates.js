@@ -135,27 +135,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   );
 
 
-  $templateCache.put('angular-dynamic-form/views/inputs/currency.html',
-    "<div class=\"input-group\">\n" +
-    "    <div class=\"input-group-addon\">{{field.symbol}}</div>\n" +
-    "    <input\n" +
-    "        type=\"text\"\n" +
-    "        id=\"{{field.name}}\"\n" +
-    "        class=\"form-control\"\n" +
-    "        placeholder=\"{{field.label}}\"\n" +
-    "\n" +
-    "        ng-model=\"$parent.value\"\n" +
-    "        ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
-    "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "        ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
-    "        ng-disabled=\"field.disabled\"\n" +
-    "        autofocus=\"{{field.autofocus}}\"\n" +
-    "        ng-attr-title=\"{{field.title}}\"\n" +
-    "    >\n" +
-    "</div>\n"
-  );
-
-
   $templateCache.put('angular-dynamic-form/views/inputs/multi_select.html',
     "<select\n" +
     "    class=\"form-control\"\n" +

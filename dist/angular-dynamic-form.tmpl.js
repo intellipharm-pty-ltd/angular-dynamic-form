@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-12-07 09:52:37
+ * 2015-12-16 14:59:54
  *
  */
 (function() {
@@ -153,27 +153,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<label for=\"{{field.name}}\" class=\"{{style_config.right_label_class}}\" ng-if=\"field.right_label !== '' && config.show_right_labels\">\n" +
     "    {{field.right_label}}\n" +
     "</label>\n"
-  );
-
-
-  $templateCache.put('angular-dynamic-form/views/inputs/currency.html',
-    "<div class=\"input-group\">\n" +
-    "    <div class=\"input-group-addon\">{{field.symbol}}</div>\n" +
-    "    <input\n" +
-    "        type=\"text\"\n" +
-    "        id=\"{{field.name}}\"\n" +
-    "        class=\"form-control\"\n" +
-    "        placeholder=\"{{field.label}}\"\n" +
-    "\n" +
-    "        ng-model=\"$parent.value\"\n" +
-    "        ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
-    "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "        ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
-    "        ng-disabled=\"field.disabled\"\n" +
-    "        autofocus=\"{{field.autofocus}}\"\n" +
-    "        ng-attr-title=\"{{field.title}}\"\n" +
-    "    >\n" +
-    "</div>\n"
   );
 
 
