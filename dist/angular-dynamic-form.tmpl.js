@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-12-16 14:59:54
+ * 2015-12-17 13:26:47
  *
  */
 (function() {
@@ -118,7 +118,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <div ng-include src=\"form_view_template\"></div>\n" +
     "\n" +
     "    <!-- buttons -->\n" +
-    "    <div class=\"{{form_style_config.button_box_class}}\" ng-show=\"show_buttons\">\n" +
+    "    <div class=\"{{form_style_config.button_box_class}}\" ng-show=\"show_buttons && (form_config.show_submit_button || form_config.show_cancel_button || form_config.show_clear_button)\">\n" +
     "        <button ng-show=\"form_config.show_submit_button\" type=\"submit\"\n" +
     "                class=\"{{form_style_config.submit_button_class}}\"\n" +
     "                ng-click=\"DynamicForm.onSubmit()\"\n" +

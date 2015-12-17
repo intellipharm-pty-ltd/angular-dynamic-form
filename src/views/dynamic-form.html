@@ -16,7 +16,7 @@
     <div ng-include src="form_view_template"></div>
 
     <!-- buttons -->
-    <div class="{{form_style_config.button_box_class}}" ng-show="show_buttons">
+    <div class="{{form_style_config.button_box_class}}" ng-show="show_buttons && (form_config.show_submit_button || form_config.show_cancel_button || form_config.show_clear_button)">
         <button ng-show="form_config.show_submit_button" type="submit"
                 class="{{form_style_config.submit_button_class}}"
                 ng-click="DynamicForm.onSubmit()"
