@@ -1,13 +1,13 @@
 <select
     class="form-control"
     ng-model="$parent.value"
-    multiple
-    size="{{field.size}}"
+    multiple="true"
 
     ng-options="option.value as option.label for option in field.options"
     ng-change="DynamicFormFieldset.onChange()"
     ng-disabled="field.disabled"
     autofocus="{{field.autofocus}}"
     ng-attr-title="{{field.title}}"
+    ng-attr-size="{{field.size}}"
 >
 </select>

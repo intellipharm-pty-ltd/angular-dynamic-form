@@ -139,14 +139,14 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<select\n" +
     "    class=\"form-control\"\n" +
     "    ng-model=\"$parent.value\"\n" +
-    "    multiple\n" +
-    "    size=\"{{field.size}}\"\n" +
+    "    multiple=\"true\"\n" +
     "\n" +
     "    ng-options=\"option.value as option.label for option in field.options\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    autofocus=\"{{field.autofocus}}\"\n" +
     "    ng-attr-title=\"{{field.title}}\"\n" +
+    "    ng-attr-size=\"{{field.size}}\"\n" +
     ">\n" +
     "</select>\n"
   );
