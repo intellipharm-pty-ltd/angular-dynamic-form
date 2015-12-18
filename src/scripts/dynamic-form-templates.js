@@ -140,7 +140,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    class=\"form-control\"\n" +
     "    ng-model=\"$parent.value\"\n" +
     "    multiple\n" +
-    "    size=\"{{field.type.size}}\"\n" +
+    "    size=\"{{field.size}}\"\n" +
     "\n" +
     "    ng-options=\"option.value as option.label for option in field.options\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +

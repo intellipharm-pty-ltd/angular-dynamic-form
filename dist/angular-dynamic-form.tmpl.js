@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-12-17 13:26:47
+ * 2015-12-18 10:07:19
  *
  */
 (function() {
@@ -161,7 +161,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    class=\"form-control\"\n" +
     "    ng-model=\"$parent.value\"\n" +
     "    multiple\n" +
-    "    size=\"{{field.type.size}}\"\n" +
+    "    size=\"{{field.size}}\"\n" +
     "\n" +
     "    ng-options=\"option.value as option.label for option in field.options\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
