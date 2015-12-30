@@ -192,7 +192,7 @@
 
                             // broadcast events
                             if (response.message_state === 'success') {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveSucccess, response);
+                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveSuccess, response);
                             } else {
                                 $scope.$emit(DYNAMIC_FORM_EVENTS.saveError, response);
                             }

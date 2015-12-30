@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-12-18 10:12:34
+ * 2015-12-30 14:41:38
  *
  */
 (function() {
@@ -245,7 +245,7 @@
 
                             // broadcast events
                             if (response.message_state === 'success') {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveSucccess, response);
+                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveSuccess, response);
                             } else {
                                 $scope.$emit(DYNAMIC_FORM_EVENTS.saveError, response);
                             }
