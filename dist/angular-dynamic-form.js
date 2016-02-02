@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2015-12-30 14:41:38
+ * 2016-02-02 11:50:52
  *
  */
 (function() {
@@ -440,16 +440,20 @@
 
         /**
          * init
+         * @param refresh_scope
          */
-        api.init =  function() {
-            self.init( true );
+        api.init =  function( refresh_scope ) {
+            if ( typeof refresh_scope === 'undefined' ) {
+                refresh_scope = true;
+            }
+            self.init( refresh_scope );
             initialized(); // destroy watcher
         };
 
         /**
          * submit
          */
-        api.submit =  function() {
+        api.submit = function() {
             self.onSubmit();
         };
 

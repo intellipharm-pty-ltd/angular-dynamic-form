@@ -387,16 +387,20 @@
 
         /**
          * init
+         * @param refresh_scope
          */
-        api.init =  function() {
-            self.init( true );
+        api.init =  function( refresh_scope ) {
+            if ( typeof refresh_scope === 'undefined' ) {
+                refresh_scope = true;
+            }
+            self.init( refresh_scope );
             initialized(); // destroy watcher
         };
 
         /**
          * submit
          */
-        api.submit =  function() {
+        api.submit = function() {
             self.onSubmit();
         };
 

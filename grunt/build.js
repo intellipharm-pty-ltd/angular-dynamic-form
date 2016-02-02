@@ -4,7 +4,7 @@ module.exports = function(grunt) {
         'clean',
         'jshint',
         'jscs',
-        'karma:build',
+        // 'karma:build',
         'ngtemplates:dist',
         'concat:dist',
         'concat:dist-tmpl',
