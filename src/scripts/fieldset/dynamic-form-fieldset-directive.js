@@ -5,14 +5,14 @@
         return {
             restrict: 'E',
             scope: {
-                field:              '=',
-                model:              '=',
-                allErrors:          '=',
-                config:             '=',
+                field:              '=?',
+                model:              '=?',
+                allErrors:          '=?',
+                config:             '=?',
                 style_config:       '=styleConfig',
-                onKeypress:         '&',
-                onChange:           '&',
-                onBlur:             '&',
+                onKeypress:         '&?',
+                onChange:           '&?',
+                onBlur:             '&?',
                 show_validation:    '=showValidation'
             },
             controller: 'DynamicFormFieldsetCtrl as DynamicFormFieldset',
