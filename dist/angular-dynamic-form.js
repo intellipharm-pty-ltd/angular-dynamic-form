@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-02-02 11:50:52
+ * 2016-02-08 11:16:36
  *
  */
 (function() {
@@ -488,26 +488,26 @@
         return {
             restrict: 'E',
             scope: {
-                api:                '=',
-                auto_init:          '=autoInit',
-                model:              '=',
-                errors:             '=',
-                fields:             '=',
-                form_config:        '=config',
-                form_field_config:  '=fieldConfig',
-                form_style_config:  '=styleConfig',
-                groups_config:      '=groupsConfig',
-                submit_steps:       '=submitSteps',
-                onSubmitComplete:   '&',
-                onCancel:           '&',
-                onClear:            '&',
-                onAfterSave:        '&',
-                onAfterValidate :   '&',
-                onError:            '&',
-                onKeypress:         '&',
-                onChange:           '&',
-                onBlur:             '&',
-                onInit:             '&'
+                api:                '=?',
+                model:              '=?',
+                errors:             '=?',
+                fields:             '=?',
+                auto_init:          '=?autoInit',
+                form_config:        '=?config',
+                form_field_config:  '=?fieldConfig',
+                form_style_config:  '=?styleConfig',
+                groups_config:      '=?groupsConfig',
+                submit_steps:       '=?submitSteps',
+                onSubmitComplete:   '&?',
+                onCancel:           '&?',
+                onClear:            '&?',
+                onAfterSave:        '&?',
+                onAfterValidate :   '&?',
+                onError:            '&?',
+                onKeypress:         '&?',
+                onChange:           '&?',
+                onBlur:             '&?',
+                onInit:             '&?'
             },
             controller: 'DynamicFormCtrl as DynamicForm',
             templateUrl: 'angular-dynamic-form/views/dynamic-form.html',
@@ -1412,15 +1412,15 @@
         return {
             restrict: 'E',
             scope: {
-                field:              '=',
-                model:              '=',
-                allErrors:          '=',
-                config:             '=',
-                style_config:       '=styleConfig',
-                onKeypress:         '&',
-                onChange:           '&',
-                onBlur:             '&',
-                show_validation:    '=showValidation'
+                field:              '=?',
+                model:              '=?',
+                allErrors:          '=?',
+                config:             '=?',
+                style_config:       '=?styleConfig',
+                show_validation:    '=?showValidation',
+                onKeypress:         '&?',
+                onChange:           '&?',
+                onBlur:             '&?'
             },
             controller: 'DynamicFormFieldsetCtrl as DynamicFormFieldset',
             replace: true,

@@ -9,11 +9,11 @@
                 model:              '=?',
                 allErrors:          '=?',
                 config:             '=?',
-                style_config:       '=styleConfig',
+                style_config:       '=?styleConfig',
+                show_validation:    '=?showValidation',
                 onKeypress:         '&?',
                 onChange:           '&?',
-                onBlur:             '&?',
-                show_validation:    '=showValidation'
+                onBlur:             '&?'
             },
             controller: 'DynamicFormFieldsetCtrl as DynamicFormFieldset',
             replace: true,
