@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-02-08 11:16:36
+ * 2016-02-24 12:07:31
  *
  */
 (function() {
@@ -416,7 +416,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             $scope.is_submitting = true;
 
             // call submit service
-            SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
+            return SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
 
                 // complete
                 function(response) {
@@ -695,7 +695,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          * submit
          */
         api.submit = function() {
-            self.onSubmit();
+            return self.onSubmit();
         };
 
         /**
