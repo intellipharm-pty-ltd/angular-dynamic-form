@@ -122,7 +122,7 @@
             $scope.is_submitting = true;
 
             // call submit service
-            SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
+            return SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
 
                 // complete
                 function(response) {
@@ -401,7 +401,7 @@
          * submit
          */
         api.submit = function() {
-            self.onSubmit();
+            return self.onSubmit();
         };
 
         /**
