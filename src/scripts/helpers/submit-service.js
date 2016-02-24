@@ -108,7 +108,7 @@
                     // send update
                     sendUpdate('error', response, step, steps, form_config, handlers);
 
-                    sendComplete(handlers, response);
+                    sendError(handlers, response);
                 }
             );
         };
@@ -117,6 +117,13 @@
             // call complete handler
             if (!_.isNull(handlers.submit_complete)) {
                 handlers.submit_complete(response);
+            }
+        };
+
+        var sendError = function(handlers, response) {
+            // call error handler
+            if (!_.isNull(handlers.submit_error)) {
+                handlers.submit_error(response);
             }
         };
 

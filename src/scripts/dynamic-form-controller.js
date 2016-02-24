@@ -121,86 +121,90 @@
 
             $scope.is_submitting = true;
 
-            // call submit service
-            return SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
+            return $q(function(resolve, reject) {
+                // call submit service
+                SubmitService.handleSubmit(submit_steps, $scope.model, $scope.form_config).then(
 
-                // complete
-                function(response) {
-                    $scope.has_submitted = true;
+                    // complete
+                    function(response) {
+                        $scope.has_submitted = true;
 
-                    // custom complete handler
-                    if (!_.isUndefined($scope.onSubmitComplete)) {
-                        $scope.onSubmitComplete(response);
+                        // custom complete handler
+                        if (!_.isUndefined($scope.onSubmitComplete)) {
+                            $scope.onSubmitComplete(response);
+                        }
+                        $scope.is_submitting = false;
+                        resolve(response);
+                    },
+
+                    // error
+                    function(response) {
+                        $scope.has_submitted = true;
+
+                        // custom error handler
+                        if (!_.isUndefined($scope.onError)) {
+                            $scope.onError(response);
+                        }
+                        reject(response);
+                    },
+
+                    // updates (messaging)
+                    function(response) {
+                        $scope.has_submitted = true;
+
+                        // set errors
+                        if (response.message_state === 'error') {
+                            $scope.errors = response.data;
+                        }
+                        // reset errors
+                        else {
+                            _.forEach($scope.errors, function(error, key) {
+                                $scope.errors[key] = [];
+                            });
+                        }
+
+                        // show message
+                        if (!_.isUndefined(response.message)) {
+                            self.showMessage(response.message_state, response.message);
+                        }
+
+                        // emit event (if recognised step)
+                        switch (response.step) {
+
+                            case 'validate':
+
+                                // custom after validate handler
+                                if (!_.isUndefined($scope.onAfterValidate)) {
+                                    $scope.onAfterValidate({response: response});
+                                }
+
+                                // broadcast events
+                                if (response.message_state === 'success') {
+                                    $scope.$emit(DYNAMIC_FORM_EVENTS.valid, response);
+                                } else {
+                                    $scope.$emit(DYNAMIC_FORM_EVENTS.invalid, response);
+                                }
+                                break;
+
+                            case 'save':
+
+                                // custom after save handler
+                                if (!_.isUndefined($scope.onAfterSave)) {
+                                    $scope.onAfterSave({response: response});
+                                }
+
+                                // broadcast events
+                                if (response.message_state === 'success') {
+                                    $scope.$emit(DYNAMIC_FORM_EVENTS.saveSuccess, response);
+                                } else {
+                                    $scope.$emit(DYNAMIC_FORM_EVENTS.saveError, response);
+                                }
+                                break;
+
+                        }
                     }
-                    $scope.is_submitting = false;
-                },
-
-                // error
-                function(response) {
-                    $scope.has_submitted = true;
-
-                    // custom error handler
-                    if (!_.isUndefined($scope.onError)) {
-                        $scope.onError(response);
-                    }
-                },
-
-                // updates (messaging)
-                function(response) {
-                    $scope.has_submitted = true;
-
-                    // set errors
-                    if (response.message_state === 'error') {
-                        $scope.errors = response.data;
-                    }
-                    // reset errors
-                    else {
-                        _.forEach($scope.errors, function(error, key) {
-                            $scope.errors[key] = [];
-                        });
-                    }
-
-                    // show message
-                    if (!_.isUndefined(response.message)) {
-                        self.showMessage(response.message_state, response.message);
-                    }
-
-                    // emit event (if recognised step)
-                    switch (response.step) {
-
-                        case 'validate':
-
-                            // custom after validate handler
-                            if (!_.isUndefined($scope.onAfterValidate)) {
-                                $scope.onAfterValidate({response: response});
-                            }
-
-                            // broadcast events
-                            if (response.message_state === 'success') {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.valid, response);
-                            } else {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.invalid, response);
-                            }
-                            break;
-
-                        case 'save':
-
-                            // custom after save handler
-                            if (!_.isUndefined($scope.onAfterSave)) {
-                                $scope.onAfterSave({response: response});
-                            }
-
-                            // broadcast events
-                            if (response.message_state === 'success') {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveSuccess, response);
-                            } else {
-                                $scope.$emit(DYNAMIC_FORM_EVENTS.saveError, response);
-                            }
-                            break;
-
-                    }
-                }
-            );
+                );
+            });
         };
 
         /////////////////////////////////////////////////////
