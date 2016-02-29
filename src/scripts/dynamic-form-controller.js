@@ -145,6 +145,7 @@
                         if (!_.isUndefined($scope.onError)) {
                             $scope.onError(response);
                         }
+                        $scope.is_submitting = false;
                         reject(response);
                     },
 
