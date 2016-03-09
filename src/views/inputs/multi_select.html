@@ -3,7 +3,7 @@
     ng-model="$parent.value"
     multiple="true"
 
-    ng-options="option.value as option.label for option in field.options"
+    ng-options="ooption.value as option.label disable when option.disabled for option in field.options"
     ng-change="DynamicFormFieldset.onChange()"
     ng-disabled="field.disabled"
     autofocus="{{field.autofocus}}"

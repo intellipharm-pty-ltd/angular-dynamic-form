@@ -141,7 +141,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    ng-model=\"$parent.value\"\n" +
     "    multiple=\"true\"\n" +
     "\n" +
-    "    ng-options=\"option.value as option.label for option in field.options\"\n" +
+    "    ng-options=\"ooption.value as option.label disable when option.disabled for option in field.options\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    autofocus=\"{{field.autofocus}}\"\n" +
@@ -192,7 +192,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<select\n" +
     "    class=\"form-control\"\n" +
     "\n" +
-    "    ng-model=\"$parent.value\" ng-options=\"option.value as option.label for option in field.options\"\n" +
+    "    ng-model=\"$parent.value\" ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
     "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "    ng-disabled=\"field.disabled\"\n" +
     "    autofocus=\"{{field.autofocus}}\"\n" +
