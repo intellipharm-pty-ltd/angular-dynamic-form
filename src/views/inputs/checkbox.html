@@ -1,9 +1,9 @@
-<input
-    type="checkbox"
-    ng-model="$parent.value"
-    ng-change="DynamicFormFieldset.onChange()"
-    ng-disabled="field.disabled"
-    ng-attr-title="{{field.title}}"
+<input type="checkbox"
+       id="{{field.name}}"
+       ng-model="$parent.value"
+       ng-change="DynamicFormFieldset.onChange()"
+       ng-disabled="field.disabled"
+       ng-attr-title="{{field.title}}"
 >
 
 <label for="{{field.name}}" class="{{style_config.right_label_class}}" ng-if="field.right_label !== '' && config.show_right_labels">

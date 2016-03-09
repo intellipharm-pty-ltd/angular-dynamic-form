@@ -1,13 +1,12 @@
-<textarea
-    id="{{field.name}}"
-    class="form-control"
-    placeholder="{{field.label}}".
+<textarea id="{{field.name}}"
+          class="form-control"
+          placeholder="{{field.label}}".
 
-    ng-model="$parent.value"
-    ng-keypress="DynamicFormFieldset.onKeypress($event)"
-    ng-change="DynamicFormFieldset.onChange()"
-    ng-blur="DynamicFormFieldset.onBlur()"
-    ng-disabled="field.disabled"
-    autofocus="{{field.autofocus}}"
-    ng-attr-title="{{field.title}}"
+          ng-model="$parent.value"
+          ng-keypress="DynamicFormFieldset.onKeypress($event)"
+          ng-change="DynamicFormFieldset.onChange()"
+          ng-blur="DynamicFormFieldset.onBlur()"
+          ng-disabled="field.disabled"
+          autofocus="{{field.autofocus}}"
+          ng-attr-title="{{field.title}}"
 ></textarea>
