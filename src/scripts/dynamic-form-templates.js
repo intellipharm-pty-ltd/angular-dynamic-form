@@ -121,12 +121,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/checkbox.html',
-    "<input\n" +
-    "    type=\"checkbox\"\n" +
-    "    ng-model=\"$parent.value\"\n" +
-    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "    ng-disabled=\"field.disabled\"\n" +
-    "    ng-attr-title=\"{{field.title}}\"\n" +
+    "<input type=\"checkbox\"\n" +
+    "       id=\"{{field.name}}\"\n" +
+    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "       ng-disabled=\"field.disabled\"\n" +
+    "       ng-attr-title=\"{{field.title}}\"\n" +
     ">\n" +
     "\n" +
     "<label for=\"{{field.name}}\" class=\"{{style_config.right_label_class}}\" ng-if=\"field.right_label !== '' && config.show_right_labels\">\n" +
@@ -136,67 +136,65 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/multi_select.html',
-    "<select\n" +
-    "    class=\"form-control\"\n" +
-    "    ng-model=\"$parent.value\"\n" +
-    "    multiple=\"true\"\n" +
+    "<select id=\"{{field.name}}\"\n" +
+    "        class=\"form-control\"\n" +
+    "        ng-model=\"$parent.$parent.value\"\n" +
+    "        multiple=\"true\"\n" +
     "\n" +
-    "    ng-options=\"ooption.value as option.label disable when option.disabled for option in field.options\"\n" +
-    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "    ng-disabled=\"field.disabled\"\n" +
-    "    autofocus=\"{{field.autofocus}}\"\n" +
-    "    ng-attr-title=\"{{field.title}}\"\n" +
-    "    ng-attr-size=\"{{field.size}}\"\n" +
+    "        ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
+    "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "        ng-disabled=\"field.disabled\"\n" +
+    "        autofocus=\"{{field.autofocus}}\"\n" +
+    "        ng-attr-title=\"{{field.title}}\"\n" +
+    "        ng-attr-size=\"{{field.size}}\"\n" +
     ">\n" +
     "</select>\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/number.html',
-    "<input\n" +
-    "    type=\"number\"\n" +
-    "    id=\"{{field.name}}\"\n" +
-    "    class=\"{{style_config.input_class}}\"\n" +
-    "    placeholder=\"{{field.label}}\"\n" +
+    "<input id=\"{{field.name}}\"\n" +
+    "       type=\"number\"\n" +
+    "       class=\"{{style_config.input_class}}\"\n" +
+    "       placeholder=\"{{field.label}}\"\n" +
     "\n" +
-    "    ng-model=\"$parent.value\"\n" +
-    "    ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
-    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
-    "    ng-disabled=\"field.disabled\"\n" +
-    "    autofocus=\"{{field.autofocus}}\"\n" +
-    "    ng-attr-title=\"{{field.title}}\"\n" +
+    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
+    "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
+    "       ng-disabled=\"field.disabled\"\n" +
+    "       autofocus=\"{{field.autofocus}}\"\n" +
+    "       ng-attr-title=\"{{field.title}}\"\n" +
     ">\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/password.html',
-    "<input\n" +
-    "    type=\"password\"\n" +
-    "    id=\"{{field.name}}\"\n" +
-    "    class=\"form-control\"\n" +
-    "    placeholder=\"{{field.label}}\"\n" +
+    "<input id=\"{{field.name}}\"\n" +
+    "       type=\"password\"\n" +
+    "       class=\"form-control\"\n" +
+    "       placeholder=\"{{field.label}}\"\n" +
     "\n" +
-    "    ng-model=\"$parent.value\"\n" +
-    "    ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
-    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
-    "    ng-disabled=\"field.disabled\"\n" +
-    "    autofocus=\"{{field.autofocus}}\"\n" +
-    "    ng-attr-title=\"{{field.title}}\"\n" +
+    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
+    "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
+    "       ng-disabled=\"field.disabled\"\n" +
+    "       autofocus=\"{{field.autofocus}}\"\n" +
+    "       ng-attr-title=\"{{field.title}}\"\n" +
     ">\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/select.html',
-    "<select\n" +
-    "    class=\"form-control\"\n" +
+    "<select id=\"{{field.name}}\"\n" +
+    "        class=\"form-control\"\n" +
     "\n" +
-    "    ng-model=\"$parent.value\" ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
-    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "    ng-disabled=\"field.disabled\"\n" +
-    "    autofocus=\"{{field.autofocus}}\"\n" +
-    "    ng-attr-title=\"{{field.title}}\"\n" +
+    "        ng-model=\"$parent.$parent.value\" ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
+    "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "        ng-disabled=\"field.disabled\"\n" +
+    "        autofocus=\"{{field.autofocus}}\"\n" +
+    "        ng-attr-title=\"{{field.title}}\"\n" +
     ">\n" +
     "    <option value=\"\" disabled>Please select</option>\n" +
     "</select>\n"
@@ -204,36 +202,34 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/text.html',
-    "<input\n" +
-    "    type=\"text\"\n" +
-    "    id=\"{{field.name}}\"\n" +
-    "    class=\"{{style_config.input_class}}\"\n" +
-    "    placeholder=\"{{field.label}}\"\n" +
+    "<input id=\"{{field.name}}\"\n" +
+    "       type=\"text\"\n" +
+    "       class=\"{{style_config.input_class}}\"\n" +
+    "       placeholder=\"{{field.label}}\"\n" +
     "\n" +
-    "    ng-model=\"$parent.value\"\n" +
-    "    ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
-    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
-    "    ng-disabled=\"field.disabled\"\n" +
-    "    autofocus=\"{{field.autofocus}}\"\n" +
-    "    ng-attr-title=\"{{field.title}}\"\n" +
+    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
+    "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
+    "       ng-disabled=\"field.disabled\"\n" +
+    "       autofocus=\"{{field.autofocus}}\"\n" +
+    "       ng-attr-title=\"{{field.title}}\"\n" +
     ">\n"
   );
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/textarea.html',
-    "<textarea\n" +
-    "    id=\"{{field.name}}\"\n" +
-    "    class=\"form-control\"\n" +
-    "    placeholder=\"{{field.label}}\".\n" +
+    "<textarea id=\"{{field.name}}\"\n" +
+    "          class=\"form-control\"\n" +
+    "          placeholder=\"{{field.label}}\".\n" +
     "\n" +
-    "    ng-model=\"$parent.value\"\n" +
-    "    ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
-    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "    ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
-    "    ng-disabled=\"field.disabled\"\n" +
-    "    autofocus=\"{{field.autofocus}}\"\n" +
-    "    ng-attr-title=\"{{field.title}}\"\n" +
+    "          ng-model=\"$parent.$parent.value\"\n" +
+    "          ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
+    "          ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "          ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
+    "          ng-disabled=\"field.disabled\"\n" +
+    "          autofocus=\"{{field.autofocus}}\"\n" +
+    "          ng-attr-title=\"{{field.title}}\"\n" +
     "></textarea>\n"
   );
 
