@@ -16,7 +16,9 @@
             saveSuccess:    'dynamic-form:process-success',
             saveError:      'dynamic-form:process-error',
             submit:         'dynamic-form:submit',
-            validate:       'dynamic-form:validate'
+            validate:       'dynamic-form:validate',
+            onSuccess:      'dynamic-form:on-success',
+            onError:        'dynamic-form:on-error',
         })
         .constant('MESSAGE_EXTERNAL_METHOD_ERROR',                      message_prefix + 'Custom method must handle its own errors')
         .constant('MESSAGE_EXTERNAL_METHOD_INVALID_RETURN',             message_prefix + 'Custom method must return either Boolean value or Promise')

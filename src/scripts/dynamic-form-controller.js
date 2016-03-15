@@ -133,7 +133,11 @@
                         if (!_.isUndefined($scope.onSubmitComplete)) {
                             $scope.onSubmitComplete(response);
                         }
+
                         $scope.is_submitting = false;
+
+                        $scope.$emit(DYNAMIC_FORM_EVENTS.onSuccess, response);
+
                         resolve(response);
                     },
 
@@ -145,7 +149,11 @@
                         if (!_.isUndefined($scope.onError)) {
                             $scope.onError(response);
                         }
+
                         $scope.is_submitting = false;
+
+                        $scope.$emit(DYNAMIC_FORM_EVENTS.onError, response);
+
                         reject(response);
                     },
 

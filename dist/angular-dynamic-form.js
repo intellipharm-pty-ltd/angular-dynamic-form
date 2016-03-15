@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-03-09 10:32:34
+ * 2016-03-15 10:02:03
  *
  */
 (function() {
@@ -37,7 +37,9 @@
             saveSuccess:    'dynamic-form:process-success',
             saveError:      'dynamic-form:process-error',
             submit:         'dynamic-form:submit',
-            validate:       'dynamic-form:validate'
+            validate:       'dynamic-form:validate',
+            onSuccess:      'dynamic-form:on-success',
+            onError:        'dynamic-form:on-error',
         })
         .constant('MESSAGE_EXTERNAL_METHOD_ERROR',                      message_prefix + 'Custom method must handle its own errors')
         .constant('MESSAGE_EXTERNAL_METHOD_INVALID_RETURN',             message_prefix + 'Custom method must return either Boolean value or Promise')
@@ -186,7 +188,11 @@
                         if (!_.isUndefined($scope.onSubmitComplete)) {
                             $scope.onSubmitComplete(response);
                         }
+
                         $scope.is_submitting = false;
+
+                        $scope.$emit(DYNAMIC_FORM_EVENTS.onSuccess, response);
+
                         resolve(response);
                     },
 
@@ -198,7 +204,11 @@
                         if (!_.isUndefined($scope.onError)) {
                             $scope.onError(response);
                         }
+
                         $scope.is_submitting = false;
+
+                        $scope.$emit(DYNAMIC_FORM_EVENTS.onError, response);
+
                         reject(response);
                     },
 
