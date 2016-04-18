@@ -1,7 +1,7 @@
 <input id="{{field.name}}"
        type="number"
        class="{{style_config.input_class}}"
-       placeholder="{{field.label}}"
+       placeholder="{{field.placeholder || field.label}}"
 
        ng-model="$parent.$parent.value"
        ng-keypress="DynamicFormFieldset.onKeypress($event)"

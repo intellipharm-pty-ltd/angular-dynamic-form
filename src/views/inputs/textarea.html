@@ -1,6 +1,6 @@
 <textarea id="{{field.name}}"
           class="form-control"
-          placeholder="{{field.label}}".
+          placeholder="{{field.placeholder || field.label}}".
 
           ng-model="$parent.$parent.value"
           ng-keypress="DynamicFormFieldset.onKeypress($event)"

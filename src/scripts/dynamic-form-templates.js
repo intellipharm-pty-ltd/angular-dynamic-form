@@ -156,7 +156,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<input id=\"{{field.name}}\"\n" +
     "       type=\"number\"\n" +
     "       class=\"{{style_config.input_class}}\"\n" +
-    "       placeholder=\"{{field.label}}\"\n" +
+    "       placeholder=\"{{field.placeholder || field.label}}\"\n" +
     "\n" +
     "       ng-model=\"$parent.$parent.value\"\n" +
     "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
@@ -173,7 +173,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<input id=\"{{field.name}}\"\n" +
     "       type=\"password\"\n" +
     "       class=\"form-control\"\n" +
-    "       placeholder=\"{{field.label}}\"\n" +
+    "       placeholder=\"{{field.placeholder || field.label}}\"\n" +
     "\n" +
     "       ng-model=\"$parent.$parent.value\"\n" +
     "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
@@ -205,7 +205,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<input id=\"{{field.name}}\"\n" +
     "       type=\"text\"\n" +
     "       class=\"{{style_config.input_class}}\"\n" +
-    "       placeholder=\"{{field.label}}\"\n" +
+    "       placeholder=\"{{field.placeholder || field.label}}\"\n" +
     "\n" +
     "       ng-model=\"$parent.$parent.value\"\n" +
     "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
@@ -221,7 +221,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/inputs/textarea.html',
     "<textarea id=\"{{field.name}}\"\n" +
     "          class=\"form-control\"\n" +
-    "          placeholder=\"{{field.label}}\".\n" +
+    "          placeholder=\"{{field.placeholder || field.label}}\".\n" +
     "\n" +
     "          ng-model=\"$parent.$parent.value\"\n" +
     "          ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
