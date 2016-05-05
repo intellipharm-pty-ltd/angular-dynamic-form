@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-04-18 10:35:07
+ * 2016-05-05 14:02:52
  *
  */
 (function() {
@@ -707,6 +707,13 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
          */
         api.submit = function() {
             return self.onSubmit();
+        };
+
+        /**
+         * update
+         */
+        api.update = function() {
+            return self.update();
         };
 
         /**

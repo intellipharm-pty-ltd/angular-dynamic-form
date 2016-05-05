@@ -418,6 +418,13 @@
         };
 
         /**
+         * update
+         */
+        api.update = function() {
+            return self.update();
+        };
+
+        /**
          * set_property
          */
         api.set_property =  function( property, value ) {
