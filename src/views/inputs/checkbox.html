@@ -4,6 +4,7 @@
        ng-change="DynamicFormFieldset.onChange()"
        ng-disabled="field.disabled"
        ng-attr-title="{{field.title}}"
+       ng-attr-autocomplete="{{field.autocomplete}}"
 >
 
 <label for="{{field.name}}" class="{{style_config.right_label_class}}" ng-if="field.right_label !== '' && config.show_right_labels">

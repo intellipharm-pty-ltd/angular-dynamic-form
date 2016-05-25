@@ -2,12 +2,13 @@
         class="form-control"
         ng-model="$parent.$parent.value"
         multiple="true"
-
+		
         ng-options="option.value as option.label disable when option.disabled for option in field.options"
         ng-change="DynamicFormFieldset.onChange()"
         ng-disabled="field.disabled"
         autofocus="{{field.autofocus}}"
         ng-attr-title="{{field.title}}"
         ng-attr-size="{{field.size}}"
+		ng-attr-autocomplete="{{field.autocomplete}}"
 >
 </select>
