@@ -27,6 +27,6 @@
         <!-- <div class="clearfix"></div> -->
     </div>
 
-    <div ng-show="errors.length > 0"
+    <div ng-show="errors.length > 0 && !field.hide_errors"
          ng-class="dynamic_style_config.field_error_message_box_class">{{errors[0]}}</div>
 </div>

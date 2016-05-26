@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-05-05 14:02:52
+ * 2016-05-27 08:50:53
  *
  */
 (function() {
@@ -52,7 +52,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        <!-- <div class=\"clearfix\"></div> -->\n" +
     "    </div>\n" +
     "\n" +
-    "    <div ng-show=\"errors.length > 0\"\n" +
+    "    <div ng-show=\"errors.length > 0 && !field.hide_errors\"\n" +
     "         ng-class=\"dynamic_style_config.field_error_message_box_class\">{{errors[0]}}</div>\n" +
     "</div>\n"
   );
@@ -148,6 +148,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-disabled=\"field.disabled\"\n" +
     "       ng-attr-title=\"{{field.title}}\"\n" +
+    "       ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n" +
     "\n" +
     "<label for=\"{{field.name}}\" class=\"{{style_config.right_label_class}}\" ng-if=\"field.right_label !== '' && config.show_right_labels\">\n" +
@@ -161,13 +162,14 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        class=\"form-control\"\n" +
     "        ng-model=\"$parent.$parent.value\"\n" +
     "        multiple=\"true\"\n" +
-    "\n" +
+    "		\n" +
     "        ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
     "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
     "        autofocus=\"{{field.autofocus}}\"\n" +
     "        ng-attr-title=\"{{field.title}}\"\n" +
     "        ng-attr-size=\"{{field.size}}\"\n" +
+    "		ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n" +
     "</select>\n"
   );
@@ -186,6 +188,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       ng-disabled=\"field.disabled\"\n" +
     "       autofocus=\"{{field.autofocus}}\"\n" +
     "       ng-attr-title=\"{{field.title}}\"\n" +
+    "	   ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n"
   );
 
@@ -203,6 +206,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       ng-disabled=\"field.disabled\"\n" +
     "       autofocus=\"{{field.autofocus}}\"\n" +
     "       ng-attr-title=\"{{field.title}}\"\n" +
+    "	   ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n"
   );
 
@@ -216,6 +220,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        ng-disabled=\"field.disabled\"\n" +
     "        autofocus=\"{{field.autofocus}}\"\n" +
     "        ng-attr-title=\"{{field.title}}\"\n" +
+    "		ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n" +
     "    <option value=\"\" disabled>Please select</option>\n" +
     "</select>\n"
@@ -235,6 +240,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       ng-disabled=\"field.disabled\"\n" +
     "       autofocus=\"{{field.autofocus}}\"\n" +
     "       ng-attr-title=\"{{field.title}}\"\n" +
+    "	   ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n"
   );
 
@@ -251,6 +257,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "          ng-disabled=\"field.disabled\"\n" +
     "          autofocus=\"{{field.autofocus}}\"\n" +
     "          ng-attr-title=\"{{field.title}}\"\n" +
+    "		  ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     "></textarea>\n"
   );
 
