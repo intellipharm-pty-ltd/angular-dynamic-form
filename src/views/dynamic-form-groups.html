@@ -1,6 +1,6 @@
 <!-- form groups -->
 <div ng-if="has_groups"
-     class="panel panel-default form-section"
+     class="panel panel-default form-section form-group-{{group[0].group_key}}"
      ng-repeat="(key, group) in grouped_fields_array | groupBy: 'group_order'">
 
     <div class="panel-heading">{{group[0].group_label}}</div>

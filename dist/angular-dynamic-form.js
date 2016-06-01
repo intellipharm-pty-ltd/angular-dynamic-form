@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-05-27 08:50:53
+ * 2016-06-01 11:41:59
  *
  */
 (function() {
@@ -1202,7 +1202,7 @@
 
                 var group_order = 1;
 
-                _.forEach(config, function(group) {
+                _.forEach(config, function(group, group_key) {
 
                     _.forEach(group.fields, function(group_field, index) {
                         if (group_field === field.name) {
@@ -1212,6 +1212,8 @@
 
                             // add field group properties
                             _field.group_label = group.label;
+                            _field.group_key = group_key;
+                            
                             if (_.has(group, 'order')) {
                                 group_order = group.order;
                             }
@@ -1286,6 +1288,7 @@
             // add extra field properties
             if (result.hide_label) {
                 result.label = '';
+                result.hide_label = true;
             } else if (!_.has(result, 'label')) {
                 result.label = transformLabel(key, config.label_camelcase, config.label_replace_underscores);
             }

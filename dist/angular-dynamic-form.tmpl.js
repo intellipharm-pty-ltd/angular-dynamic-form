@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-05-27 08:50:53
+ * 2016-06-01 11:41:59
  *
  */
 (function() {
@@ -27,13 +27,13 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "    <div ng-class=\"style_config.input_and_label_box_class\">\n" +
     "\n" +
-    "        <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\"\n" +
+    "        <label ng-if=\"field.label !== '' && config.show_labels && field.hide_label !== true\" for=\"{{field.name}}\"\n" +
     "               ng-class=\"style_config.label_class\">{{field.label}}</label>\n" +
     "\n" +
     "        <!-- edit state -->\n" +
     "\n" +
     "        <!-- <div ng-class=\"DynamicFormFieldset.inputBoxClass()\"> -->\n" +
-    "        <div ng-class=\"dynamic_style_config.input_box_class\">\n" +
+    "        <div ng-class=\"field.hide_label ? style_config.input_box_no_label_class : dynamic_style_config.input_box_class\">\n" +
     "\n" +
     "            <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
@@ -61,7 +61,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/dynamic-form-groups.html',
     "<!-- form groups -->\n" +
     "<div ng-if=\"has_groups\"\n" +
-    "     class=\"panel panel-default form-section\"\n" +
+    "     class=\"panel panel-default form-section form-group-{{group[0].group_key}}\"\n" +
     "     ng-repeat=\"(key, group) in grouped_fields_array | groupBy: 'group_order'\">\n" +
     "\n" +
     "    <div class=\"panel-heading\">{{group[0].group_label}}</div>\n" +
@@ -1446,7 +1446,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
                 var group_order = 1;
 
-                _.forEach(config, function(group) {
+                _.forEach(config, function(group, group_key) {
 
                     _.forEach(group.fields, function(group_field, index) {
                         if (group_field === field.name) {
@@ -1456,6 +1456,8 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
                             // add field group properties
                             _field.group_label = group.label;
+                            _field.group_key = group_key;
+                            
                             if (_.has(group, 'order')) {
                                 group_order = group.order;
                             }
@@ -1530,6 +1532,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             // add extra field properties
             if (result.hide_label) {
                 result.label = '';
+                result.hide_label = true;
             } else if (!_.has(result, 'label')) {
                 result.label = transformLabel(key, config.label_camelcase, config.label_replace_underscores);
             }
