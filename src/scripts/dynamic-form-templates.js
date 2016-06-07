@@ -6,13 +6,13 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "\n" +
     "    <div ng-class=\"style_config.input_and_label_box_class\">\n" +
     "\n" +
-    "        <label ng-if=\"field.label !== '' && config.show_labels\" for=\"{{field.name}}\"\n" +
+    "        <label ng-if=\"field.label !== '' && config.show_labels && field.hide_label !== true\" for=\"{{field.name}}\"\n" +
     "               ng-class=\"style_config.label_class\">{{field.label}}</label>\n" +
     "\n" +
     "        <!-- edit state -->\n" +
     "\n" +
     "        <!-- <div ng-class=\"DynamicFormFieldset.inputBoxClass()\"> -->\n" +
-    "        <div ng-class=\"dynamic_style_config.input_box_class\">\n" +
+    "        <div ng-class=\"field.hide_label ? style_config.input_box_no_label_class : dynamic_style_config.input_box_class\">\n" +
     "\n" +
     "            <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
@@ -40,7 +40,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/dynamic-form-groups.html',
     "<!-- form groups -->\n" +
     "<div ng-if=\"has_groups\"\n" +
-    "     class=\"panel panel-default form-section\"\n" +
+    "     class=\"panel panel-default form-section form-group-{{group[0].group_key}}\"\n" +
     "     ng-repeat=\"(key, group) in grouped_fields_array | groupBy: 'group_order'\">\n" +
     "\n" +
     "    <div class=\"panel-heading\">{{group[0].group_label}}</div>\n" +
