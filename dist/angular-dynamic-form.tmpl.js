@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-05-27 08:50:53
+ * 2016-06-08 09:34:47
  *
  */
 (function() {
@@ -1658,18 +1658,17 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             }
         }, true );
 
-        $scope.$watch( 'config.show_labels', function( val ) {
-            if ( !_.isUndefined( val ) ) {
+        $scope.$watch( ['config.show_labels', 'field.show_label'], function() {
+            var show_label = $scope.config.show_labels && $scope.field.show_label !== false;
 
-                if ( val ) {
-                    $scope.dynamic_style_config.input_box_class                  = $scope.style_config.input_box_class;
-                    $scope.dynamic_style_config.field_error_message_box_class    = $scope.style_config.field_error_message_box_class;
-                    return;
-                }
-
-                $scope.dynamic_style_config.input_box_class                 = $scope.style_config.input_box_no_label_class;
-                $scope.dynamic_style_config.field_error_message_box_class   = $scope.style_config.field_error_message_box_no_label_class;
+            if ( show_label ) {
+                $scope.dynamic_style_config.input_box_class                  = $scope.style_config.input_box_class;
+                $scope.dynamic_style_config.field_error_message_box_class    = $scope.style_config.field_error_message_box_class;
+                return;
             }
+
+            $scope.dynamic_style_config.input_box_class                 = $scope.style_config.input_box_no_label_class;
+            $scope.dynamic_style_config.field_error_message_box_class   = $scope.style_config.field_error_message_box_no_label_class;
         } );
     };
 
