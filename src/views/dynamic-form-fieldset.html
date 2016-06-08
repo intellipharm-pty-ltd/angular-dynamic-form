@@ -8,7 +8,7 @@
         <!-- edit state -->
 
         <!-- <div ng-class="DynamicFormFieldset.inputBoxClass()"> -->
-        <div ng-class="field.hide_label ? style_config.input_box_no_label_class : dynamic_style_config.input_box_class">
+        <div ng-class="(field.hide_label || field.full_width) ? style_config.input_box_no_label_class : dynamic_style_config.input_box_class">
 
             <div ng-include src="input_view_template"></div>
 

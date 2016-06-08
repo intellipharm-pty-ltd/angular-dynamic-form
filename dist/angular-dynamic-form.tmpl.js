@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-06-08 09:42:50
+ * 2016-06-08 14:00:22
  *
  */
 (function() {
@@ -33,7 +33,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        <!-- edit state -->\n" +
     "\n" +
     "        <!-- <div ng-class=\"DynamicFormFieldset.inputBoxClass()\"> -->\n" +
-    "        <div ng-class=\"field.hide_label ? style_config.input_box_no_label_class : dynamic_style_config.input_box_class\">\n" +
+    "        <div ng-class=\"(field.hide_label || field.full_width) ? style_config.input_box_no_label_class : dynamic_style_config.input_box_class\">\n" +
     "\n" +
     "            <div ng-include src=\"input_view_template\"></div>\n" +
     "\n" +
