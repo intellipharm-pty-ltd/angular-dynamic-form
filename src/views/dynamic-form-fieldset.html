@@ -3,7 +3,7 @@
     <div ng-class="style_config.input_and_label_box_class">
 
         <label ng-if="field.label !== '' && config.show_labels && field.hide_label !== true" for="{{field.name}}"
-               ng-class="style_config.label_class">{{field.label}}</label>
+               ng-class="(field.hide_label || field.full_width) ? style_config.input_box_no_label_class : style_config.label_class">{{field.label}}</label>
 
         <!-- edit state -->
 

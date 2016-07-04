@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-06-08 14:00:22
+ * 2016-07-04 14:41:15
  *
  */
 (function() {
@@ -28,7 +28,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "    <div ng-class=\"style_config.input_and_label_box_class\">\n" +
     "\n" +
     "        <label ng-if=\"field.label !== '' && config.show_labels && field.hide_label !== true\" for=\"{{field.name}}\"\n" +
-    "               ng-class=\"style_config.label_class\">{{field.label}}</label>\n" +
+    "               ng-class=\"(field.hide_label || field.full_width) ? style_config.input_box_no_label_class : style_config.label_class\">{{field.label}}</label>\n" +
     "\n" +
     "        <!-- edit state -->\n" +
     "\n" +
