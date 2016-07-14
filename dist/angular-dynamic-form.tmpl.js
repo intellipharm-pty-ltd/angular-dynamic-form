@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-07-04 14:41:15
+ * 2016-07-14 14:53:58
  *
  */
 (function() {
@@ -166,7 +166,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
     "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
-    "        autofocus=\"{{field.autofocus}}\"\n" +
+    "        ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
     "        ng-attr-title=\"{{field.title}}\"\n" +
     "        ng-attr-size=\"{{field.size}}\"\n" +
     "		ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
@@ -186,7 +186,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "       ng-disabled=\"field.disabled\"\n" +
-    "       autofocus=\"{{field.autofocus}}\"\n" +
+    "       ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
     "       ng-attr-title=\"{{field.title}}\"\n" +
     "	   ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n"
@@ -204,7 +204,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "       ng-disabled=\"field.disabled\"\n" +
-    "       autofocus=\"{{field.autofocus}}\"\n" +
+    "       ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
     "       ng-attr-title=\"{{field.title}}\"\n" +
     "	   ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n"
@@ -218,7 +218,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        ng-model=\"$parent.$parent.value\" ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
     "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
-    "        autofocus=\"{{field.autofocus}}\"\n" +
+    "        ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
     "        ng-attr-title=\"{{field.title}}\"\n" +
     "		ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n" +
@@ -238,7 +238,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "       ng-disabled=\"field.disabled\"\n" +
-    "       autofocus=\"{{field.autofocus}}\"\n" +
+    "       ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
     "       ng-attr-title=\"{{field.title}}\"\n" +
     "	   ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n"
@@ -255,7 +255,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "          ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "          ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
     "          ng-disabled=\"field.disabled\"\n" +
-    "          autofocus=\"{{field.autofocus}}\"\n" +
+    "          ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
     "          ng-attr-title=\"{{field.title}}\"\n" +
     "		  ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     "></textarea>\n"
