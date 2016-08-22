@@ -4,7 +4,7 @@
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-07-14 14:53:58
+ * 2016-08-22 14:52:36
  *
  */
 (function() {
@@ -346,13 +346,26 @@
             }
 
             // transform fields
-            $scope.fields_array = FieldTransformer.transformFields($scope.fields, $scope.form_config, $scope.model);
+            var new_fields_array = FieldTransformer.transformFields($scope.fields, $scope.form_config, $scope.model);
+            if ($scope.fields_array && $scope.fields_array.length > 0) {
+                _.merge($scope.fields_array, new_fields_array);
+            } else {
+                $scope.fields_array = new_fields_array;
+            }
 
             // if groups
             if ($scope.has_groups) {
 
                 // transform group fields
-                $scope.grouped_fields_array = FieldTransformer.transformGroupFields($scope.fields_array, $scope.groups_config);
+                var new_grouped_fields_array = FieldTransformer.transformGroupFields($scope.fields_array, $scope.groups_config);
+                if ($scope.grouped_fields_array && $scope.grouped_fields_array.length > 0) {
+                    _.remove($scope.grouped_fields_array, function(field) {
+                        return _.indexOf(_.map(new_grouped_fields_array, 'name'), field.name) === -1;
+                    });
+                    _.merge($scope.grouped_fields_array, new_grouped_fields_array);
+                } else {
+                    $scope.grouped_fields_array = new_grouped_fields_array;
+                }
             }
         };
 
