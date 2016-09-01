@@ -13,7 +13,7 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'bower_components/lodash/lodash.min.js',
+            'bower_components/lodash/dist/lodash.min.js',
             'bower_components/angular/angular.min.js',
             'bower_components/angular-filter/dist/angular-filter.min.js',
             'bower_components/angular-mocks/angular-mocks.js',
