@@ -297,7 +297,15 @@
                     return _.indexOf(_.map(new_fields_array, 'name'), field.name) === -1;
                 });
 
-                _.merge($scope.fields_array, new_fields_array);
+                _.forEach(new_fields_array, function(field, index) {
+                    if (index >= $scope.fields_array.length) {
+                        $scope.fields_array[index] = field;
+                    } else if (field.name !== $scope.fields_array[index].name) {
+                        $scope.fields_array[index] = field;
+                    } else {
+                        _.merge($scope.fields_array[index], field);
+                    }
+                });
             } else {
                 $scope.fields_array = new_fields_array;
             }
