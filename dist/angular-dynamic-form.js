@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v1.0.0
+ * angular-dynamic-form v1.0.1
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-09-01 13:58:42
+ * 2016-12-23 13:23:31
  *
  */
 (function() {
@@ -1479,6 +1479,7 @@
             scope: {
                 field:              '=?',
                 model:              '=?',
+                value:              '=?',
                 allErrors:          '=?',
                 config:             '=?',
                 style_config:       '=?styleConfig',

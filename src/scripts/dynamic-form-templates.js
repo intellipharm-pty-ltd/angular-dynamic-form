@@ -49,6 +49,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        <dynamic-form-fieldset ng-repeat=\"field in group\"\n" +
     "                               field=\"field\"\n" +
     "                               model=\"model\"\n" +
+    "                               value=\"value\"\n" +
     "                               config=\"form_field_config\"\n" +
     "                               style-config=\"form_style_config\"\n" +
     "                               all-errors=\"errors\"\n" +
@@ -68,6 +69,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       ng-repeat=\"field in fields_array\"\n" +
     "                       field=\"field\"\n" +
     "                       model=\"model\"\n" +
+    "                       value=\"value\"\n" +
     "                       config=\"form_field_config\"\n" +
     "                       style-config=\"form_style_config\"\n" +
     "                       all-errors=\"errors\"\n" +
