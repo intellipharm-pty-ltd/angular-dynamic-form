@@ -7,6 +7,7 @@
             scope: {
                 field:              '=?',
                 model:              '=?',
+                value:              '=?',
                 allErrors:          '=?',
                 config:             '=?',
                 style_config:       '=?styleConfig',
