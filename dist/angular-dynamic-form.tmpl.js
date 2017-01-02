@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v1.0.1
+ * angular-dynamic-form v1.0.2
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-12-23 13:23:31
+ * 2017-01-03 09:40:24
  *
  */
 (function() {
@@ -70,7 +70,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        <dynamic-form-fieldset ng-repeat=\"field in group\"\n" +
     "                               field=\"field\"\n" +
     "                               model=\"model\"\n" +
-    "                               value=\"value\"\n" +
     "                               config=\"form_field_config\"\n" +
     "                               style-config=\"form_style_config\"\n" +
     "                               all-errors=\"errors\"\n" +
@@ -90,7 +89,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       ng-repeat=\"field in fields_array\"\n" +
     "                       field=\"field\"\n" +
     "                       model=\"model\"\n" +
-    "                       value=\"value\"\n" +
     "                       config=\"form_field_config\"\n" +
     "                       style-config=\"form_style_config\"\n" +
     "                       all-errors=\"errors\"\n" +
@@ -146,7 +144,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/inputs/checkbox.html',
     "<input type=\"checkbox\"\n" +
     "       id=\"{{field.name}}\"\n" +
-    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-disabled=\"field.disabled\"\n" +
     "       ng-attr-title=\"{{field.title}}\"\n" +
@@ -162,7 +160,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/inputs/multi_select.html',
     "<select id=\"{{field.name}}\"\n" +
     "        class=\"form-control\"\n" +
-    "        ng-model=\"$parent.$parent.value\"\n" +
+    "        ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "        multiple=\"true\"\n" +
     "		\n" +
     "        ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
@@ -183,7 +181,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       class=\"{{style_config.input_class}}\"\n" +
     "       placeholder=\"{{field.placeholder || field.label}}\"\n" +
     "\n" +
-    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
@@ -201,7 +199,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       class=\"form-control\"\n" +
     "       placeholder=\"{{field.placeholder || field.label}}\"\n" +
     "\n" +
-    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
@@ -217,7 +215,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<select id=\"{{field.name}}\"\n" +
     "        class=\"form-control\"\n" +
     "\n" +
-    "        ng-model=\"$parent.$parent.value\" ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
+    "        ng-model=\"DynamicFormFieldset.field_value\" ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
     "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
     "        ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
@@ -235,7 +233,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       class=\"{{style_config.input_class}}\"\n" +
     "       placeholder=\"{{field.placeholder || field.label}}\"\n" +
     "\n" +
-    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
@@ -252,7 +250,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "          class=\"form-control\"\n" +
     "          placeholder=\"{{field.placeholder || field.label}}\".\n" +
     "\n" +
-    "          ng-model=\"$parent.$parent.value\"\n" +
+    "          ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "          ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "          ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "          ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
@@ -1632,7 +1630,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         this.onBlur = function() {
 
             // update model
-            _.set($scope.model, $scope.field.name, $scope.value);
+            _.set($scope.model, $scope.field.name, this.field_value);
 
             // external handler
             if (!_.isUndefined($scope.onBlur)) {
@@ -1657,12 +1655,12 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             // update model (map & multi-select)
             if ($scope.field.format === 'map' && $scope.field.type === 'multi_select') {
                 _.forEach($scope.field.options, function(option) {
-                    _.set($scope.model, option.value, _.indexOf($scope.value, option.value) >= 0);
+                    _.set($scope.model, option.value, _.indexOf(this.field_value, option.value) >= 0);
                 });
             }
 
             // update model
-            _.set($scope.model, $scope.field.name, $scope.value);
+            _.set($scope.model, $scope.field.name, this.field_value);
 
             // external handler
             if (!_.isUndefined($scope.onChange)) {
@@ -1675,15 +1673,15 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
         //----------------------------------
 
         if ($scope.field.format === 'map' && $scope.field.type === 'multi_select') {
-            $scope.value = [];
+            this.field_value = [];
 
             _.forEach($scope.field.options, function(option) {
                 if ($scope.model[option.value]) {
-                    $scope.value.push(option.value);
+                    this.field_value.push(option.value);
                 }
             });
 
-            _.set($scope.model, $scope.field.name, $scope.value);
+            _.set($scope.model, $scope.field.name, this.field_value);
         }
 
         //----------------------------------
@@ -1692,7 +1690,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
         $scope.$watch( 'value', function( val ) {
             if ( !_.isUndefined( val ) ) {
-                self.value = val;
+                self.field_value = val;
             }
         }, true );
 
@@ -1725,7 +1723,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
             scope: {
                 field:              '=?',
                 model:              '=?',
-                value:              '=?',
                 allErrors:          '=?',
                 config:             '=?',
                 style_config:       '=?styleConfig',

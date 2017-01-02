@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v1.0.1
+ * angular-dynamic-form v1.0.2
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2016-12-23 13:23:31
+ * 2017-01-03 09:40:24
  *
  */
 (function() {
@@ -1386,7 +1386,7 @@
         this.onBlur = function() {
 
             // update model
-            _.set($scope.model, $scope.field.name, $scope.value);
+            _.set($scope.model, $scope.field.name, this.field_value);
 
             // external handler
             if (!_.isUndefined($scope.onBlur)) {
@@ -1411,12 +1411,12 @@
             // update model (map & multi-select)
             if ($scope.field.format === 'map' && $scope.field.type === 'multi_select') {
                 _.forEach($scope.field.options, function(option) {
-                    _.set($scope.model, option.value, _.indexOf($scope.value, option.value) >= 0);
+                    _.set($scope.model, option.value, _.indexOf(this.field_value, option.value) >= 0);
                 });
             }
 
             // update model
-            _.set($scope.model, $scope.field.name, $scope.value);
+            _.set($scope.model, $scope.field.name, this.field_value);
 
             // external handler
             if (!_.isUndefined($scope.onChange)) {
@@ -1429,15 +1429,15 @@
         //----------------------------------
 
         if ($scope.field.format === 'map' && $scope.field.type === 'multi_select') {
-            $scope.value = [];
+            this.field_value = [];
 
             _.forEach($scope.field.options, function(option) {
                 if ($scope.model[option.value]) {
-                    $scope.value.push(option.value);
+                    this.field_value.push(option.value);
                 }
             });
 
-            _.set($scope.model, $scope.field.name, $scope.value);
+            _.set($scope.model, $scope.field.name, this.field_value);
         }
 
         //----------------------------------
@@ -1446,7 +1446,7 @@
 
         $scope.$watch( 'value', function( val ) {
             if ( !_.isUndefined( val ) ) {
-                self.value = val;
+                self.field_value = val;
             }
         }, true );
 
@@ -1479,7 +1479,6 @@
             scope: {
                 field:              '=?',
                 model:              '=?',
-                value:              '=?',
                 allErrors:          '=?',
                 config:             '=?',
                 style_config:       '=?styleConfig',
