@@ -1,6 +1,6 @@
 <select id="{{field.name}}"
         class="form-control"
-        ng-model="$parent.$parent.value"
+        ng-model="DynamicFormFieldset.field_value"
         multiple="true"
 		
         ng-options="option.value as option.label disable when option.disabled for option in field.options"

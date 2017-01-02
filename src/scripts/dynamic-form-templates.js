@@ -49,7 +49,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "        <dynamic-form-fieldset ng-repeat=\"field in group\"\n" +
     "                               field=\"field\"\n" +
     "                               model=\"model\"\n" +
-    "                               value=\"value\"\n" +
     "                               config=\"form_field_config\"\n" +
     "                               style-config=\"form_style_config\"\n" +
     "                               all-errors=\"errors\"\n" +
@@ -69,7 +68,6 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "                       ng-repeat=\"field in fields_array\"\n" +
     "                       field=\"field\"\n" +
     "                       model=\"model\"\n" +
-    "                       value=\"value\"\n" +
     "                       config=\"form_field_config\"\n" +
     "                       style-config=\"form_style_config\"\n" +
     "                       all-errors=\"errors\"\n" +
@@ -125,7 +123,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/inputs/checkbox.html',
     "<input type=\"checkbox\"\n" +
     "       id=\"{{field.name}}\"\n" +
-    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-disabled=\"field.disabled\"\n" +
     "       ng-attr-title=\"{{field.title}}\"\n" +
@@ -141,7 +139,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   $templateCache.put('angular-dynamic-form/views/inputs/multi_select.html',
     "<select id=\"{{field.name}}\"\n" +
     "        class=\"form-control\"\n" +
-    "        ng-model=\"$parent.$parent.value\"\n" +
+    "        ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "        multiple=\"true\"\n" +
     "		\n" +
     "        ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
@@ -162,7 +160,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       class=\"{{style_config.input_class}}\"\n" +
     "       placeholder=\"{{field.placeholder || field.label}}\"\n" +
     "\n" +
-    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
@@ -180,7 +178,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       class=\"form-control\"\n" +
     "       placeholder=\"{{field.placeholder || field.label}}\"\n" +
     "\n" +
-    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
@@ -196,7 +194,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "<select id=\"{{field.name}}\"\n" +
     "        class=\"form-control\"\n" +
     "\n" +
-    "        ng-model=\"$parent.$parent.value\" ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
+    "        ng-model=\"DynamicFormFieldset.field_value\" ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
     "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "        ng-disabled=\"field.disabled\"\n" +
     "        ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
@@ -214,7 +212,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "       class=\"{{style_config.input_class}}\"\n" +
     "       placeholder=\"{{field.placeholder || field.label}}\"\n" +
     "\n" +
-    "       ng-model=\"$parent.$parent.value\"\n" +
+    "       ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "       ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "       ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "       ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +
@@ -231,7 +229,7 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
     "          class=\"form-control\"\n" +
     "          placeholder=\"{{field.placeholder || field.label}}\".\n" +
     "\n" +
-    "          ng-model=\"$parent.$parent.value\"\n" +
+    "          ng-model=\"DynamicFormFieldset.field_value\"\n" +
     "          ng-keypress=\"DynamicFormFieldset.onKeypress($event)\"\n" +
     "          ng-change=\"DynamicFormFieldset.onChange()\"\n" +
     "          ng-blur=\"DynamicFormFieldset.onBlur()\"\n" +

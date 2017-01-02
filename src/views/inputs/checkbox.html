@@ -1,6 +1,6 @@
 <input type="checkbox"
        id="{{field.name}}"
-       ng-model="$parent.$parent.value"
+       ng-model="DynamicFormFieldset.field_value"
        ng-change="DynamicFormFieldset.onChange()"
        ng-disabled="field.disabled"
        ng-attr-title="{{field.title}}"

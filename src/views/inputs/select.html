@@ -1,7 +1,7 @@
 <select id="{{field.name}}"
         class="form-control"
 
-        ng-model="$parent.$parent.value" ng-options="option.value as option.label disable when option.disabled for option in field.options"
+        ng-model="DynamicFormFieldset.field_value" ng-options="option.value as option.label disable when option.disabled for option in field.options"
         ng-change="DynamicFormFieldset.onChange()"
         ng-disabled="field.disabled"
         ng-attr-autofocus="{{field.autofocus}}"
