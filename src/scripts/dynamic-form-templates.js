@@ -137,19 +137,20 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/multi_select.html',
-    "<select id=\"{{field.name}}\"\n" +
-    "        class=\"form-control\"\n" +
-    "        ng-model=\"DynamicFormFieldset.field_value\"\n" +
-    "        multiple=\"true\"\n" +
-    "		\n" +
-    "        ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
-    "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "        ng-disabled=\"field.disabled\"\n" +
-    "        ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
-    "        ng-attr-title=\"{{field.title}}\"\n" +
-    "        ng-attr-size=\"{{field.size}}\"\n" +
-    "		ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
+    "<select\n" +
+    "    id=\"{{field.name}}\"\n" +
+    "    class=\"form-control\"\n" +
+    "    multiple=\"true\"\n" +
+    "\n" +
+    "    ng-model=\"DynamicFormFieldset.field_value\"\n" +
+    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "    ng-disabled=\"field.disabled\"\n" +
+    "    ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
+    "    ng-attr-title=\"{{field.title}}\"\n" +
+    "    ng-attr-size=\"{{field.size}}\"\n" +
+    "	ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n" +
+    "    <option ng-repeat=\"option in field.options\" ng-value=\"option.value\" ng-disabled=\"option.disabled\">{{option.label}}</option>\n" +
     "</select>\n"
   );
 
@@ -191,17 +192,19 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
 
 
   $templateCache.put('angular-dynamic-form/views/inputs/select.html',
-    "<select id=\"{{field.name}}\"\n" +
-    "        class=\"form-control\"\n" +
+    "<select\n" +
+    "    id=\"{{field.name}}\"\n" +
+    "    class=\"form-control\"\n" +
     "\n" +
-    "        ng-model=\"DynamicFormFieldset.field_value\" ng-options=\"option.value as option.label disable when option.disabled for option in field.options\"\n" +
-    "        ng-change=\"DynamicFormFieldset.onChange()\"\n" +
-    "        ng-disabled=\"field.disabled\"\n" +
-    "        ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
-    "        ng-attr-title=\"{{field.title}}\"\n" +
-    "		ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
+    "    ng-model=\"DynamicFormFieldset.field_value\"\n" +
+    "    ng-change=\"DynamicFormFieldset.onChange()\"\n" +
+    "    ng-disabled=\"field.disabled\"\n" +
+    "    ng-attr-autofocus=\"{{field.autofocus}}\"\n" +
+    "    ng-attr-title=\"{{field.title}}\"\n" +
+    "	ng-attr-autocomplete=\"{{field.autocomplete}}\"\n" +
     ">\n" +
     "    <option value=\"\" disabled>Please select</option>\n" +
+    "    <option ng-repeat=\"option in field.options\" ng-value=\"option.value\" ng-disabled=\"option.disabled\">{{option.label}}</option>\n" +
     "</select>\n"
   );
 
