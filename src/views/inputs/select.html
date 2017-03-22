@@ -1,12 +1,14 @@
-<select id="{{field.name}}"
-        class="form-control"
+<select
+    id="{{field.name}}"
+    class="form-control"
 
-        ng-model="DynamicFormFieldset.field_value" ng-options="option.value as option.label disable when option.disabled for option in field.options"
-        ng-change="DynamicFormFieldset.onChange()"
-        ng-disabled="field.disabled"
-        ng-attr-autofocus="{{field.autofocus}}"
-        ng-attr-title="{{field.title}}"
-		ng-attr-autocomplete="{{field.autocomplete}}"
+    ng-model="DynamicFormFieldset.field_value"
+    ng-change="DynamicFormFieldset.onChange()"
+    ng-disabled="field.disabled"
+    ng-attr-autofocus="{{field.autofocus}}"
+    ng-attr-title="{{field.title}}"
+	ng-attr-autocomplete="{{field.autocomplete}}"
 >
     <option value="" disabled>Please select</option>
+    <option ng-repeat="option in field.options" ng-value="option.value" ng-disabled="option.disabled">{{option.label}}</option>
 </select>
