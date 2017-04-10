@@ -1,10 +1,10 @@
 /*!
- * angular-dynamic-form v1.0.3
+ * angular-dynamic-form v1.0.4
  * http://intellipharm.com/
  *
  * Copyright 2015 Intellipharm
  *
- * 2017-03-23 09:44:18
+ * 2017-04-11 08:08:07
  *
  */
 (function() {
@@ -23,7 +23,10 @@ angular.module('AngularDynamicForm').run(['$templateCache', function($templateCa
   'use strict';
 
   $templateCache.put('angular-dynamic-form/views/dynamic-form-fieldset.html',
-    "<div class=\"dynamic-form-fieldset\" ng-class=\"style_config.fieldset_class\">\n" +
+    "<div class=\"dynamic-form-fieldset\" ng-class=\"{\n" +
+    "    [style_config.fieldset_class]: true,\n" +
+    "    'dynamic-form-invalid': errors.length > 0\n" +
+    "}\">\n" +
     "\n" +
     "    <div ng-class=\"style_config.input_and_label_box_class\">\n" +
     "\n" +
