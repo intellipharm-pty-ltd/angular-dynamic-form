@@ -1,4 +1,7 @@
-<div class="dynamic-form-fieldset" ng-class="style_config.fieldset_class">
+<div class="dynamic-form-fieldset" ng-class="{
+    [style_config.fieldset_class]: true,
+    'dynamic-form-invalid': errors.length > 0
+}">
 
     <div ng-class="style_config.input_and_label_box_class">
 
